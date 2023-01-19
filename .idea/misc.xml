@@ -3,10 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/thdek/AndroidStudioProjects/BookDiary/app/src/main/res/layout/activity_main.xml" value="0.21474358974358973" />
-        <entry key="..\:/Users/thdek/AndroidStudioProjects/BookDiary/app/src/main/res/layout/fragment_daily.xml" value="0.12314814814814815" />
-        <entry key="..\:/Users/thdek/AndroidStudioProjects/BookDiary/app/src/main/res/layout/fragment_main.xml" value="0.12222222222222222" />
-        <entry key="..\:/Users/thdek/AndroidStudioProjects/BookDiary/app/src/main/res/layout/fragment_monthly.xml" value="0.12314814814814815" />
+        <entry key="..\:/Users/thdek/AndroidStudioProjects/BookDiary/app/src/main/res/layout/activity_main.xml" value="0.28888888888888886" />
         <entry key="..\:/Users/thdek/AndroidStudioProjects/BookDiary/app/src/main/res/menu/nav_menu.xml" value="0.22" />
       </map>
     </option>
