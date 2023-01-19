@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="color1">#C6D4FC</color>
+    <color name="color2">#8AA5F2</color> <!--해린-->
 
     <!-- 가연 커밋 확인용 -->
     <color name="test">#FFFFFFFF</color>
