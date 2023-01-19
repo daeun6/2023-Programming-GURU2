@@ -16,6 +16,6 @@ class MainActivity : AppCompatActivity() {
         val mainFragment = MainFragment()
 
         supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commit()
-        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation) //왜안돼
     }
 }
