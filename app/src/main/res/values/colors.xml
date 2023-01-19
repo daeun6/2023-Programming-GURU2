@@ -10,4 +10,6 @@
 
     <!-- 가연 커밋 확인용 -->
     <color name="test">#FFFFFFFF</color>
+
+    <!-- 나는 지원-->
 </resources>
