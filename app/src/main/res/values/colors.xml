@@ -7,6 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="menuBlue">#C6D4FC</color>
-    <color name="edtBlue">#8AA5F2</color>
+    <color name="menuBlue">#C6D4FC</color> <!-- 하단 메뉴바 컬러 -->
+    <color name="edtBlue">#8AA5F2</color> <!-- 메인 컬러 -->
 </resources>
