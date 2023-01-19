@@ -10,4 +10,7 @@
     <color name="menuBlue">#C6D4FC</color>
     <color name="edtBlue">#8AA5F2</color>
     <!--ㅇㅇ-->
+
+    <!-- 가연 커밋 확인용 -->
+    <color name="test">#FFFFFFFF</color>
 </resources>
