@@ -7,7 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bookdiary.databinding.FragmentMainBinding
@@ -121,6 +125,17 @@ class MainFragment : Fragment(), OnitemListener {
     // 아이템 클릭 이벤트
     override fun onItemClick(dayText: String) {
         var yearMonth = yearmonthFromDate(CalendarUtil.selectedDate) + " " +dayText + "일"
+        var str_day : String = yearMonth.toString()
+        var bundle = Bundle()
+        bundle.putString("key", str_day)
+        val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+        var DailyFragment = DailyFragment()
+        DailyFragment.arguments = bundle
+
+        ft.replace(R.id.container, DailyFragment).commit()
+
+       // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
 
         //여기서 뷰 홀더를 가져와서 사용하는 방법은 없나?
         Toast.makeText(activity, yearMonth, Toast.LENGTH_SHORT).show()
