@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android' // 230119 16:10 추가
-    id 'kotlin-android-extensions' // 230119 16:10 추가
+    id 'kotlin-android' // 230119 16:10 추가함
+    id 'kotlin-android-extensions' // 230119 16:10 추가함
 }
 
 android {
