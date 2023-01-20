@@ -35,6 +35,12 @@ android {
     buildFeatures {
         viewBinding = true
     } //230119 16:11 추가
+
+    dataBinding{
+        enabled = true
+
+    }
+
 }
 dependencies {
 
