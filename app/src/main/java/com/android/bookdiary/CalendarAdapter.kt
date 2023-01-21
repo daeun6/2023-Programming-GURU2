@@ -18,6 +18,8 @@ class CalendarAdapter( private val dayList: ArrayList<String>,
 
         val dayText : TextView = itemView.findViewById<TextView>(R.id.dayText)
 
+        val dayImg : ImageView = itemview.findViewById(R.id.dayImg)//
+
 
 
 
@@ -32,12 +34,24 @@ class CalendarAdapter( private val dayList: ArrayList<String>,
     }
 
     //데이터 설정
-    @SuppressLint("ResourceType")
+
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-        var activity:MainActivity? =null
         var day = dayList[holder.adapterPosition] //날짜 변수에 담기
-        holder.dayText.text = day
+
+        if(day == "") {
+
+            holder.dayText.text = ""
+
+        }else{
+            holder.dayText.text = day
+            holder.dayImg.setImageResource(R.drawable.ic_baseline_menu_book_24)
+        }
+        /*if(day != ""){
+            holder.dayImg.setImageResource(R.drawable.ic_baseline_menu_book_24)
+
+        }*/
+
 
 
         if(position +1 % 7 ==0){ //토요일은 파랑, 일요일은 빨강
@@ -49,6 +63,7 @@ class CalendarAdapter( private val dayList: ArrayList<String>,
         holder.itemView.setOnClickListener {//날짜 클릭시 이벤트 발생
             //itemClickListener.onClick(it, position)
             onItemListener.onItemClick(day) // 인터페이스를 통해 날짜 넘겨줌
+
 
 
 
@@ -79,3 +94,5 @@ class CalendarAdapter( private val dayList: ArrayList<String>,
 
 
 }
+
+
