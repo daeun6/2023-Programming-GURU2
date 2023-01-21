@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             R.id.tab3 -> {
                 val dailyFragment = DailyFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.container, dailyFragment)
+                val dailyMemoFragment = DailyMemoFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.container, dailyMemoFragment)
                     .commit()
             }
         }

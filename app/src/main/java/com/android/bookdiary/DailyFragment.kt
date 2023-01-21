@@ -42,9 +42,9 @@ class DailyFragment : Fragment(), DailyClickHandler {
 //        if (cursor != null){
 //            Log.d(TAG, "테이블 못찾았다")
 //        }
-//        dailyRecycler = view.findViewById(R.id.dailyRecycler!!) as RecyclerView
-//        dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
-//        dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)
+        dailyRecycler = view.findViewById(R.id.dailyRecycler!!) as RecyclerView
+        dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+        dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)
 //
 //        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
 //        while (cursor.moveToNext()){
@@ -61,17 +61,17 @@ class DailyFragment : Fragment(), DailyClickHandler {
 //        sqlitedb.close()
 //        dbManager.close()
 
-
-//        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
-//        dailyChoiceList.add(DailyChoiceData("2", "호시"))
-//        dailyChoiceList.add(DailyChoiceData("3", "파리"))
-//        dailyChoiceList.add(DailyChoiceData("4","에펠탑"))
-//        dailyChoiceList.add(DailyChoiceData("5","여행"))
-//        dailyChoiceList.add(DailyChoiceData("6", "부러워"))
-//        dailyChoiceList.add(DailyChoiceData("7","호랑해"))
-//        dailyChoiceList.add(DailyChoiceData("8","햄스터"))
-//        dailyChoiceList.add(DailyChoiceData("9","햄랑해"))
-//        dailyChoiceList.add(DailyChoiceData("10","햄랑이"))
+//
+        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
+        dailyChoiceList.add(DailyChoiceData("2", "호시"))
+        dailyChoiceList.add(DailyChoiceData("3", "파리"))
+        dailyChoiceList.add(DailyChoiceData("4","에펠탑"))
+        dailyChoiceList.add(DailyChoiceData("5","여행"))
+        dailyChoiceList.add(DailyChoiceData("6", "부러워"))
+        dailyChoiceList.add(DailyChoiceData("7","호랑해"))
+        dailyChoiceList.add(DailyChoiceData("8","햄스터"))
+        dailyChoiceList.add(DailyChoiceData("9","햄랑해"))
+        dailyChoiceList.add(DailyChoiceData("10","햄랑이"))
 
 
 

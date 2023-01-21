@@ -32,7 +32,11 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
         //holder.bookColorBtn = data.bookColor
         //holder.bookTitleText.text = data.bookTitle
 
+        //holder.bind(data)
+
         holder.bind(data)
+
+
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
