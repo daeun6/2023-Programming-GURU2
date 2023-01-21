@@ -6,7 +6,7 @@
         android:id="@+id/tab1"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="독서량 통계"/>
+        android:title="통계"/>
 
     <item
         android:id="@+id/tab2"
@@ -17,6 +17,6 @@
         android:id="@+id/tab3"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="독후감 목록"/>
+        android:title="책장"/>
 
 </menu>
