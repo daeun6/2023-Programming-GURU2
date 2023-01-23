@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentTransaction
-import kotlinx.android.synthetic.main.color_dialog.*
+
 import kotlinx.android.synthetic.main.fragment_book_reg.*
 
 

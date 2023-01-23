@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (item.itemId) {
             R.id.tab1 -> {
                 val monthlyFragment = MonthlyFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.container, monthlyFragment)
+                val list = ListFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.container, list)
                     .commit()
 
             }
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     .commit()
 
             }
-
 
         }
 

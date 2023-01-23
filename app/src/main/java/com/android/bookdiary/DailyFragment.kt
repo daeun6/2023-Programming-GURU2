@@ -1,6 +1,5 @@
 package com.android.bookdiary
 
-import DBManager
 import android.annotation.SuppressLint
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -31,17 +30,18 @@ class DailyFragment : Fragment(), DailyClickHandler {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_daily, container, false)
-//        Log.d(TAG, "파일 찾는중")
-//        dbManager = DBManager(activity, "bookDB", null, 1)
-//        Log.d(TAG, "${dbManager.databaseName}")
-//        sqlitedb = dbManager.readableDatabase
-//        Log.d(TAG, "파일 찾았다2")
-//
-//        var cursor : Cursor
-//        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
-//        if (cursor != null){
-//            Log.d(TAG, "테이블 못찾았다")
-//        }
+        Log.d(TAG, "파일 찾는중")
+        dbManager = DBManager(activity, "bookDB", null, 1)
+        Log.d(TAG, "${dbManager.databaseName}")
+        sqlitedb = dbManager.readableDatabase
+        Log.d(TAG, "파일 찾았다2")
+
+        var cursor : Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
+        if (cursor != null){
+            Log.d(TAG, "테이블 못찾았다")
+        }
+
         dailyRecycler = view.findViewById(R.id.dailyRecycler!!) as RecyclerView
         dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
         dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)

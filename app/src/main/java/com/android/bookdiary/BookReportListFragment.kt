@@ -74,9 +74,9 @@ class BookReportListFragment : Fragment() {
             layout_item.addView(tvPage)
 
             layout_item.setOnClickListener {
-                val DetailFragment = DetailFragment()
+                //val DetailFragment = DetailFragment()
                 val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
-                transaction.replace(R.id.container, DetailFragment)
+                //transaction.replace(R.id.container, DetailFragment)
                 transaction.commit()
 
                 reportLayout.addView(layout_item)
