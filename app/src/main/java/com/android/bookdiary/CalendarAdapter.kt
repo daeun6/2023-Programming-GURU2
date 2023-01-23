@@ -61,36 +61,46 @@ class CalendarAdapter( private val dayList: ArrayList<String>,
         var TAG : String = " 캘린더어댑터"
 
         var num : Int = calendarDataArray.size
+        Log.d(TAG,"$num")
+
         var day = dayList[holder.position] //날짜 변수에 담기
 
         var data :CalendarData
-        var colorDay : Array<String> = arrayOf("0")
+        var colorDay = arrayOfNulls<String>(num)
         //var selectedColor = data.color.toString()
 
 
 
-        for(i in 1..num) {
+        for(i in 1..num-1) {
             Log.d(TAG,"for문 들어옴 ")
 
             var num2: Int = 0
-            data = calendarDataArray[num2]
-            colorDay[num2] = data.date.toString()
-            num2++
+            data  = calendarDataArray[i]
+            //Log.d(TAG, "$data")
+
+            colorDay[i] = data.date.toString()
+            var data2 = colorDay[i]
+            Log.d(TAG, "$data2")
+
+           // var qustn = colorDay[num2]
+
+            //Log.d(TAG,"$qustn")
+
         }
 
 
         if(day == "") {
 
             holder.dayText.text = ""
-            Log.d(TAG,"for문 들어옴 ")
 
         }else{
             holder.dayText.text = day
             holder.dayImg.setImageResource(R.drawable.ic_baseline_menu_book_24)
-            var num3 : Int = 0
-            if(day == colorDay[num3]) {
-                holder.dayImg.setBackgroundColor(Color.BLUE)
-                num3++
+            for(i in 1.. num-1) {
+                if (day == colorDay[i]) {
+                    holder.dayImg.setBackgroundColor(Color.BLUE)
+
+                }
             }
 
         }

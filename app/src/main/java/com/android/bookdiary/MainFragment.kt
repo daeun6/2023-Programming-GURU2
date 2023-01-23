@@ -35,10 +35,18 @@ class MainFragment : Fragment(), OnitemListener {
 
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
+       // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('RED', 'aa', '가', '호시', 615, 500, 500, 1)")
+
+         //sqlitedb.execSQL("INSERT INTO bookDB VALUES ('BLUE', 'aa', '가', '찬희', 426, 226, 226, 5)")
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
@@ -82,7 +90,6 @@ class MainFragment : Fragment(), OnitemListener {
 
 
 
-
         // 책 그림도 날짜에 맞게 리스트에 담겨야함 어떻게 구현하지
         //dayList 사이즈만큼 그림 생성해서 id를 부여한다고 하자\*/
 
@@ -105,22 +112,15 @@ class MainFragment : Fragment(), OnitemListener {
             var str_color = cursor.getString((cursor.getColumnIndex("color")))
             var data : CalendarData = CalendarData(str_date, str_color)
             calendarDataArry.add(data)
-            calendarDataArry.add(CalendarData("5", "BLUE"))
-            Log.d(TAG, "5일 추가")
-            dbManager.close()
-            cursor.close()
-            sqlitedb.close()
-
-
-
 
         }
 
         Log.d(TAG,"while문을 나오긴 하는가 ")
 
+        dbManager.close()
         cursor.close()
         sqlitedb.close()
-        dbManager.close()
+
 
 
 
