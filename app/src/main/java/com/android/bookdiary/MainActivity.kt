@@ -1,17 +1,13 @@
 package com.android.bookdiary
 
-import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var mainFragment: MainFragment
+    lateinit var mainFragment: MainFragment//헤헷!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +50,5 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return true
 
     }
-    inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "bookDB", null, 1){
-        override fun onCreate(db: SQLiteDatabase?) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            TODO("Not yet implemented")
-        }
-
-    }
-
-
-
-
 }
-
 

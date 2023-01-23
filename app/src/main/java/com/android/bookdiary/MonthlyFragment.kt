@@ -19,4 +19,4 @@ class MonthlyFragment : Fragment() {
     }
 
 
-    }
+}
