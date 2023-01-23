@@ -64,6 +64,7 @@
                     android:layout_marginStart="160dp"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
+                    android:textColor="@color/edtBlue"
                     android:ems="10"
                     android:inputType="number"
                     app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +122,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
-                    android:hint="마음에 든 문장을 적어보세요" />
+                    android:hint="마음에 들었던 문장을 적어보세요" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -188,7 +189,7 @@
                     android:id="@+id/dailyBackBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="취소"
+                    android:text="이전"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/dailyDoneBtn"
                     app:layout_constraintHorizontal_bias="0.5"

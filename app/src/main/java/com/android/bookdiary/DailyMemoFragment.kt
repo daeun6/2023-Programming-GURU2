@@ -19,6 +19,8 @@ class DailyMemoFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_daily_memo, container, false)
+
+        // 책 다시 선택하도록 돌아가는 버튼
         val dailyBackBtn = view.findViewById<Button>(R.id.dailyBackBtn)
         dailyBackBtn.setOnClickListener{
             val dailyFragment = DailyFragment()
@@ -27,6 +29,7 @@ class DailyMemoFragment : Fragment() {
             transaction.commit()
         }
 
+        // 작성 완료 버튼
         val dailyDoneBtn = view.findViewById<Button>(R.id.dailyDoneBtn)
         dailyDoneBtn.setOnClickListener{
             val mainFragment = MainFragment()

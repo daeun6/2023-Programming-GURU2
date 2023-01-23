@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,63 +40,51 @@ class DailyFragment : Fragment(), DailyClickHandler {
         var cursor : Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
         if (cursor != null){
-            Log.d(TAG, "테이블 못찾았다")
+            Log.d(TAG, "테이블 찾았다")
         }
 
         dailyRecycler = view.findViewById(R.id.dailyRecycler!!) as RecyclerView
         dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
         dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)
-//
-//        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
-//        while (cursor.moveToNext()){
-//            Log.d(TAG, "while문에 들어옴")
-//            var bookColor = cursor.getString(cursor.getColumnIndex("color"))
-//            var bookTitle = cursor.getString(cursor.getColumnIndex("title"))
-//            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle)
-//            dailyChoiceList.add(data)
-//            dailyChoiceList.add(DailyChoiceData("2","호시"))
-//        }
-//        dailyChoiceList.add(DailyChoiceData("3","파리"))
-//
-//        cursor.close()
-//        sqlitedb.close()
-//        dbManager.close()
 
-//
-        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
-        dailyChoiceList.add(DailyChoiceData("2", "호시"))
-        dailyChoiceList.add(DailyChoiceData("3", "파리"))
-        dailyChoiceList.add(DailyChoiceData("4","에펠탑"))
-        dailyChoiceList.add(DailyChoiceData("5","여행"))
-        dailyChoiceList.add(DailyChoiceData("6", "부러워"))
-        dailyChoiceList.add(DailyChoiceData("7","호랑해"))
-        dailyChoiceList.add(DailyChoiceData("8","햄스터"))
-        dailyChoiceList.add(DailyChoiceData("9","햄랑해"))
-        dailyChoiceList.add(DailyChoiceData("10","햄랑이"))
-
-
-
-        val dailyCancleBtn = view.findViewById<Button>(R.id.dailyCancleBtn)
-        dailyCancleBtn.setOnClickListener{
-            val mainFragment = MainFragment()
-            val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.container, mainFragment)
-            transaction.commit()
+        while (cursor.moveToNext()){
+            Log.d(TAG, "dailyFragment while문에 들어옴")
+            var bookColor = cursor.getString(cursor.getColumnIndex("color"))
+            var bookTitle = cursor.getString(cursor.getColumnIndex("title"))
+            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle)
+            dailyChoiceList.add(data)
         }
 
-        val dailyNextBtn = view.findViewById<Button>(R.id.dailyNextBtn)
-        dailyNextBtn.setOnClickListener{
-            val dailyMemoFragment = DailyMemoFragment()
-            val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.container, dailyMemoFragment)
-            transaction.commit()
-        }
+        cursor.close()
+        sqlitedb.close()
+        dbManager.close()
+
+
+//        dailyChoiceList.add(DailyChoiceData("RED","호랑이"))
+//        dailyChoiceList.add(DailyChoiceData("ORANGE", "호시"))
+//        dailyChoiceList.add(DailyChoiceData("YELLOW", "파리"))
+//        dailyChoiceList.add(DailyChoiceData("GREEN","에펠탑"))
+//        dailyChoiceList.add(DailyChoiceData("BLUE","여행"))
+//        dailyChoiceList.add(DailyChoiceData("NAVY", "부러워"))
+//        dailyChoiceList.add(DailyChoiceData("PURPLE","호랑해"))
+//        dailyChoiceList.add(DailyChoiceData("PINK","햄스터"))
+
 
         return view
     }
 
     override fun clickedBookItem(book: DailyChoiceData) {
         Log.d(TAG, "ClickedBookItem: ${book.bookTitle}")
+
+        var dTitle = book.bookTitle
+        var bundle = Bundle()
+        bundle.putString("key", dTitle)
+        val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+        var dailyMemoFragment = DailyMemoFragment()
+        dailyMemoFragment.arguments = bundle
+        ft.replace(R.id.container, dailyMemoFragment).commit()
+        Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show()
     }
 
 }

@@ -15,8 +15,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         val mainFragment = MainFragment()
 
-
-
         supportFragmentManager.beginTransaction().add(R.id.container, mainFragment).commit()
         val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         navigationView.setOnNavigationItemSelectedListener(this)
@@ -38,12 +36,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
             }
             R.id.tab3 -> {
-                val dailyFragment = DailyFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.container, dailyFragment)
+                val listFragment = ListFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.container, listFragment)
                     .commit()
 
             }
-
 
         }
 

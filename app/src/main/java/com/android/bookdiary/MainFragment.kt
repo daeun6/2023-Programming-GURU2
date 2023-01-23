@@ -52,7 +52,7 @@ class MainFragment : Fragment(), OnitemListener {
                 CalendarUtil.selectedDate = CalendarUtil.selectedDate.minusMonths(1)
             }
             setMonthView()
-//DDD
+
         }
 
         binding.nextBtn.setOnClickListener {
@@ -67,7 +67,7 @@ class MainFragment : Fragment(), OnitemListener {
 
     }
 
-    @SuppressLint("Range")
+    @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {
 
         binding.monthyearText.text = monthyearFromDate(CalendarUtil.selectedDate) //년 월 가져옴
@@ -91,9 +91,8 @@ class MainFragment : Fragment(), OnitemListener {
 
         var manager : RecyclerView.LayoutManager = GridLayoutManager(activity, 7)
 
-
         binding.recyclerView.layoutManager = manager //레이아웃 적용
-        Log.d(TAG,"레이아웃 적ㅇ용 ")
+        Log.d(TAG,"레이아웃 적용 ")
 
         binding.recyclerView.adapter = adapter
 
@@ -111,9 +110,6 @@ class MainFragment : Fragment(), OnitemListener {
             cursor.close()
             sqlitedb.close()
 
-
-
-
         }
 
         Log.d(TAG,"while문을 나오긴 하는가 ")
@@ -121,8 +117,6 @@ class MainFragment : Fragment(), OnitemListener {
         cursor.close()
         sqlitedb.close()
         dbManager.close()
-
-
 
     }
 
@@ -171,8 +165,6 @@ class MainFragment : Fragment(), OnitemListener {
         return dayList
     }
 
-
-
     // 아이템 클릭 이벤트
     override fun onItemClick(dayText: String) {
         var yearMonth = yearmonthFromDate(CalendarUtil.selectedDate) + " " +dayText + "일"
@@ -193,8 +185,7 @@ class MainFragment : Fragment(), OnitemListener {
 
     }
 
-
-
 }
+
 
 
