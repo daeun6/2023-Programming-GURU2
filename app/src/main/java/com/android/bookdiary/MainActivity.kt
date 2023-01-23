@@ -54,13 +54,18 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return true
 
     }
+    inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "bookDB", null, 1){
+        override fun onCreate(db: SQLiteDatabase?) {
+            TODO("Not yet implemented")
+        }
 
-    fun setFragment(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.commit()
+        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+            TODO("Not yet implemented")
+        }
 
     }
+
+
 
 
 }

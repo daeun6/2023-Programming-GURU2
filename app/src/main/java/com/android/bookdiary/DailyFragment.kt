@@ -15,7 +15,7 @@ import com.android.bookdiary.databinding.FragmentDailyBinding
 class DailyFragment : Fragment() {
 
     private lateinit var binding : FragmentDailyBinding
-    lateinit var str_day : String
+
 
 
     override fun onCreateView(
@@ -28,6 +28,9 @@ class DailyFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_daily, container, false)
 
         dailyText = view.findViewById(R.id.dailyText)
+
+        var str_day : String? = null
+
 
         if(arguments != null)
         {

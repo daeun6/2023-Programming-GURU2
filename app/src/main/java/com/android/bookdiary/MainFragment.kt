@@ -1,17 +1,20 @@
 package com.android.bookdiary
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.bookdiary.databinding.FragmentMainBinding
@@ -23,6 +26,13 @@ import java.time.format.DateTimeFormatter
 class MainFragment : Fragment(), OnitemListener {
 
     private lateinit var binding : FragmentMainBinding
+    lateinit var dbManager : DBManager
+    lateinit var sqlitedb : SQLiteDatabase
+    var TAG : String = "메인 프래그먼트"
+
+    val calendarDataArry : ArrayList<CalendarData> = ArrayList()
+
+
 
 
     override fun onCreateView(
@@ -57,21 +67,62 @@ class MainFragment : Fragment(), OnitemListener {
 
     }
 
+    @SuppressLint("Range")
     private fun setMonthView() {
 
         binding.monthyearText.text = monthyearFromDate(CalendarUtil.selectedDate) //년 월 가져옴
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
+        dbManager = DBManager(activity, "bookDB", null, 1)
+        sqlitedb = dbManager.readableDatabase
+
+        var cursor: Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
+
+
+
+
         // 책 그림도 날짜에 맞게 리스트에 담겨야함 어떻게 구현하지
-        //dayList 사이즈만큼 그림 생성해서 id를 부여한다고 하자
-        val adapter = CalendarAdapter(dayList, this)
+        //dayList 사이즈만큼 그림 생성해서 id를 부여한다고 하자\*/
+
+        val adapter = CalendarAdapter(dayList, this, calendarDataArry)
+        Log.d(TAG,"어댑터 생성 ")
 
         var manager : RecyclerView.LayoutManager = GridLayoutManager(activity, 7)
 
+
         binding.recyclerView.layoutManager = manager //레이아웃 적용
+        Log.d(TAG,"레이아웃 적ㅇ용 ")
 
         binding.recyclerView.adapter = adapter
+
+
+
+        while(cursor.moveToNext()){
+            Log.d(TAG,"while문 들어옴 ")
+            var str_date = cursor.getString((cursor.getColumnIndex("date")))
+            var str_color = cursor.getString((cursor.getColumnIndex("color")))
+            var data : CalendarData = CalendarData(str_date, str_color)
+            calendarDataArry.add(data)
+            calendarDataArry.add(CalendarData("5", "BLUE"))
+            Log.d(TAG, "5일 추가")
+            dbManager.close()
+            cursor.close()
+            sqlitedb.close()
+
+
+
+
+        }
+
+        Log.d(TAG,"while문을 나오긴 하는가 ")
+
+        cursor.close()
+        sqlitedb.close()
+        dbManager.close()
+
+
 
     }
 
@@ -141,6 +192,8 @@ class MainFragment : Fragment(), OnitemListener {
         Toast.makeText(activity, yearMonth, Toast.LENGTH_SHORT).show()
 
     }
+
+
 
 }
 
