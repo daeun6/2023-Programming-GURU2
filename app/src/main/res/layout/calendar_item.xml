@@ -13,14 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="1"
-        android:textSize="20sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
 
     <ImageView
         android:id="@+id/dayImg"
         android:layout_width="30sp"
-        android:layout_height="30sp"
+        android:layout_height="47sp"
         android:layout_gravity="center"
 
         />

@@ -115,28 +115,28 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
                 if(colorDay[i]== day.dayOfMonth.toString() && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
                     if(selectedColor[i] == "BLUE") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_blue)
+                        holder.dayImg.setColorFilter(Color.parseColor("#9BF6FF"))
                             }
                     if(selectedColor[i] == "RED") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_red)
+                        holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
                             }
                     if(selectedColor[i] == "PINK") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_pink)
+                        holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
                     }
                     if(selectedColor[i] == "GREEN") {
-                        holder.dayImg.setBackgroundColor(Color.GREEN)
+                        holder.dayImg.setColorFilter(Color.parseColor("#CAFFBF"))
                     }
                     if(selectedColor[i] == "ORANGE") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_orange)
+                        holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
                     }
                     if(selectedColor[i] == "YELLOW") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_yellow)
+                        holder.dayImg.setColorFilter(Color.parseColor("#FDFFB6"))
                     }
                     if(selectedColor[i] == "PURPLE") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_purple)
+                        holder.dayImg.setColorFilter(Color.parseColor("#BDB2FF"))
                     }
                     if(selectedColor[i] == "NAVY") {
-                        holder.dayImg.setBackgroundColor(R.drawable.layer_button_checked_navy)
+                        holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
                     }
 
 
