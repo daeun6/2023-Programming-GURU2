@@ -1,5 +1,7 @@
 package com.android.bookdiary
 
+import java.time.LocalDate
+
 interface OnitemListener {
-    fun onItemClick(dayText: String)
+    fun onItemClick(dayText: LocalDate)
 }

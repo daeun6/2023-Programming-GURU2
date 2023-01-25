@@ -1,10 +1,8 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -44,9 +42,7 @@ class MainFragment : Fragment(), OnitemListener {
 
 
 
-       // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('RED', 'aa', '가', '호시', 615, 500, 500, 1)")
 
-         //sqlitedb.execSQL("INSERT INTO bookDB VALUES ('BLUE', 'aa', '가', '찬희', 426, 226, 226, 5)")
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
@@ -105,6 +101,11 @@ class MainFragment : Fragment(), OnitemListener {
         binding.recyclerView.adapter = adapter
 
 
+       // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('RED', 'aa', '가', '호시', 615, 500, 500, '2023년 1월 11일')")
+
+       // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('BLUE', 'aa', '가', '찬희', 426, 226, 226, '2023년 2월 16일')")
+
+
 
         while(cursor.moveToNext()){
             Log.d(TAG,"while문 들어옴 ")
@@ -148,8 +149,8 @@ class MainFragment : Fragment(), OnitemListener {
         return date.format(formatter)
     }
 
-    private fun dayInMonthArray(date: LocalDate) : ArrayList<String>{
-        var dayList = ArrayList<String>()
+    private fun dayInMonthArray(date: LocalDate) : ArrayList<LocalDate?>{
+        var dayList = ArrayList<LocalDate?>()
 
         var yearMonth = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             YearMonth.from(date)
@@ -162,9 +163,10 @@ class MainFragment : Fragment(), OnitemListener {
         var dayOfweek = firstDay.dayOfWeek.value // 첫번째 날 요일 가져옴
         for(i in 1..41) {
             if(i <= dayOfweek || i > (lastDay + dayOfweek)){
-                dayList.add("")
+                dayList.add(null)
             }else{
-                dayList.add((i-dayOfweek).toString())
+                dayList.add(LocalDate.of(CalendarUtil.selectedDate.year,
+                CalendarUtil.selectedDate.monthValue, i-dayOfweek))
             }
         }
 
@@ -174,9 +176,15 @@ class MainFragment : Fragment(), OnitemListener {
 
 
     // 아이템 클릭 이벤트
-    override fun onItemClick(dayText: String) {
-        var yearMonth = yearmonthFromDate(CalendarUtil.selectedDate) + " " +dayText + "일"
-        var str_day : String = yearMonth.toString()
+
+    override fun onItemClick(dayText: LocalDate) {
+        // 글자 자르기
+
+        var str_day : String = dayText.toString()
+        var sub_year : String = str_day.substring(0 until 4)
+        var sub_month : String = str_day.substring(5 until 7)
+        var sub_day : String = str_day.substring(8 until 10)
+        str_day = sub_year + "년 " + sub_month + "월 " + sub_day + "일"
         var bundle = Bundle()
         bundle.putString("key", str_day)
         val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
@@ -186,13 +194,12 @@ class MainFragment : Fragment(), OnitemListener {
 
         ft.replace(R.id.container, DailyFragment).commit()
 
-       // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
+        // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
 
         //여기서 뷰 홀더를 가져와서 사용하는 방법은 없나?
-        Toast.makeText(activity, yearMonth, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, str_day, Toast.LENGTH_SHORT).show()
 
     }
-
 
 
 }
