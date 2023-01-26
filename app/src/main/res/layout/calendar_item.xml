@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="1"
-        android:textSize="13sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
 

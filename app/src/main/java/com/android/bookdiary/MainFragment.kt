@@ -78,11 +78,11 @@ class MainFragment : Fragment(), OnitemListener {
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        dbManager = DBManager(activity, "writeDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB;", null)
 
 
 
@@ -101,7 +101,7 @@ class MainFragment : Fragment(), OnitemListener {
         binding.recyclerView.adapter = adapter
 
 
-       // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('RED', 'aa', '가', '호시', 615, 500, 500, '2023년 1월 11일')")
+        //sqlitedb.execSQL("INSERT INTO writeDB VALUES ('aa', '80', '라', '굿ㅋ', '2023년 01월 23일', '아', 'ORANGE', 100)")
 
        // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('BLUE', 'aa', '가', '찬희', 426, 226, 226, '2023년 2월 16일')")
 
@@ -109,14 +109,17 @@ class MainFragment : Fragment(), OnitemListener {
 
         while(cursor.moveToNext()){
             Log.d(TAG,"while문 들어옴 ")
-            var str_date = cursor.getString((cursor.getColumnIndex("date")))
-            var str_color = cursor.getString((cursor.getColumnIndex("color")))
-            var data : CalendarData = CalendarData(str_date, str_color)
+            var str_date = cursor.getString((cursor.getColumnIndex("dDate")))
+            var str_color = cursor.getString((cursor.getColumnIndex("dColor")))
+            var totalPage = cursor.getInt(cursor.getColumnIndex("dTotalPage"))
+            var nowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
+            var ratioPageFloat : Float = (nowPage.toFloat() / totalPage.toFloat())
+            var ratioPage : Int = (ratioPageFloat * 100).toInt()
+            Log.d(TAG,"$str_color")
+            var data : CalendarData = CalendarData(str_date, str_color, ratioPage)
             calendarDataArry.add(data)
 
         }
-
-        Log.d(TAG,"while문을 나오긴 하는가 ")
 
         dbManager.close()
         cursor.close()

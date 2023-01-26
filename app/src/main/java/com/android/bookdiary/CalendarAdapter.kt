@@ -49,13 +49,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
         val dayImg: ImageView = itemView.findViewById(R.id.dayImg)
 
 
-        fun bind(item: CalendarData) {
-            val dayColor = item.color.toString()
-            val dayDate = item.date.toString()
-
-
-        }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -63,7 +56,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
         var TAG: String = " 캘린더어댑터"
 
         var num: Int = calendarDataArray.size
-        Log.d(TAG, "$num")
+
 
         var day = dayList[holder.position] //날짜 변수에 담기
 
@@ -73,12 +66,13 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
         var colorMonth = arrayOfNulls<String>(num) // 날짜 중 월
         var colorDay = arrayOfNulls<String>(num) // 날짜 중 일
 
-        var selectedColor = arrayOfNulls<String>(num)
+        var selectedColor = arrayOfNulls<String>(num) // 해당 날짜의 색깔
+
+        var colorRatio = arrayOfNulls<Int>(num)
 
 
 
         for (i in 1..num - 1) {
-            Log.d(TAG, "for문 들어옴 ")
 
             var num2: Int = 0
             data = calendarDataArray[i]
@@ -97,6 +91,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             }
 
             selectedColor[i] = data.color.toString()
+            colorRatio[i] = data.ratioPage
 
 
         }
@@ -110,33 +105,86 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 holder.dayText.text = day.dayOfMonth.toString()
             }
-            holder.dayImg.setImageResource(R.drawable.ic_baseline_menu_book_24)
+            holder.dayImg.setImageResource(R.drawable.ic_round_menu_book_24)
             for (i in 1..num - 1) {
 
+                var ratio : Int? = colorRatio[i]
+                Log.d(TAG, "$ratio")
+
+
                 if(colorDay[i]== day.dayOfMonth.toString() && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
-                    if(selectedColor[i] == "BLUE") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#9BF6FF"))
-                            }
+                    if(selectedColor[i] == "NAVY") {
+                        if(colorRatio[i]!! >= 50){
+                            holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
+                        } else {
+                            holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
+                            holder.dayImg.setAlpha(0.3f)
+                        }
+                    }
                     if(selectedColor[i] == "RED") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
-                            }
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
+
+                        }
+                    }
                     if(selectedColor[i] == "PINK") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#FFC6FF"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#FFC6FF"))
+
+                        }
                     }
                     if(selectedColor[i] == "GREEN") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#CAFFBF"))
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#CAFFBF"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#CAFFBF"))
+
+                        }
                     }
                     if(selectedColor[i] == "ORANGE") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#FFD6A5"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#FFD6A5"))
+
+                        }
                     }
                     if(selectedColor[i] == "YELLOW") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#FDFFB6"))
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#FDFFB6"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#FDFFB6"))
+
+                        }
                     }
                     if(selectedColor[i] == "PURPLE") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#BDB2FF"))
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#BDB2FF"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#BDB2FF"))
+
+                        }
                     }
-                    if(selectedColor[i] == "NAVY") {
-                        holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
+                    if(selectedColor[i] == "BLUE") {
+                        if (colorRatio[i]!! >= 50) {
+                            holder.dayImg.setColorFilter(Color.parseColor("#9BF6FF"))
+                        }else{
+                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setColorFilter(Color.parseColor("#9BF6FF"))
+
+                        }
+
+
                     }
 
 
@@ -153,20 +201,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
 
             holder.itemView.setOnClickListener {//날짜 클릭시 이벤트 발생
-                //itemClickListener.onClick(it, position)
                 onItemListener.onItemClick(day) // 인터페이스를 통해 날짜 넘겨줌
-
-                /*print(holder[position].toString())
-
-             val curpos : Int = position // 아이템 번호 받아오기?..
-             val days : String = dayList.get(curpos) // 저장할 번호 가져오기.... 어렵네
-             이거 번호 넘겨주고
-             아예 해당하는 아이템 객체를 색칠할 수 있는 어댑터를 따로 만들어볼까?
-             괜찮은 생각인가..??? ㅜㅜㅜㅜㅜ
-
-             인터페이스를 사용하지 않는 방법을 써서 여기서 코딩
-
- */
 
 
             }
