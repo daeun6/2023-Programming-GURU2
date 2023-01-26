@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -93,7 +94,7 @@ class BookRegFragment : Fragment() {
         btnRegister.setOnClickListener {
             var str_title: String = edtTitle.text.toString()
             var str_author: String = edtAuthor.text.toString()
-            var str_page: String = edtPage.text.toString()
+            var str_page: Editable? = edtPage.text
             var str_color = ""
 
             if(rg_Color.checkedRadioButtonId == R.id.rbRed) {
@@ -142,7 +143,7 @@ class BookRegFragment : Fragment() {
 //            }
 
             sqlitedb = dbManager.writableDatabase
-            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_title+"', '"+str_author+"', "+str_page+", NULL, NULL, '"+str_color+"', NULL);") //모든 필드에 해당하는 값 다 받아와야 오류 안 뜰 듯..
+            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', 'aa', '"+str_title+"', '"+str_author+"', '"+str_page+"', NULL, NULL, '15');") //모든 필드에 해당하는 값 다 받아와야 오류 안 뜰 듯..
             sqlitedb.close()
 
             val listFragment = ListFragment()
