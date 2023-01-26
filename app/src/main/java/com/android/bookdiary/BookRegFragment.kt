@@ -24,7 +24,7 @@ class BookRegFragment : Fragment() {
     lateinit var btnColor: Button
     lateinit var edtTitle: EditText
     lateinit var edtAuthor: EditText
-    lateinit var edtPage: EditText //총 페이지 수
+    lateinit var edtTotalPage: EditText //총 페이지 수
 
     lateinit var rg_Color: RadioGroup
     lateinit var rb_red: RadioButton
@@ -75,7 +75,7 @@ class BookRegFragment : Fragment() {
 
         edtTitle = view.findViewById(R.id.edtTitle)
         edtAuthor = view.findViewById(R.id.edtAuthor)
-        edtPage = view.findViewById(R.id.edtPage)
+        edtTotalPage = view.findViewById(R.id.edtTotalPage)
 
         rg_Color = view.findViewById(R.id.radioGroup)
         rb_red = view.findViewById(R.id.rbRed)
@@ -94,39 +94,47 @@ class BookRegFragment : Fragment() {
         btnRegister.setOnClickListener {
             var str_title: String = edtTitle.text.toString()
             var str_author: String = edtAuthor.text.toString()
-            var str_page: Editable? = edtPage.text
+            var int_totalPage = Integer.parseInt(edtTotalPage.text.toString())
             var str_color = ""
 
+            var int_nowPage = arguments?.getInt("nowPage")
+            var int_accumPage = 0
+            if (int_nowPage != null) {
+                int_accumPage += int_nowPage
+            }
+
+
             if(rg_Color.checkedRadioButtonId == R.id.rbRed) {
-                str_color = "red"
+                str_color = "RED"
+                Toast.makeText(context, "빨간색 선택됨", Toast.LENGTH_SHORT).show()
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbOrange) {
-                str_color = "orange"
+                str_color = "ORANGE"
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbYellow) {
-                str_color = "yellow"
+                str_color = "YELLOW"
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbGreen) {
-                str_color = "green"
+                str_color = "GREEN"
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbBlue) {
-                str_color = "blue"
+                str_color = "BLUE"
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbNavy) {
-                str_color = "navy"
+                str_color = "NAVY"
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbPurple) {
-                str_color = "purple"
+                str_color = "PURPLE"
             }
 
             if(rg_Color.checkedRadioButtonId == R.id.rbPink) {
-                str_color = "pink"
+                str_color = "PINK"
             }
 
 //            radioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -143,7 +151,7 @@ class BookRegFragment : Fragment() {
 //            }
 
             sqlitedb = dbManager.writableDatabase
-            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', 'aa', '"+str_title+"', '"+str_author+"', '"+str_page+"', NULL, NULL, '15');") //모든 필드에 해당하는 값 다 받아와야 오류 안 뜰 듯..
+            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', null, '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")
             sqlitedb.close()
 
             val listFragment = ListFragment()
