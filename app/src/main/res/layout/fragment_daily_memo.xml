@@ -120,6 +120,7 @@
                 android:gravity="center">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/likeSentence"
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
                     android:hint="마음에 들었던 문장을 적어보세요" />
@@ -161,6 +162,7 @@
                 android:gravity="center">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/myThink"
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
                     android:hint="책을 읽으면서 했던 생각을 적어보세요" />

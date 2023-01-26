@@ -23,6 +23,12 @@ class DailyFragment : Fragment(), DailyClickHandler {
     lateinit var dailyRecycler: RecyclerView
     lateinit var dbManager : DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    lateinit var bookColor : String
+    lateinit var bookTitle : String
+    lateinit var user : String
+    var totalPage : Int = 0
+    lateinit var date : String
+
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
@@ -49,9 +55,12 @@ class DailyFragment : Fragment(), DailyClickHandler {
 
         while (cursor.moveToNext()){
             Log.d(TAG, "dailyFragment while문에 들어옴")
-            var bookColor = cursor.getString(cursor.getColumnIndex("color"))
-            var bookTitle = cursor.getString(cursor.getColumnIndex("title"))
-            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle)
+            bookColor = cursor.getString(cursor.getColumnIndex("color"))
+            bookTitle = cursor.getString(cursor.getColumnIndex("title"))
+            user = cursor.getString(cursor.getColumnIndex("user"))
+            totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
+            date = cursor.getString(cursor.getColumnIndex("date"))
+            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, user, date, totalPage)
             dailyChoiceList.add(data)
         }
 
@@ -78,11 +87,16 @@ class DailyFragment : Fragment(), DailyClickHandler {
 
         var dTitle = book.bookTitle
         var bundle = Bundle()
-        bundle.putString("key", dTitle)
-        val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+        bundle.putString("dTitle", bookTitle)
+        bundle.putString("dColor", bookColor)
+        bundle.putString("dUser", user)
+        bundle.putInt("dTotalPage", totalPage)
+        bundle.putString("dDate", date)
 
+        val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
         var dailyMemoFragment = DailyMemoFragment()
         dailyMemoFragment.arguments = bundle
+
         ft.replace(R.id.container, dailyMemoFragment).commit()
         Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show()
     }
