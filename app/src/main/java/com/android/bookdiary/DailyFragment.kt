@@ -25,7 +25,7 @@ class DailyFragment : Fragment(), DailyClickHandler {
     lateinit var sqlitedb : SQLiteDatabase
     lateinit var bookColor : String
     lateinit var bookTitle : String
-    lateinit var user : String
+    lateinit var id : String
     var totalPage : Int = 0
     lateinit var date : String
 
@@ -56,13 +56,20 @@ class DailyFragment : Fragment(), DailyClickHandler {
         while (cursor.moveToNext()){
             Log.d(TAG, "dailyFragment while문에 들어옴")
             bookColor = cursor.getString(cursor.getColumnIndex("color"))
+            Log.d(TAG, "book color 정상")
             bookTitle = cursor.getString(cursor.getColumnIndex("title"))
-            user = cursor.getString(cursor.getColumnIndex("user"))
+            Log.d(TAG, "book title 정상")
+            //id = cursor.getString(cursor.getColumnIndex("id"))
+            id = "aa"
+            Log.d(TAG, "id 정상")
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
-            date = cursor.getString(cursor.getColumnIndex("date"))
-            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, user, date, totalPage)
+            Log.d(TAG, "totalPage 정상")
+            date = arguments?.getString("key").toString()
+            Log.d(TAG, "date 정상")
+            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, id, date, totalPage)
             dailyChoiceList.add(data)
         }
+        Log.d(TAG, "dailyFragment while문에서 나옴")
 
         cursor.close()
         sqlitedb.close()
@@ -89,7 +96,7 @@ class DailyFragment : Fragment(), DailyClickHandler {
         var bundle = Bundle()
         bundle.putString("dTitle", bookTitle)
         bundle.putString("dColor", bookColor)
-        bundle.putString("dUser", user)
+        bundle.putString("dUser", id)
         bundle.putInt("dTotalPage", totalPage)
         bundle.putString("dDate", date)
 

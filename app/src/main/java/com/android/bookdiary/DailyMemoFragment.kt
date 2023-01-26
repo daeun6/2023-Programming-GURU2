@@ -27,10 +27,6 @@ class DailyMemoFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_daily_memo, container, false)
-        dbManager = DBManager(activity, "bookDB", null, 1)
-        sqlitedb = dbManager.readableDatabase //bookDB에서 정보 받아오기 (user, color, title)
-
-
 
         var dUser = arguments?.getString("dUser")
         var dDate = arguments?.getString("dDate")
@@ -44,7 +40,7 @@ class DailyMemoFragment : Fragment() {
             val mainFragment = MainFragment()
             val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
 
-            dbManager = DBManager(activity, "writeDB", null, 1)
+            dbManager = DBManager(activity, "bookDB", null, 1)
             sqlitedb = dbManager.writableDatabase
 
             var dPage = Integer.parseInt(editTextNumber.text.toString())

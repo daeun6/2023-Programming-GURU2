@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.daily_choice_list.view.*
 import kotlinx.android.synthetic.main.fragment_daily.view.*
+import kotlinx.android.synthetic.main.note_item.view.*
 
 
 class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: ArrayList<DailyChoiceData>, private  val clickHandler: DailyClickHandler) :
@@ -30,10 +31,6 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var data : DailyChoiceData = dailyChoiceArray[position]
 
-        //holder.bookColorBtn = data.bookColor
-        //holder.bookTitleText.text = data.bookTitle
-
-        //holder.bind(data)
 
         holder.bind(data)
 
@@ -43,13 +40,16 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private var bookColorView: ImageView = itemView.findViewById(R.id.bookColorView)
         private var bookTitleText: TextView = itemView.findViewById(R.id.bookTitleText)
+        private var dUser : TextView = itemView.findViewById(R.id.userText)
+        private var dDate : TextView = itemView.findViewById(R.id.dateText)
+        private var dTotalPage : TextView = itemView.findViewById(R.id.totalPageText)
 
         init {
             view.setOnClickListener(this)
         }
 
         fun bind(item: DailyChoiceData) {
-            for (i in 1..10) { //DB 불러와서 전달값에 따라 바꿔야함
+            for (i in 1..dailyChoiceArray.size) { //DB 불러와서 전달값에 따라 바꿔야함
                 if (item.bookColor.toString() == "RED") {
                     bookColorView.setBackgroundResource(R.drawable.layer_button_checked_red)
                 }
@@ -75,6 +75,12 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
                     bookColorView.setBackgroundResource(R.drawable.layer_button_checked_pink)
                 }
                 bookTitleText.text = item.bookTitle.toString() // 책 제목 불러오기
+
+                //dUser.text = item.id
+                dUser.text = "aa"
+                dTotalPage.text = item.totalPage.toString()
+                //dDate.text = item.date.toString()
+
             }
         }
 

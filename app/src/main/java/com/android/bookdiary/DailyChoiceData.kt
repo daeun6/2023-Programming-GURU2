@@ -5,7 +5,7 @@ data class DailyChoiceData (
 
     val bookColor : String,
     val bookTitle : String,
-    val user : String,
+    val id : String,
     val date : String,
     val totalPage : Int
 )
