@@ -67,7 +67,6 @@ class DailyMemoFragment : Fragment() {
             }
             else {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
-
                 val mBuilder = AlertDialog.Builder(context)
                     .setView(mDialogView)
                     .setTitle("완료할 수 없어요")
@@ -75,9 +74,7 @@ class DailyMemoFragment : Fragment() {
                 val parent = mDialogView.parent as ViewGroup
                 val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
                 btn.setOnClickListener {
-                    Log.d(TAG, "버튼 누름")
                     parent.removeView(mDialogView)
-                    Log.d(TAG, "부모 삭제")
                     mAlertDialog.dismiss()
                 }
             }

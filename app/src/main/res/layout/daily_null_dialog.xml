@@ -9,8 +9,8 @@
         android:id="@+id/pepe"
         android:layout_width="115dp"
         android:layout_height="109dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/layer_button_checked_navy" />
@@ -21,9 +21,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="5dp"
         android:text="페이지 수를\n입력해주세요!"
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pepe"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,9 +33,11 @@
         android:id="@+id/dialogBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="165dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="165dp"
         android:text="확인"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pepe" />
 </androidx.constraintlayout.widget.ConstraintLayout>
