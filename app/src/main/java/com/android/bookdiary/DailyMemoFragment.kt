@@ -35,6 +35,7 @@ class DailyMemoFragment : Fragment() {
         var dTitle = arguments?.getString("dTitle")
         var dColor = arguments?.getString("dColor")
         var dTotalPage = arguments?.getString("dTotalPage")
+        Log.d(TAG, "제발 널 아니길: ${dTotalPage}")
 
         // 작성 완료 버튼
         val dailyDoneBtn = view.findViewById<Button>(R.id.dailyDoneBtn)

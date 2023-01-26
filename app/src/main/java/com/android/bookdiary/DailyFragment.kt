@@ -80,18 +80,20 @@ class DailyFragment : Fragment(), DailyClickHandler {
     }
 
     override fun clickedBookItem(book: DailyChoiceData) {
-        Log.d(TAG, "ClickedBookItem: ${book.bookTitle}")
-        Log.d(TAG, "ClickedBookItem: ${book.bookColor}")
 
         var dTitle = book.bookTitle
         var dColor = book.bookColor
+        var dTotalPage : String = book.totalPage.toString()
+        Log.d(TAG, "ClickedBookItem: ${dTitle}")
+        Log.d(TAG, "ClickedBookItem: ${dColor}")
+        Log.d(TAG, "ClickedBookItem: ${dTotalPage}")
         var bundle = Bundle()
         bundle.putString("dTitle", dTitle)
         bundle.putString("dColor", dColor)
         bundle.putString("dUser", id)
-        bundle.putInt("dTotalPage", totalPage)
+        bundle.putString("dTotalPage", dTotalPage)
         bundle.putString("dDate", date)
-        Log.d(TAG, "ClickedBookItem: ${book.totalPage}")
+
 
         val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
         var dailyMemoFragment = DailyMemoFragment()

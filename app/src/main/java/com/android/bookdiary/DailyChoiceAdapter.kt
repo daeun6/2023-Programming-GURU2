@@ -1,6 +1,7 @@
 package com.android.bookdiary
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,6 +78,7 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
                 //dUser.text = item.id
                 dUser.text = "aa"
                 dTotalPage.text = item.totalPage.toString()
+                Log.d("DailyChoiceAdapter", "${dTotalPage.text}")
 
         }
 
