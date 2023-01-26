@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 private const val TAG = "DailyFragment"
 
 class DailyFragment : Fragment(), DailyClickHandler {
+
     var dailyChoiceList: ArrayList<DailyChoiceData> = ArrayList()
     lateinit var dailyRecycler: RecyclerView
     lateinit var dbManager : DBManager
@@ -37,56 +38,39 @@ class DailyFragment : Fragment(), DailyClickHandler {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_daily, container, false)
-        Log.d(TAG, "파일 찾는중")
-        dbManager = DBManager(activity, "bookDB", null, 1)
-        Log.d(TAG, "${dbManager.databaseName}")
+        dbManager = DBManager(activity, "bookDB", null, 1) //bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.readableDatabase
-        Log.d(TAG, "파일 찾았다2")
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
-        if (cursor != null){
-            Log.d(TAG, "테이블 찾았다")
-        }
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null) //bookDB 테이블 정보 불러오기
 
         dailyRecycler = view.findViewById(R.id.dailyRecycler!!) as RecyclerView
-        dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+        dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3) // 1행에 3열씩 보이도록 설정
         dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)
 
-        while (cursor.moveToNext()){
-            Log.d(TAG, "dailyFragment while문에 들어옴")
+        while (cursor.moveToNext()){ // bookDB에 값이 있는 동안 책 정보 불러와서 화면에 띄우기
             bookColor = cursor.getString(cursor.getColumnIndex("color"))
-            Log.d(TAG, "book color 정상")
             bookTitle = cursor.getString(cursor.getColumnIndex("title"))
-            Log.d(TAG, "book title 정상")
             id = "aa" //user가 1명
-            Log.d(TAG, "id 정상")
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
-            Log.d(TAG, "totalPage 정상")
-            Log.d(TAG, "totalPage ${totalPage}")
             date = arguments?.getString("key").toString()
-            Log.d(TAG, "date 정상")
             var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, id, date, totalPage)
             dailyChoiceList.add(data)
         }
-        Log.d(TAG, "dailyFragment while문에서 나옴")
 
         cursor.close()
         sqlitedb.close()
         dbManager.close()
 
-
         return view
     }
 
-    override fun clickedBookItem(book: DailyChoiceData) {
+    override fun clickedBookItem(book: DailyChoiceData) { //책 정보 클릭시 DailyMemoFragment로 정보 넘기기
 
         var dTitle = book.bookTitle
         var dColor = book.bookColor
         var dTotalPage : String = book.totalPage.toString()
-        Log.d(TAG, "ClickedBookItem: ${dTitle}")
-        Log.d(TAG, "ClickedBookItem: ${dColor}")
-        Log.d(TAG, "ClickedBookItem: ${dTotalPage}")
+
         var bundle = Bundle()
         bundle.putString("dTitle", dTitle)
         bundle.putString("dColor", dColor)

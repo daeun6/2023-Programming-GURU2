@@ -13,11 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
 
-
-private const val TAG = "DailyMemoFragment"
-
 class DailyMemoFragment : Fragment() {
-
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
@@ -30,12 +26,12 @@ class DailyMemoFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_daily_memo, container, false)
 
+        // DailyFragment에서 전달한 값 받아오기
         var dUser = arguments?.getString("dUser")
         var dDate = arguments?.getString("dDate")
         var dTitle = arguments?.getString("dTitle")
         var dColor = arguments?.getString("dColor")
         var dTotalPage = arguments?.getString("dTotalPage")
-        Log.d(TAG, "제발 널 아니길: ${dTotalPage}")
 
         // 작성 완료 버튼
         val dailyDoneBtn = view.findViewById<Button>(R.id.dailyDoneBtn)
@@ -45,18 +41,15 @@ class DailyMemoFragment : Fragment() {
             val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
 
             var page = editTextNumber.text.toString()
-            Log.d(TAG, ": ${page}")
 
+            // 페이지 수 입력시에만 DB로 입력 값 전달하기
             if (page != "") {
-
                 var dPage = page.toInt()
                 var dSentence: String = likeSentence.text.toString()
                 var dThink: String = myThink.text.toString()
 
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
-
-
 
                 sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
                 sqlitedb.close()
@@ -66,6 +59,7 @@ class DailyMemoFragment : Fragment() {
                 transaction.commit()
 
             }
+            // 페이지 수 미입력시 팝업 띄우기
             else {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
                 val mBuilder = AlertDialog.Builder(context)

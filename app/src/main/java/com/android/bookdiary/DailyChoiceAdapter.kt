@@ -31,11 +31,7 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
     //View에 내용 입력
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var data : DailyChoiceData = dailyChoiceArray[position]
-
-
         holder.bind(data)
-
-
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -48,7 +44,7 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
             view.setOnClickListener(this)
         }
 
-        fun bind(item: DailyChoiceData) {
+        fun bind(item: DailyChoiceData) { //책 이미지 색상 정보 수정
                 if (item.bookColor.toString() == "RED") {
                     bookColorView.setBackgroundResource(R.drawable.layer_button_checked_red)
                 }
@@ -75,14 +71,12 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
                 }
                 bookTitleText.text = item.bookTitle.toString() // 책 제목 불러오기
 
-                //dUser.text = item.id
                 dUser.text = "aa"
                 dTotalPage.text = item.totalPage.toString()
-                Log.d("DailyChoiceAdapter", "${dTotalPage.text}")
 
         }
 
-        override fun onClick(v: View?) {
+        override fun onClick(v: View?) { //책 선택
             val position = dailyChoiceArray[position]
             clickHandler.clickedBookItem(position)
         }
