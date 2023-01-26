@@ -59,11 +59,11 @@ class DailyFragment : Fragment(), DailyClickHandler {
             Log.d(TAG, "book color 정상")
             bookTitle = cursor.getString(cursor.getColumnIndex("title"))
             Log.d(TAG, "book title 정상")
-            //id = cursor.getString(cursor.getColumnIndex("id"))
-            id = "aa"
+            id = "aa" //user가 1명
             Log.d(TAG, "id 정상")
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
             Log.d(TAG, "totalPage 정상")
+            Log.d(TAG, "totalPage ${totalPage}")
             date = arguments?.getString("key").toString()
             Log.d(TAG, "date 정상")
             var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, id, date, totalPage)
@@ -76,29 +76,22 @@ class DailyFragment : Fragment(), DailyClickHandler {
         dbManager.close()
 
 
-//        dailyChoiceList.add(DailyChoiceData("RED","호랑이"))
-//        dailyChoiceList.add(DailyChoiceData("ORANGE", "호시"))
-//        dailyChoiceList.add(DailyChoiceData("YELLOW", "파리"))
-//        dailyChoiceList.add(DailyChoiceData("GREEN","에펠탑"))
-//        dailyChoiceList.add(DailyChoiceData("BLUE","여행"))
-//        dailyChoiceList.add(DailyChoiceData("NAVY", "부러워"))
-//        dailyChoiceList.add(DailyChoiceData("PURPLE","호랑해"))
-//        dailyChoiceList.add(DailyChoiceData("PINK","햄스터"))
-
-
         return view
     }
 
     override fun clickedBookItem(book: DailyChoiceData) {
         Log.d(TAG, "ClickedBookItem: ${book.bookTitle}")
+        Log.d(TAG, "ClickedBookItem: ${book.bookColor}")
 
         var dTitle = book.bookTitle
+        var dColor = book.bookColor
         var bundle = Bundle()
-        bundle.putString("dTitle", bookTitle)
-        bundle.putString("dColor", bookColor)
+        bundle.putString("dTitle", dTitle)
+        bundle.putString("dColor", dColor)
         bundle.putString("dUser", id)
         bundle.putInt("dTotalPage", totalPage)
         bundle.putString("dDate", date)
+        Log.d(TAG, "ClickedBookItem: ${book.totalPage}")
 
         val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
         var dailyMemoFragment = DailyMemoFragment()

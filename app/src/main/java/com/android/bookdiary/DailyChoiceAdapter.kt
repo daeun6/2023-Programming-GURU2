@@ -41,7 +41,6 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
         private var bookColorView: ImageView = itemView.findViewById(R.id.bookColorView)
         private var bookTitleText: TextView = itemView.findViewById(R.id.bookTitleText)
         private var dUser : TextView = itemView.findViewById(R.id.userText)
-        private var dDate : TextView = itemView.findViewById(R.id.dateText)
         private var dTotalPage : TextView = itemView.findViewById(R.id.totalPageText)
 
         init {
@@ -49,7 +48,6 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
         }
 
         fun bind(item: DailyChoiceData) {
-            for (i in 1..dailyChoiceArray.size) { //DB 불러와서 전달값에 따라 바꿔야함
                 if (item.bookColor.toString() == "RED") {
                     bookColorView.setBackgroundResource(R.drawable.layer_button_checked_red)
                 }
@@ -79,9 +77,7 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
                 //dUser.text = item.id
                 dUser.text = "aa"
                 dTotalPage.text = item.totalPage.toString()
-                //dDate.text = item.date.toString()
 
-            }
         }
 
         override fun onClick(v: View?) {

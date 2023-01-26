@@ -1,18 +1,20 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
 
+
+private const val TAG = "DailyMemoFragment"
 
 class DailyMemoFragment : Fragment() {
 
@@ -37,22 +39,48 @@ class DailyMemoFragment : Fragment() {
         // 작성 완료 버튼
         val dailyDoneBtn = view.findViewById<Button>(R.id.dailyDoneBtn)
         dailyDoneBtn.setOnClickListener {
+
             val mainFragment = MainFragment()
             val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
 
-            dbManager = DBManager(activity, "bookDB", null, 1)
-            sqlitedb = dbManager.writableDatabase
+            var page = editTextNumber.text.toString()
+            Log.d(TAG, ": ${page}")
 
-            var dPage = Integer.parseInt(editTextNumber.text.toString())
-            var dSentence: String = likeSentence.text.toString()
-            var dThink : String = likeSentence.text.toString()
+            if (page != "") {
 
-            sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
-            sqlitedb.close()
-            dbManager.close()
+                var dPage = page.toInt()
+                var dSentence: String = likeSentence.text.toString()
+                var dThink: String = myThink.text.toString()
 
-            transaction.replace(R.id.container, mainFragment)
-            transaction.commit()
+                dbManager = DBManager(activity, "bookDB", null, 1)
+                sqlitedb = dbManager.writableDatabase
+
+
+
+                sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
+                sqlitedb.close()
+                dbManager.close()
+
+                transaction.replace(R.id.container, mainFragment)
+                transaction.commit()
+
+            }
+            else {
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
+
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                    .setTitle("완료할 수 없어요")
+                val  mAlertDialog = mBuilder.show()
+                val parent = mDialogView.parent as ViewGroup
+                val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                btn.setOnClickListener {
+                    Log.d(TAG, "버튼 누름")
+                    parent.removeView(mDialogView)
+                    Log.d(TAG, "부모 삭제")
+                    mAlertDialog.dismiss()
+                }
+            }
 
         }
 
