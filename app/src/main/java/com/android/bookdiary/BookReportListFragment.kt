@@ -192,8 +192,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         while (cursor.moveToNext()) {
             var str_report = cursor.getString(cursor.getColumnIndex("dDate"))
 
-            //var percentage: Int = (now_page / total_page) * 100.toInt()
-            //progressBar.progress = percentage
 
             var data: BookReportListData = BookReportListData(str_report)
             bookReportListDataArray.add(data)
@@ -202,58 +200,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         cursor.close()
         sqlitedb.close()
         dbManager.close()
-
-
-//        var num: Int = 0
-//        while (cursor.moveToNext()) {
-//            str_title = cursor.getString(cursor.getColumnIndex("title")).toString() //나중에 이 부분 날짜로 바꾸면 됨.
-//            str_author = cursor.getString(cursor.getColumnIndex("author")).toString()
-//            page = cursor.getInt(cursor.getColumnIndex("totalPage"))
-//
-//            var layout_item: LinearLayout = LinearLayout(activity)
-//            layout_item.orientation = LinearLayout.VERTICAL
-//            layout_item.setPadding(20, 10, 20, 10)
-//            layout_item.id = num
-//            layout_item.setTag(str_title)
-//
-//            var tvTitle: TextView = TextView(activity)
-//            tvTitle.text = str_title
-//            layout_item.addView(tvTitle)
-//
-//            var tvAuthor: TextView = TextView(activity)
-//            tvAuthor.text = str_author
-//            layout_item.addView(tvAuthor)
-//
-//            var tvPage: TextView = TextView(activity)
-//            tvPage.text = page.toString()
-//            layout_item.addView(tvPage)
-//
-//            layout_item.setOnClickListener {
-//                //val DetailFragment = DetailFragment()
-//                val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
-//                //transaction.replace(R.id.container, DetailFragment)
-//                transaction.commit()
-//
-//                reportLayout.addView(layout_item)
-//                num++
-//            }
-//
-//            tvTitle.text = str_title
-//            tvAuthor.text = str_author
-//            tvPage.text = "" + page + "\n"
-//
-//            cursor.close()
-//            sqlitedb.close()
-//            dbManager.close()
-//        }
-
-//        tvTitle.text = str_title
-//        tvAuthor.text = str_author
-//        tvPage.text = "" + page + "\n"
-//
-//        cursor.close()
-//        sqlitedb.close()
-//        dbManager.close()
 
 
 

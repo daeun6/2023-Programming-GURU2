@@ -4,16 +4,17 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import android.widget.EditText
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
 
-class DailyMemoFragment : Fragment() {
+
+class DetailModifyFragment : Fragment() {
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
@@ -23,24 +24,47 @@ class DailyMemoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val view = inflater.inflate(R.layout.fragment_daily_memo, container, false)
-
-        // DailyFragment에서 전달한 값 받아오기
-        var dUser = arguments?.getString("dUser")
         var dDate = arguments?.getString("dDate")
         var dTitle = arguments?.getString("dTitle")
-        var dColor = arguments?.getString("dColor")
+
         var dTotalPage = arguments?.getString("dTotalPage")
         var accumPage = arguments?.getInt("dAccumPage")
 
-        // 작성 완료 버튼
-        val dailyDoneBtn = view.findViewById<Button>(R.id.dailyDoneBtn)
-        dailyDoneBtn.setOnClickListener {
 
-            val mainFragment = MainFragment()
+
+        val view = inflater.inflate(R.layout.fragment_detail_modify, container, false)
+
+        val pageEdit = view.findViewById<EditText>(R.id.editTextNumber)
+        val sentenceEdit = view.findViewById<EditText>(R.id.likeSentence)
+        val thinkEdit = view.findViewById<EditText>(R.id.myThink)
+
+        dbManager = DBManager(activity, "bookDB", null, 1)
+        sqlitedb = dbManager.readableDatabase
+
+        val pageFind = "SELECT writeDB FROM dPage WHERE (( dDate = '" + dDate + "') and ( dTitle = '" + dTitle + "')"
+        val mPage = sqlitedb.rawQuery(pageFind, null)
+
+        val sentenceFind = "SELECT writeDB FROM dSentence WHERE (( dDate = '" + dDate + "') and ( dTitle = '" + dTitle + "')"
+        val mSentence = sqlitedb.rawQuery(sentenceFind, null)
+
+        val thinkFind = "SELECT writeDB FROM dThink WHERE (( dDate = '" + dDate + "') and ( dTitle = '" + dTitle + "')"
+        val mThink = sqlitedb.rawQuery(thinkFind, null)
+
+        sqlitedb.close()
+        dbManager.close()
+
+        pageEdit.setText(mPage.getInt(0))
+        sentenceEdit.setText(mSentence.getString(0))
+        thinkEdit.setText(mThink.getString(0))
+
+
+
+        // DetailFragment로 돌아가기
+        val dailyBackBtn = view.findViewById<Button>(R.id.doneBtn)
+        dailyBackBtn.setOnClickListener {
+
+            val detailFragments = DetailFragment()
             val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-
             var page = editTextNumber.text.toString()
 
             // 페이지 수 입력시에만 DB로 입력 값 전달하기
@@ -53,13 +77,12 @@ class DailyMemoFragment : Fragment() {
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
-                sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
-                sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + dPage + "', accumPage = '" + accumPage + "' WHERE ( title = '" + dTitle + "');")
+                sqlitedb.execSQL("UPDATE wirteDB SET dNowPage = '" + dPage + "', dSentence = '" + dSentence + "', dThink = '" + dThink + "', accumPage = '" + accumPage + "' WHERE ( title = '" + dTitle + "') and ( dTitle = '" + dTitle + "');")
 
                 sqlitedb.close()
                 dbManager.close()
 
-                transaction.replace(R.id.container, mainFragment)
+                transaction.replace(R.id.container, detailFragments)
                 transaction.commit()
             }
 
@@ -77,24 +100,16 @@ class DailyMemoFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
             }
-        }
 
-        // 책 다시 선택하도록 돌아가는 버튼
-        val dailyBackBtn = view.findViewById<Button>(R.id.doneBtn)
-        dailyBackBtn.setOnClickListener {
-            val dailyFragment = DailyFragment()
 
-            // 이전으로 돌아가도 날짜 정보가 유지되도록 bundle로 값 던지기
-            var bundle = Bundle()
-            bundle.putString("dDate", dDate)
+
+
+            val detailFragment = DetailFragment()
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-            dailyFragment.arguments = bundle
-            ft.replace(R.id.container, dailyFragment).commit()
-            Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
+            ft.replace(R.id.container, detailFragment).commit()
         }
 
         return view
-
     }
 
 }
