@@ -1,6 +1,7 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -49,23 +50,44 @@ class DailyFragment : Fragment(), DailyClickHandler {
         dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3) // 1행에 3열씩 보이도록 설정
         dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)
 
-        while (cursor.moveToNext()){ // bookDB에 값이 있는 동안 책 정보 불러와서 화면에 띄우기
+
+        if(cursor.count == 0){
+            Log.d(TAG, "DB에 책이 없음")
+            val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_zero_dialog, null, false)
+            val mBuilder = AlertDialog.Builder(context)
+                .setView(mDialogView)
+                .setTitle("책을 불러올 수 없어요")
+            val  mAlertDialog = mBuilder.show()
+            val parent = mDialogView.parent as ViewGroup
+            val btn = mDialogView.findViewById<Button>(R.id.checkBtn)
+            btn.setOnClickListener {
+                parent.removeView(mDialogView)
+                mAlertDialog.dismiss()
+                val mainFragment = MainFragment()
+                val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+                transaction.replace(R.id.container, mainFragment)
+                transaction.commit()
+            }
+        }
+
+        Log.d(TAG, "while 전")
+
+        while (cursor.moveToNext()) { // bookDB에 값이 있는 동안 책 정보 불러와서 화면에 띄우기
+            Log.d(TAG, "while 안")
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
             accumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
-            if(accumPageString == "null") {accumPage = 0}
-            else {
+            if (accumPageString == "null") {
+                accumPage = 0
+            } else {
                 accumPage = accumPageString.toInt()
             }
-
 
             if (totalPage != accumPage) { //책을 다 읽지 않았을 때만 띄우기
 
                 bookColor = cursor.getString(cursor.getColumnIndex("color"))
                 bookTitle = cursor.getString(cursor.getColumnIndex("title"))
                 id = "aa" //user가 1명
-
                 date = arguments?.getString("key").toString()
-
                 // DailyMemoFragment에서 날짜 정보 받아오기
                 if (date == "null") {
                     date = arguments?.getString("dDate").toString()
@@ -77,6 +99,12 @@ class DailyFragment : Fragment(), DailyClickHandler {
 
             }
         }
+
+        Log.d(TAG, "while 후")
+
+
+
+
 
         cursor.close()
         sqlitedb.close()
