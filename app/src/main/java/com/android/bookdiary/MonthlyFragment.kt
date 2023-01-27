@@ -178,7 +178,6 @@ class MonthlyFragment : Fragment() {
         val title = "이번달 독서 통계"
 
 
-
         sqlDB = myHelper.writableDatabase
 
         var cursor: Cursor
@@ -203,8 +202,10 @@ class MonthlyFragment : Fragment() {
             lastMonth = 12
         }
 
-        // 지난달 독서량
+        // 지난달 독서량 변수
         var maxPage = 0
+
+        // 지난달 독서량을 그래프에 입력
         cursor = sqlDB.rawQuery("SELECT dNowPage FROM writeDB WHERE dDate LIKE '%${lastMonth}월%';", null)
 
         while (cursor.moveToNext()){
@@ -213,9 +214,10 @@ class MonthlyFragment : Fragment() {
 
         valueList.add(maxPage)
 
+        // 이번달 독서량 변수
         var cMaxPage = 0
 
-        // 이번달 독서량
+        // 이번달 독서량을 그래프에 입력
         cursor = sqlDB.rawQuery("SELECT dNowPage FROM writeDB WHERE dDate LIKE '%${subMonth}월%';", null)
 
         while (cursor.moveToNext()){
@@ -224,11 +226,22 @@ class MonthlyFragment : Fragment() {
 
         valueList.add(cMaxPage)
 
+        // 기록 일수 변수
+        var monthRecord = 0
+
+        // 기록 일수 값 저장
+        cursor = sqlDB.rawQuery("SELECT dDate FROM writeDB WHERE dDate LIKE '%${subMonth}월%';", null)
+
+        while (cursor.moveToNext()){
+            monthRecord = cursor.count
+        }
+        myBookRecord3.text = "이번달에 " + monthRecord + "번이나 기록했어요!"
 
         myBookRecord1.text = "이번달에 " + cMaxPage + "쪽 읽었어요."
 
         var charRead = cMaxPage - maxPage
 
+        // 지난달과 이번달 독서량 차이에 따른 문자열 변화
         if (charRead < 0) {
             myBookRecord2.text = "앞으로 " + abs(charRead) + "권 더 읽으면 지난달보다 많이 읽을 수 있어요!"
         } else if (charRead == 0) {
@@ -270,11 +283,8 @@ class MonthlyFragment : Fragment() {
         val entries: ArrayList<BarEntry> = ArrayList()
         val title = "나의 독서 통계"
 
-
-
         sqlDB = myHelper.readableDatabase
         var cursor: Cursor
-
 
         // 평균 성인 독서량을 데이터 리스트에 입력
         cursor = sqlDB.rawQuery("SELECT readAvg FROM readingDB WHERE category = '소계';", null)
@@ -285,13 +295,13 @@ class MonthlyFragment : Fragment() {
 
         valueList.add(readAvg.toInt())
 
-
         // 나의 독서량을 데이터 리스트에 입력
         cursor = sqlDB.rawQuery("SELECT * FROM bookDB;", null)
         var recordCounter = cursor.count.toString()
         myBookRecord1.text = "이번 달에 " + recordCounter + "권 읽었어요!"
         valueList.add(recordCounter.toInt())
 
+        // 평균 독서량과 나의 독서량의 차이에 따른 문자열 변화
         var comparAvg = readAvg.toInt() - recordCounter.toInt()
         if (comparAvg < 0) {
             bookRecord.text = "성인 평균 독서량보다 " + abs(comparAvg) + "권 더 읽었어요!"
@@ -301,12 +311,8 @@ class MonthlyFragment : Fragment() {
             bookRecord.text = "총 " + recordCounter + "권 읽었어요.\n" + (comparAvg + 1) + "권 더 읽으면 성인 평균 독서량 이상이에요!"
         }
 
-
-
-
         cursor.close()
         sqlDB.close()
-
 
         // 그래프에 데이터 입력 (리스트 사이즈만큼)
         for (i in 0 until valueList.size) {
@@ -343,7 +349,6 @@ class MonthlyFragment : Fragment() {
         barChart.animateY(1000)
         barChart.animateX(1000)
 
-
         // 바텀 좌표 값
         val xAxis: XAxis = barChart.getXAxis()
 
@@ -362,7 +367,6 @@ class MonthlyFragment : Fragment() {
         // 수직 그리드 선 숨기기, 설정되지 않은 경우 기본 true
         xAxis.setDrawGridLines(false)
 
-
         // 좌측 값 y축 선 숨기기, 설정되지 않은 경우 기본 true
         val leftAxis: YAxis = barChart.getAxisLeft()
         leftAxis.setDrawAxisLine(false)
@@ -370,14 +374,12 @@ class MonthlyFragment : Fragment() {
         // 좌측 값 색상 설정
         leftAxis.textColor = Color.BLACK
 
-
         //우측 값 y축 선 숨기기, 설정되지 않은 경우 기본 true
         val rightAxis: YAxis = barChart.getAxisRight()
         rightAxis.setDrawAxisLine(false)
 
         // 우측 값 색상 설정
         rightAxis.textColor = Color.WHITE
-
 
         // barChart의 타이틀
         val legend: Legend = barChart.getLegend()
@@ -399,8 +401,5 @@ class MonthlyFragment : Fragment() {
         // 차트 외부에 기준 위치 설정, 설정되지 않은 경우 기본 false
         legend.setDrawInside(false)
     }
-
-
-
 
     }
