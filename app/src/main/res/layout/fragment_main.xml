@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,6 +18,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:src="@drawable/ic_baseline_chevron_left_24"
+                android:background="#C6D4FC"
                 />
 
             <TextView
@@ -25,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="1월 2023년"
+                android:fontFamily="@font/human"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"/>
@@ -34,18 +38,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:background="#C6D4FC"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="8dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="SUN"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
@@ -56,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="MON"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
@@ -66,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TUE"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
@@ -76,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="WED"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
@@ -86,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="THU"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
@@ -96,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="FRI"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
@@ -106,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="SAT"
+                android:fontFamily="@font/human"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAlignment="center"
