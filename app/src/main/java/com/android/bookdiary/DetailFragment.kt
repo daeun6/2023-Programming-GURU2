@@ -91,6 +91,17 @@ class DetailFragment : Fragment() {
             ft.replace(R.id.container, detailModifyFragment).commit()
         }
 
+        btnDone.setOnClickListener {
+            var title = str_title
+            var bundle = Bundle()
+            bundle.putString("title", title)
+            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+            var bookReportListFragment = BookReportListFragment()
+            bookReportListFragment.arguments = bundle
+            ft.replace(R.id.container, bookReportListFragment).commit()
+        }
+
         return view
     }
 

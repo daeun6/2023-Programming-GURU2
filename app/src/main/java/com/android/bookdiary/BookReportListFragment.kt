@@ -26,7 +26,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
     lateinit var tvPage: TextView
     lateinit var btnUpdateAuthor: Button
     lateinit var btnUpdatePage: Button
-    lateinit var btnUpdateColor: Button
     lateinit var btnDelete: Button
     lateinit var reportRecyclerView: RecyclerView
 
@@ -51,7 +50,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         tvPage = view.findViewById(R.id.tvPage)
         btnUpdateAuthor = view.findViewById(R.id.btnUpdateAuthor)
         btnUpdatePage = view.findViewById(R.id.btnUpdatePage)
-        btnUpdateColor = view.findViewById(R.id.btnUpdateColor)
         btnDelete = view.findViewById(R.id.btnDelete)
         reportRecyclerView = view.findViewById(R.id.reportRecyclerView)
 
@@ -142,26 +140,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
             var bookUpdatePageFragment = BookUpdatePageFragment()
             bookUpdatePageFragment.arguments = bundle
             ft.replace(R.id.container, bookUpdatePageFragment).commit()
-            Toast.makeText(activity, title, Toast.LENGTH_SHORT).show()
-        }
-
-        btnUpdateColor.setOnClickListener {
-
-            var title = str_title
-            var author = str_author
-            var page = page
-            var color = str_color
-
-            var bundle = Bundle()
-            bundle.putString("title", title)
-            bundle.putString("author", author)
-            bundle.putInt("page", page)
-            bundle.putString("color", color)
-            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-
-            var bookUpdateColorFragment = BookUpdateColorFragment()
-            bookUpdateColorFragment.arguments = bundle
-            ft.replace(R.id.container, bookUpdateColorFragment).commit()
             Toast.makeText(activity, title, Toast.LENGTH_SHORT).show()
         }
 
