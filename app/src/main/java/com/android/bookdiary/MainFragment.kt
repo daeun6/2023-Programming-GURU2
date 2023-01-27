@@ -82,43 +82,28 @@ class MainFragment : Fragment(), OnitemListener {
 
 
 
-        // 책 그림도 날짜에 맞게 리스트에 담겨야함 어떻게 구현하지
-        //dayList 사이즈만큼 그림 생성해서 id를 부여한다고 하자\*/
-
         val adapter = CalendarAdapter(dayList, this, calendarDataArry)
-        Log.d(TAG,"어댑터 생성 ")
 
         var manager : RecyclerView.LayoutManager = GridLayoutManager(activity, 7)
 
 
         binding.recyclerView.layoutManager = manager //레이아웃 적용
-        Log.d(TAG,"레이아웃 적용 ")
-
         binding.recyclerView.adapter = adapter
 
-
-
         while(cursor.moveToNext()){
-            Log.d(TAG,"while문 들어옴 ")
             var str_date = cursor.getString((cursor.getColumnIndex("dDate")))
             var str_color = cursor.getString((cursor.getColumnIndex("dColor")))
             var totalPage = cursor.getInt(cursor.getColumnIndex("dTotalPage"))
             var nowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
             var ratioPageFloat : Float = (nowPage.toFloat() / totalPage.toFloat())
             var ratioPage : Int = (ratioPageFloat * 100).toInt()
-            Log.d(TAG,"$str_color")
             var data : CalendarData = CalendarData(str_date, str_color, ratioPage)
             calendarDataArry.add(data)
 
         }
-
-        Log.d(TAG,"while문을 나오긴 하는가 ")
-
         cursor.close()
         sqlitedb.close()
         dbManager.close()
-
-
 
     }
 

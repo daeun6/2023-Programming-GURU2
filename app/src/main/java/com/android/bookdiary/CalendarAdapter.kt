@@ -54,20 +54,14 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var TAG: String = " 캘린더어댑터"
-
         var num: Int = calendarDataArray.size
-
-
         var day = dayList[holder.position] //날짜 변수에 담기
-
         var data: CalendarData
         var colorDate = arrayOfNulls<String>(num) // 날짜 받아옴(db에 저장된 날짜)
         var colorYear = arrayOfNulls<String>(num) // 날짜 중 년도
         var colorMonth = arrayOfNulls<String>(num) // 날짜 중 월
         var colorDay = arrayOfNulls<String>(num) // 날짜 중 일
-
         var selectedColor = arrayOfNulls<String>(num) // 해당 날짜의 색깔
-
         var colorRatio = arrayOfNulls<Int>(num)
 
 
@@ -75,32 +69,21 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
             var num2: Int = 0
             data = calendarDataArray[i]
-            Log.d(TAG, "$data")
 
             colorDate[i] = data.date.toString() // 2023년 01월 11일
-            Log.d(TAG, "$data")
             colorYear[i] = colorDate[i]?.substring(0 until 4) // 2023
-            Log.d(TAG, "연도 ${colorYear[i]}")
             colorMonth[i] = colorDate[i]?.substring(6 until 8) // 01
-            Log.d(TAG, "보정 전 월 ${colorMonth[i]}")
             if(colorMonth[i] != "10" && colorMonth[i] != "11" && colorMonth[i] != "12") { // 10이하면 01, 02 이므로 숫자를 자름
                 colorMonth[i] = colorMonth[i]?.substring(1 until 2)
             }
-            Log.d(TAG, "보정 후 월${colorMonth[i]}")
             colorDay[i] = colorDate[i]?.substring(10 until 12) // 11
-            Log.d(TAG, "보정 전 일 ${colorDay[i]}")
             var intColorDay : Int = colorDay[i]!!.toInt()
             if(intColorDay < 10) {
                 colorDay[i] = colorDay[i]?.substring(1 until 2)
             }
-            Log.d(TAG, "보정 후 일 ${colorDay[i]}")
-
             selectedColor[i] = data.color.toString()
             colorRatio[i] = data.ratioPage
-
-
-        }//
-
+        }
 
         if (day == null) {
 
@@ -112,11 +95,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             }
             holder.dayImg.setImageResource(R.drawable.ic_round_menu_book_24)
             for (i in 1..num - 1) {
-
                 var ratio : Int? = colorRatio[i]
-                Log.d(TAG, "$ratio")
-
-
                 if(colorDay[i]== day.dayOfMonth.toString() && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
                     if(selectedColor[i] == "NAVY") {
                         if(colorRatio[i]!! >= 50){

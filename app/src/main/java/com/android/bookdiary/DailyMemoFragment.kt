@@ -33,6 +33,7 @@ class DailyMemoFragment : Fragment() {
         var dTitle = arguments?.getString("dTitle")
         var dColor = arguments?.getString("dColor")
         var dTotalPage = arguments?.getString("dTotalPage")
+        var accumPage = arguments?.getInt("dAccumPage")
 
         // 작성 완료 버튼
         val dailyDoneBtn = view.findViewById<Button>(R.id.dailyDoneBtn)
@@ -46,6 +47,7 @@ class DailyMemoFragment : Fragment() {
             // 페이지 수 입력시에만 DB로 입력 값 전달하기
             if (page != "") {
                 var dPage = page.toInt()
+                accumPage = accumPage?.plus(dPage)
                 var dSentence: String = likeSentence.text.toString()
                 var dThink: String = myThink.text.toString()
 
@@ -53,13 +55,15 @@ class DailyMemoFragment : Fragment() {
                 sqlitedb = dbManager.writableDatabase
 
                 sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
+                sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + dPage + "', accumPage = '" + accumPage + "' WHERE ( title = '" + dTitle + "');")
+
                 sqlitedb.close()
                 dbManager.close()
 
                 transaction.replace(R.id.container, mainFragment)
                 transaction.commit()
-
             }
+
             // 페이지 수 미입력시 팝업 띄우기
             else {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
@@ -74,7 +78,6 @@ class DailyMemoFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
             }
-
         }
 
         // 책 다시 선택하도록 돌아가는 버튼
@@ -85,7 +88,6 @@ class DailyMemoFragment : Fragment() {
             // 이전으로 돌아가도 날짜 정보가 유지되도록 bundle로 값 던지기
             var bundle = Bundle()
             bundle.putString("dDate", dDate)
-            Log.d("DailyMemoFragment", "${dDate}")
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
             dailyFragment.arguments = bundle
             ft.replace(R.id.container, dailyFragment).commit()
