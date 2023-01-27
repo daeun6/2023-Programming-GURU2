@@ -70,7 +70,7 @@ class MainFragment : Fragment(), OnitemListener {
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {
 
-        binding.monthyearText.text = monthyearFromDate(CalendarUtil.selectedDate) //년 월 가져옴
+        binding.monthyearText.text = yearmonthFromDate(CalendarUtil.selectedDate) //년 월 가져옴
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
@@ -95,6 +95,9 @@ class MainFragment : Fragment(), OnitemListener {
         Log.d(TAG,"레이아웃 적용 ")
 
         binding.recyclerView.adapter = adapter
+
+
+
 
 
 
