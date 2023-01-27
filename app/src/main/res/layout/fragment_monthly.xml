@@ -82,7 +82,7 @@
         android:id="@+id/myBookRecord3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
+        android:layout_marginStart="114dp"
         android:layout_marginEnd="114dp"
         android:layout_marginBottom="48dp"
         android:text="현재 7일 연속 책을 읽고 있어요."

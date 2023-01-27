@@ -194,7 +194,8 @@ class MonthlyFragment : Fragment() {
         val  strNow = nowFormat.format(nowDate)
 
         // 월 정보만 추출
-        val subMonth = strNow.substring(5 until 7)
+        var subMonth = strNow.substring(6 until 7)
+        subMonth = "0" + subMonth
 
         // 지난달 월 값 구하기
        var lastMonth = subMonth.toInt() - 1
@@ -202,33 +203,39 @@ class MonthlyFragment : Fragment() {
             lastMonth = 12
         }
 
-        // 지난달 = 이번달 - 1 해서 그래프 만들기
+        // 지난달 독서량
+        var maxPage = 0
+        cursor = sqlDB.rawQuery("SELECT dNowPage FROM writeDB WHERE dDate LIKE '%${lastMonth}월%';", null)
 
-        // 평균 성인 독서량을 데이터 리스트에 입력
-        cursor = sqlDB.rawQuery("SELECT readAvg FROM readingDB WHERE category = '소계';", null)
-        var readAvg = ""
         while (cursor.moveToNext()){
-            readAvg += cursor.getString(0)
+            maxPage += cursor.getString(0).toInt()
         }
-        valueList.add(readAvg.toInt())
+
+        valueList.add(maxPage)
+
+        var cMaxPage = 0
+
+        // 이번달 독서량
+        cursor = sqlDB.rawQuery("SELECT dNowPage FROM writeDB WHERE dDate LIKE '%${subMonth}월%';", null)
+
+        while (cursor.moveToNext()){
+            cMaxPage += cursor.getString(0).toInt()
+        }
+
+        valueList.add(cMaxPage)
 
 
-        // 나의 독서량을 데이터 리스트에 입력
-        cursor = sqlDB.rawQuery("SELECT * FROM bookDB;", null)
-        var recordCounter = cursor.count.toString()
-        myBookRecord1.text = "이번 달에 " + recordCounter + "권 읽었어요!"
-        valueList.add(recordCounter.toInt())
+        myBookRecord1.text = "이번달에 " + cMaxPage + "쪽 읽었어요."
 
-        var comparAvg = readAvg.toInt() - recordCounter.toInt()
-        if (comparAvg < 0) {
-            bookRecord.text = "성인 평균 독서량보다 " + abs(comparAvg) + "권 더 읽었어요!"
-        } else if (comparAvg == 0) {
-            bookRecord.text = "성인 평균 독서량인 " + comparAvg + "권 읽었어요!"
+        var charRead = cMaxPage - maxPage
+
+        if (charRead < 0) {
+            myBookRecord2.text = "앞으로 " + abs(charRead) + "권 더 읽으면 지난달보다 많이 읽을 수 있어요!"
+        } else if (charRead == 0) {
+            myBookRecord2.text = "지난달만큼 읽었어요!"
         } else {
-            bookRecord.text = "총 " + recordCounter + "권 읽었어요.\n" + (comparAvg + 1) + "권 더 읽으면 성인 평균 독서량 이상이에요!"
+            myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
         }
-
-
 
 
         cursor.close()
@@ -275,8 +282,7 @@ class MonthlyFragment : Fragment() {
         while (cursor.moveToNext()){
             readAvg += cursor.getString(0)
         }
-    //    var TAG = "먼슬리"
-    //    Log.d(TAG, "${readAvg}")
+
         valueList.add(readAvg.toInt())
 
 
