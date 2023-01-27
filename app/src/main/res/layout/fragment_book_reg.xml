@@ -95,7 +95,6 @@
 
                 android:background="@drawable/selecter_button_red"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
@@ -105,7 +104,6 @@
 
                 android:background="@drawable/selecter_button_orange"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
@@ -114,7 +112,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selecter_button_yellow"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
@@ -123,7 +120,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selecter_button_green"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
@@ -132,7 +128,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selecter_button_blue"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
@@ -141,7 +136,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selecter_button_navy"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
@@ -150,17 +144,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/selecter_button_purple"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
             <RadioButton
                 android:id="@+id/rbPink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:background="@drawable/selecter_button_pink"
                 android:button="@null"
-                android:text="1"
                 android:textAlignment="center" />
 
 

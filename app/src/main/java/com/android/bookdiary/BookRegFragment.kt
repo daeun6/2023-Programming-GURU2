@@ -151,7 +151,7 @@ class BookRegFragment : Fragment() {
 //            }
 
             sqlitedb = dbManager.writableDatabase
-            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', null, '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")
+            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', 'aa', '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")
             sqlitedb.close()
 
             val listFragment = ListFragment()

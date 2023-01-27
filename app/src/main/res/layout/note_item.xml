@@ -23,7 +23,7 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_gravity="center_vertical"
-            android:src="@color/edtBlue"
+            android:background="@drawable/layer_button_checked_pink"
             android:padding="5dp" />
 
         <LinearLayout
@@ -55,10 +55,11 @@
                     android:layout_weight="1"
                     android:progress="25"
                     android:progressBackgroundTint="@color/edtBlue"
+                    android:max="100"
                     android:progressTint="@color/edtBlue" /> <!-- 진행상황 색 -->
 
                 <TextView
-                    android:id="@+id/nowPage"
+                    android:id="@+id/accumPage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="20" />

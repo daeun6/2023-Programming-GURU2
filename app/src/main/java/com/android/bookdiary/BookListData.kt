@@ -5,10 +5,10 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 
-data class NoteData( //3
+data class BookListData( //3
     val title: String, //textView
-    //val progressBar: ProgressBar,
-    val nowPage: Int,
+    val accumPage: Int,
     val totalPage: Int,
-    var colorView: String
+    var colorView: String,
+    val progressBar: Float
 )

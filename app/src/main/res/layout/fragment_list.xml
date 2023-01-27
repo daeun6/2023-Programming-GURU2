@@ -8,30 +8,34 @@
     tools:context=".ListFragment">
 
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/edtBlue">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextColor="@color/edtBlue"
             android:text="전체" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextColor="@color/edtBlue"
             android:text="-ed" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextColor="@color/edtBlue"
             android:text="-ing" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tabTextColor="@color/edtBlue"
             android:text="will" />
     </com.google.android.material.tabs.TabLayout>
 
@@ -69,16 +73,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/note_item" />
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

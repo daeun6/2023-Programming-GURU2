@@ -1,9 +1,16 @@
 package com.android.bookdiary
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.util.AttributeSet
+import android.view.View
+import android.widget.Button
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -12,11 +19,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_main)
 
         val mainFragment = MainFragment()
+        val listFragment = ListFragment()
+        val bookReportListFragment = BookReportListFragment()
 
-        supportFragmentManager.beginTransaction().add(R.id.container, mainFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.container, listFragment).commit()
         val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         navigationView.setOnNavigationItemSelectedListener(this)
     }
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
