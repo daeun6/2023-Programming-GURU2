@@ -35,6 +35,8 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
+
         private var bookColorView: ImageView = itemView.findViewById(R.id.bookColorView)
         private var bookTitleText: TextView = itemView.findViewById(R.id.bookTitleText)
         private var dUser : TextView = itemView.findViewById(R.id.userText)

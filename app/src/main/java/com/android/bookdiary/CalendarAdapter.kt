@@ -54,29 +54,21 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var TAG: String = " 캘린더어댑터"
-
         var num: Int = calendarDataArray.size
-
-
         var day = dayList[holder.position] //날짜 변수에 담기
-
         var data: CalendarData
         var colorDate = arrayOfNulls<String>(num) // 날짜 받아옴(db에 저장된 날짜)
         var colorYear = arrayOfNulls<String>(num) // 날짜 중 년도
         var colorMonth = arrayOfNulls<String>(num) // 날짜 중 월
         var colorDay = arrayOfNulls<String>(num) // 날짜 중 일
-
         var selectedColor = arrayOfNulls<String>(num) // 해당 날짜의 색깔
-
         var colorRatio = arrayOfNulls<Int>(num)
-
 
 
         for (i in 1..num - 1) {
 
             var num2: Int = 0
             data = calendarDataArray[i]
-            //Log.d(TAG, "$data")
 
             colorDate[i] = data.date.toString() // 2023년 01월 11일
             colorYear[i] = colorDate[i]?.substring(0 until 4) // 2023
@@ -89,13 +81,9 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             if(intColorDay < 10) {
                 colorDay[i] = colorDay[i]?.substring(1 until 2)
             }
-
             selectedColor[i] = data.color.toString()
             colorRatio[i] = data.ratioPage
-
-
-        }//
-
+        }
 
         if (day == null) {
 
@@ -107,11 +95,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             }
             holder.dayImg.setImageResource(R.drawable.ic_round_menu_book_24)
             for (i in 1..num - 1) {
-
                 var ratio : Int? = colorRatio[i]
-                Log.d(TAG, "$ratio")
-
-
                 if(colorDay[i]== day.dayOfMonth.toString() && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
                     if(selectedColor[i] == "NAVY") {
                         if(colorRatio[i]!! >= 50){
@@ -184,12 +168,9 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
                         }
 
-
                     }
 
-
                 }
-
 
             }
 
