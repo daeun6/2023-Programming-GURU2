@@ -29,10 +29,7 @@ class MainFragment : Fragment(), OnitemListener {
     lateinit var dbManager : DBManager
     lateinit var sqlitedb : SQLiteDatabase
     var TAG : String = "메인 프래그먼트"
-
     val calendarDataArry : ArrayList<CalendarData> = ArrayList()
-
-
 
 
     override fun onCreateView(

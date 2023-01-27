@@ -109,21 +109,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:fontFamily="@font/human"
                 android:text="마음에 든 문장이 있나요?" />
-
-            <View
-                android:id="@+id/divider5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="?android:attr/listDivider"
-                android:visible="false" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -156,21 +146,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:fontFamily="@font/human"
                 android:textSize="20dp"
                 android:text="어떤 생각을 했나요?" />
-
-            <View
-                android:id="@+id/divider7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="?android:attr/listDivider"
-                android:visible="false" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
