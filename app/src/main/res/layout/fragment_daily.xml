@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dailyChoiceLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DailyFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".DailyFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/dQ1Text"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:text="어떤 책을 읽고 있나요?"
+        android:fontFamily="@font/human"
+        android:textSize="30dp"
+        android:textAlignment="center" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="?android:attr/listDivider"
+        android:visibility = "invisible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dailyRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

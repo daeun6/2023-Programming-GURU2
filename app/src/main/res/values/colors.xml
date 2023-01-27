@@ -7,6 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="menuBlue">#C6D4FC</color> <!-- 하단 메뉴바 컬러 -->
     <color name="edtBlue">#8AA5F2</color> <!-- 메인 컬러 -->
+
+    <color name="bookRed">#FFADAD</color> <!-- 책 색상 -->
+    <color name="bookOrange">#FFD6A5</color>
+    <color name="bookYellow">#FDFFB6</color>
+    <color name="bookGreen">#CAFFBF</color>
+    <color name="bookBlue">#9BF6FF</color>
+    <color name="bookNavy">#A0C4FF</color>
+    <color name="bookPurple">#BDB2FF</color>
+    <color name="bookPink">#FFC6FF</color>
 </resources>
