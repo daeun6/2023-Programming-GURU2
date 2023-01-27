@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="저자 정보를 수정해주세요!"
+        android:fontFamily="@font/human"
         android:textSize="20sp"
         android:paddingBottom="20dp"
         android:gravity="center"/>
@@ -29,6 +30,7 @@
             android:orientation="horizontal">
             <TextView
                 android:layout_width="60sp"
+                android:fontFamily="@font/human"
                 android:layout_height="wrap_content"
                 android:text="도서"
                 android:gravity="center"/>
@@ -38,6 +40,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/edtBlue"
                 android:text="책 이름"
+                android:fontFamily="@font/human"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
@@ -51,12 +54,14 @@
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
                 android:text="저자"
+                android:fontFamily="@font/human"
                 android:gravity="center"/>
 
             <EditText
                 android:id="@+id/edtAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/human"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
         </LinearLayout>
 
@@ -68,6 +73,7 @@
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
                 android:text="쪽수"
+                android:fontFamily="@font/human"
                 android:gravity="center"/>
 
             <TextView
@@ -75,6 +81,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/edtBlue"
                 android:text="페이지"
+                android:fontFamily="@font/human"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -158,8 +165,6 @@
                 android:button="@null"
                 android:textAlignment="center" />
 
-
-
         </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -174,6 +179,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/edtBlue"
+            android:fontFamily="@font/human"
             android:text="수정" />
     </LinearLayout>
 </LinearLayout>

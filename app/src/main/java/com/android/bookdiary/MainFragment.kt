@@ -49,7 +49,6 @@ class MainFragment : Fragment(), OnitemListener {
                 CalendarUtil.selectedDate = CalendarUtil.selectedDate.minusMonths(1)
             }
             setMonthView()
-//DDD
         }
 
         binding.nextBtn.setOnClickListener {
@@ -57,21 +56,17 @@ class MainFragment : Fragment(), OnitemListener {
                 CalendarUtil.selectedDate = CalendarUtil.selectedDate.plusMonths(1)
             }
             setMonthView()
-
-
-
-
         }
 
         return binding.root
 
     }
-    //
+
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {
 
-        binding.monthyearText.text = monthyearFromDate(CalendarUtil.selectedDate) //년 월 가져옴
+        binding.monthyearText.text = yearmonthFromDate(CalendarUtil.selectedDate) //년 월 가져옴
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
@@ -99,22 +94,6 @@ class MainFragment : Fragment(), OnitemListener {
 
 
 
-        /*if(cursor.count !=0) {
-            Log.d(TAG, "IF문 들어옴")
-
-            var str_date = cursor.getString((cursor.getColumnIndex("dDate")))
-            var str_color = cursor.getString((cursor.getColumnIndex("dColor")))
-            var totalPage = cursor.getInt(cursor.getColumnIndex("dTotalPage"))
-            var nowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
-            var ratioPageFloat: Float = (nowPage.toFloat() / totalPage.toFloat())
-            var ratioPage: Int = (ratioPageFloat * 100).toInt()
-            Log.d(TAG, "$str_color")
-            var data: CalendarData = CalendarData(str_date, str_color, ratioPage)
-            calendarDataArry.add(data)
-        }
-*/
-
-
         while(cursor.moveToNext()){
             Log.d(TAG,"while문 들어옴 ")
             var str_date = cursor.getString((cursor.getColumnIndex("dDate")))
@@ -134,7 +113,6 @@ class MainFragment : Fragment(), OnitemListener {
         cursor.close()
         sqlitedb.close()
         dbManager.close()
-
 
 
     }
@@ -205,15 +183,9 @@ class MainFragment : Fragment(), OnitemListener {
         DailyFragment.arguments = bundle
 
         ft.replace(R.id.container, DailyFragment).commit()
-
-       // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
-
-        //여기서 뷰 홀더를 가져와서 사용하는 방법은 없나?
         Toast.makeText(activity, str_day, Toast.LENGTH_SHORT).show()
 
     }
-
-
 
 }
 
