@@ -63,6 +63,7 @@ class MainFragment : Fragment(), OnitemListener {
         return binding.root
 
     }
+    //
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {

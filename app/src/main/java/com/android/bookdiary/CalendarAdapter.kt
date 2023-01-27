@@ -84,6 +84,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             selectedColor[i] = data.color.toString()
             colorRatio[i] = data.ratioPage
         }
+        //
 
         if (day == null) {
 
