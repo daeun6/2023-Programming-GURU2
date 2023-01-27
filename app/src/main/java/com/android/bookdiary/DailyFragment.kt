@@ -54,6 +54,13 @@ class DailyFragment : Fragment(), DailyClickHandler {
             id = "aa" //user가 1명
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
             date = arguments?.getString("key").toString()
+
+            // DailyMemoFragment에서 날짜 정보 받아오기
+            if(date == "null"){
+                date = arguments?.getString("dDate").toString()
+            }
+
+
             var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, id, date, totalPage)
             dailyChoiceList.add(data)
         }
@@ -84,7 +91,8 @@ class DailyFragment : Fragment(), DailyClickHandler {
         dailyMemoFragment.arguments = bundle
 
         ft.replace(R.id.container, dailyMemoFragment).commit()
-        Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, date, Toast.LENGTH_SHORT).show()
     }
 
 }

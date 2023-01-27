@@ -52,7 +52,7 @@ class MainFragment : Fragment(), OnitemListener {
                 CalendarUtil.selectedDate = CalendarUtil.selectedDate.minusMonths(1)
             }
             setMonthView()
-//DDD
+
         }
 
         binding.nextBtn.setOnClickListener {
@@ -70,11 +70,11 @@ class MainFragment : Fragment(), OnitemListener {
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {
 
-        binding.monthyearText.text = monthyearFromDate(CalendarUtil.selectedDate) //년 월 가져옴
+        binding.monthyearText.text = yearmonthFromDate((CalendarUtil.selectedDate)) //년 월 가져옴
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
-        dbManager = DBManager(activity, "writeDB", null, 1)
+        dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
@@ -168,13 +168,9 @@ class MainFragment : Fragment(), OnitemListener {
         return dayList
     }
 
-
-
     // 아이템 클릭 이벤트
-
     override fun onItemClick(dayText: LocalDate) {
         // 글자 자르기
-
         var str_day : String = dayText.toString()
         var sub_year : String = str_day.substring(0 until 4)
         var sub_month : String = str_day.substring(5 until 7)
@@ -188,16 +184,11 @@ class MainFragment : Fragment(), OnitemListener {
         DailyFragment.arguments = bundle
 
         ft.replace(R.id.container, DailyFragment).commit()
-
-       // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
-
-        //여기서 뷰 홀더를 가져와서 사용하는 방법은 없나?
         Toast.makeText(activity, str_day, Toast.LENGTH_SHORT).show()
 
     }
 
-
-
 }
+
 
 

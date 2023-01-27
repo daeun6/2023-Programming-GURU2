@@ -71,24 +71,29 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
         var colorRatio = arrayOfNulls<Int>(num)
 
 
-
         for (i in 1..num - 1) {
 
             var num2: Int = 0
             data = calendarDataArray[i]
-            //Log.d(TAG, "$data")
+            Log.d(TAG, "$data")
 
             colorDate[i] = data.date.toString() // 2023년 01월 11일
+            Log.d(TAG, "$data")
             colorYear[i] = colorDate[i]?.substring(0 until 4) // 2023
+            Log.d(TAG, "연도 ${colorYear[i]}")
             colorMonth[i] = colorDate[i]?.substring(6 until 8) // 01
+            Log.d(TAG, "보정 전 월 ${colorMonth[i]}")
             if(colorMonth[i] != "10" && colorMonth[i] != "11" && colorMonth[i] != "12") { // 10이하면 01, 02 이므로 숫자를 자름
                 colorMonth[i] = colorMonth[i]?.substring(1 until 2)
             }
+            Log.d(TAG, "보정 후 월${colorMonth[i]}")
             colorDay[i] = colorDate[i]?.substring(10 until 12) // 11
+            Log.d(TAG, "보정 전 일 ${colorDay[i]}")
             var intColorDay : Int = colorDay[i]!!.toInt()
             if(intColorDay < 10) {
                 colorDay[i] = colorDay[i]?.substring(1 until 2)
             }
+            Log.d(TAG, "보정 후 일 ${colorDay[i]}")
 
             selectedColor[i] = data.color.toString()
             colorRatio[i] = data.ratioPage
@@ -184,12 +189,9 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
                         }
 
-
                     }
 
-
                 }
-
 
             }
 

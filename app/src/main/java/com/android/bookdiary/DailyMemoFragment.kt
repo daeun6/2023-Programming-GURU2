@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
@@ -80,9 +81,15 @@ class DailyMemoFragment : Fragment() {
         val dailyBackBtn = view.findViewById<Button>(R.id.dailyBackBtn)
         dailyBackBtn.setOnClickListener {
             val dailyFragment = DailyFragment()
-            val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.container, dailyFragment)
-            transaction.commit()
+
+            // 이전으로 돌아가도 날짜 정보가 유지되도록 bundle로 값 던지기
+            var bundle = Bundle()
+            bundle.putString("dDate", dDate)
+            Log.d("DailyMemoFragment", "${dDate}")
+            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+            dailyFragment.arguments = bundle
+            ft.replace(R.id.container, dailyFragment).commit()
+            Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
         }
 
         return view
