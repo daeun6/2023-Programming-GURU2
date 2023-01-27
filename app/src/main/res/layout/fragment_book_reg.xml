@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="읽을 도서의 정보를 입력해주세요!"
+        android:fontFamily="@font/human"
         android:textSize="20sp"
         android:paddingBottom="20dp"
         android:gravity="center"/>
@@ -31,10 +32,12 @@
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
                 android:text="도서"
+                android:fontFamily="@font/human"
                 android:gravity="center"/>
 
             <EditText
                 android:id="@+id/edtTitle"
+                android:fontFamily="@font/human"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
@@ -47,11 +50,13 @@
             <TextView
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/human"
                 android:text="저자"
                 android:gravity="center"/>
 
             <EditText
                 android:id="@+id/edtAuthor"
+                android:fontFamily="@font/human"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
@@ -69,6 +74,7 @@
 
             <EditText
                 android:id="@+id/edtTotalPage"
+                android:fontFamily="@font/human"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -170,6 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/edtBlue"
+            android:fontFamily="@font/human"
             android:text="등록" />
     </LinearLayout>
 </LinearLayout>

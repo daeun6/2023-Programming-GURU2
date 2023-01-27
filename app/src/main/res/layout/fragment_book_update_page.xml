@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="페이지 수를 수정해주세요!"
+        android:fontFamily="@font/human"
         android:textSize="20sp"
         android:paddingBottom="20dp"
         android:gravity="center"/>
@@ -30,6 +31,7 @@
             <TextView
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/human"
                 android:text="도서"
                 android:gravity="center"/>
 
@@ -37,6 +39,7 @@
                 android:id="@+id/tvTitle"
                 android:textSize="20sp"
                 android:textColor="@color/edtBlue"
+                android:fontFamily="@font/human"
                 android:text="책 이름"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +53,7 @@
             <TextView
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/human"
                 android:text="저자"
                 android:gravity="center"/>
 
@@ -58,6 +62,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/edtBlue"
                 android:text="지은이"
+                android:fontFamily="@font/human"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
@@ -70,6 +75,7 @@
             <TextView
                 android:layout_width="60sp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/human"
                 android:text="쪽수"
                 android:gravity="center"/>
 
@@ -77,6 +83,7 @@
                 android:id="@+id/edtPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/human"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
         </LinearLayout>
     </LinearLayout>
@@ -174,6 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/edtBlue"
+            android:fontFamily="@font/human"
             android:text="수정" />
     </LinearLayout>
 </LinearLayout>
