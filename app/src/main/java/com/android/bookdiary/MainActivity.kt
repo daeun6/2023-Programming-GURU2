@@ -10,48 +10,56 @@ import android.widget.Button
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+class MainActivity : AppCompatActivity() {
 
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val mainFragment = MainFragment()
-        supportFragmentManager.beginTransaction().add(R.id.container, mainFragment).commit()
-        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        navigationView.setOnNavigationItemSelectedListener(this)
-    }
+    class MainActivity : AppCompatActivity(),
+        BottomNavigationView.OnNavigationItemSelectedListener {
 
 
+        override fun onCreate(savedInstanceState: Bundle?) {
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.tab1 -> {
-                val monthlyFragment = MonthlyFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.container, monthlyFragment)
-                    .commit()
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
 
-            }
-            R.id.tab2 -> {
-                val mainFragment = MainFragment()
+            val mainFragment = MainFragment()
+            //      val listFragment = ListFragment()
 
-                supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment)
-                    .commit()
 
-            }
-            R.id.tab3 -> {
-                val listFragment = ListFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.container, listFragment)
-                    .commit()
-
-            }
-
+            // 가연 프래그먼트 연결
+            val monthlyFragment = MonthlyFragment()
+            supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commit()
         }
 
-        return true
 
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.tab1 -> {
+                    val monthlyFragment = MonthlyFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, monthlyFragment)
+                        .commit()
+
+                }
+                R.id.tab2 -> {
+                    val mainFragment = MainFragment()
+
+                    supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment)
+                        .commit()
+
+                }
+                R.id.tab3 -> {
+                    //        val listFragment = ListFragment()
+                    //        supportFragmentManager.beginTransaction().replace(R.id.container, listFragment)
+                    //           .commit()
+
+                }
+
+            }
+
+            return true
+
+        }
     }
 }
 

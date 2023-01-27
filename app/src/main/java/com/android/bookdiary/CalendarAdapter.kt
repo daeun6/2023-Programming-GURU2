@@ -21,13 +21,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
     RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
 
-    class ItemViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
-        operator fun get(position: Int) {
-
-        }
-
-    }
-
     //화면 설정
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -35,9 +28,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
         return ViewHolder(view)
     }
-
-    //데이터 설정
-
 
     override fun getItemCount(): Int {
         return dayList.size
@@ -53,7 +43,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var TAG: String = " 캘린더어댑터"
         var num: Int = calendarDataArray.size
         var day = dayList[holder.position] //날짜 변수에 담기
         var data: CalendarData
@@ -62,48 +51,45 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
         var colorMonth = arrayOfNulls<String>(num) // 날짜 중 월
         var colorDay = arrayOfNulls<String>(num) // 날짜 중 일
         var selectedColor = arrayOfNulls<String>(num) // 해당 날짜의 색깔
-        var colorRatio = arrayOfNulls<Int>(num)
+        var colorRatio = arrayOfNulls<Int>(num) // 얼마나 읽었는지의 비율
 
 
-        for (i in 1..num - 1) {
+        for (i in 1..num - 1) {// DB에 저장된 날짜의 size만큼 for문 작동
 
-            var num2: Int = 0
             data = calendarDataArray[i]
 
             colorDate[i] = data.date.toString() // 2023년 01월 11일
             colorYear[i] = colorDate[i]?.substring(0 until 4) // 2023
             colorMonth[i] = colorDate[i]?.substring(6 until 8) // 01
-            if(colorMonth[i] != "10" && colorMonth[i] != "11" && colorMonth[i] != "12") { // 10이하면 01, 02 이므로 숫자를 자름
-                colorMonth[i] = colorMonth[i]?.substring(1 until 2)
+            if(colorMonth[i] != "10" && colorMonth[i] != "11" && colorMonth[i] != "12") { // 한 자리 수면
+                colorMonth[i] = colorMonth[i]?.substring(1 until 2) // 앞의 0 자르기
             }
             colorDay[i] = colorDate[i]?.substring(10 until 12) // 11
-            var intColorDay : Int = colorDay[i]!!.toInt()
-            if(intColorDay < 10) {
-                colorDay[i] = colorDay[i]?.substring(1 until 2)
+            var intColorDay : Int = colorDay[i]!!.toInt() // 10보다 작은지 확인하기 위해 int로 타입을 바꿈
+            if(intColorDay < 10) { //한 자리 숫자이면
+                colorDay[i] = colorDay[i]?.substring(1 until 2) // 앞의 0 자르기
             }
-            selectedColor[i] = data.color.toString()
-            colorRatio[i] = data.ratioPage
+            selectedColor[i] = data.color.toString() // 색 받아오기
+            colorRatio[i] = data.ratioPage // 비율 받아오기
         }
-        //
 
-        if (day == null) {
+        if (day == null) { // 날짜가 없다면
 
-            holder.dayText.text = ""
+            holder.dayText.text = "" // 아무것도 표시 하지 않음
 
-        } else {
+        } else { // 날짜가 있다면
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                holder.dayText.text = day.dayOfMonth.toString()
+                holder.dayText.text = day.dayOfMonth.toString() // 해당하는 날짜 보이기
             }
             holder.dayImg.setImageResource(R.drawable.ic_round_menu_book_24)
-            for (i in 1..num - 1) {
-                var ratio : Int? = colorRatio[i]
+            for (i in 1..num - 1) { // DB에 저장된 날짜의 size만큼 for문 작동
                 if(colorDay[i]== day.dayOfMonth.toString() && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
-                    if(selectedColor[i] == "NAVY") {
-                        if(colorRatio[i]!! >= 50){
+                    if(selectedColor[i] == "NAVY") { // 남색일 때
+                        if(colorRatio[i]!! >= 50){ // 읽은 분량이 50% 이상이라면
+                            holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF")) // 색을 진하게
+                        } else { // 읽은 분량이 50% 미만이라면
                             holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
-                        } else {
-                            holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
-                            holder.dayImg.setAlpha(0.5f)
+                            holder.dayImg.setAlpha(0.5f) // 투명도를 낮춰서 색을 연하게 표시
                         }
                     }
                     if(selectedColor[i] == "RED") {
