@@ -16,8 +16,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:fontFamily="@font/human"
+        android:textSize="30dp"
         android:gravity="center"
-        android:text="오늘의 기록" />
+        android:text="오늘의 기록"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <View
         android:id="@+id/divider3"
@@ -47,7 +50,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/human"
                 android:gravity="center"
+                android:textSize="20dp"
                 android:text="오늘은 몇 페이지를 읽었나요?"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +71,7 @@
                     android:gravity="center"
                     android:textColor="@color/edtBlue"
                     android:ems="10"
+                    android:fontFamily="@font/human"
                     android:inputType="number"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -75,10 +81,12 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/human"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="16dp"
                     android:text="페이지"
+                    android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/editTextNumber"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -102,6 +110,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="center"
+                android:textSize="20dp"
+                android:fontFamily="@font/human"
                 android:text="마음에 든 문장이 있나요?" />
 
             <View
@@ -111,6 +121,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="?android:attr/listDivider"
                 android:visible="false" />
 
@@ -123,6 +134,8 @@
                     android:id="@+id/likeSentence"
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/human"
+                    android:textSize="15dp"
                     android:hint="마음에 들었던 문장을 적어보세요" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,6 +157,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="center"
+                android:fontFamily="@font/human"
+                android:textSize="20dp"
                 android:text="어떤 생각을 했나요?" />
 
             <View
@@ -153,6 +168,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="?android:attr/listDivider"
                 android:visible="false" />
 
@@ -165,6 +181,8 @@
                     android:id="@+id/myThink"
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/human"
+                    android:textSize="15dp"
                     android:hint="책을 읽으면서 했던 생각을 적어보세요" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -192,6 +210,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이전"
+                    android:fontFamily="@font/human"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/dailyDoneBtn"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -203,6 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="완료"
+                    android:fontFamily="@font/human"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
