@@ -11,13 +11,15 @@
 
     <TextView
         android:id="@+id/dQ1Text"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
         android:paddingBottom="30dp"
         android:text="어떤 책을 읽고 있나요?"
-        android:textAlignment="center"
-        android:textSize="25sp" />
+        android:fontFamily="@font/human"
+        android:textSize="30dp"
+        android:textAlignment="center" />
 
     <View
         android:id="@+id/divider"
