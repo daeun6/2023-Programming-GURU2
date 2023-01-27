@@ -31,7 +31,7 @@ class BookReportListAdapter(private val context: Context, val bookReportListData
 //        private var totalPage: TextView = itemView.findViewById(R.id.totalPage)
 //        private var colorView: ImageView = itemView.findViewById(R.id.colorView)
 //        private var progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
-        private var report: TextView = itemView.findViewById(R.id.report)
+        private var dDate: TextView = itemView.findViewById(R.id.dDate)
 
         init {
             view.setOnClickListener(this)
@@ -46,7 +46,7 @@ class BookReportListAdapter(private val context: Context, val bookReportListData
 //            //colorView.text = item.colorView
 //            //Glide.with(itemView).load(item.img).into(imgProfile)]
 //            progressBar.setProgress(item.progressBar, true)
-            report.text = item.report
+            dDate.text = item.dDate
 
 //            for (i in 1..10) { //DB 불러와서 전달값에 따라 바꿔야함
 //                if (item.colorView.toString() == "RED") {
