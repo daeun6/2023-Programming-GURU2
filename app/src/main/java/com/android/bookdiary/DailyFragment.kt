@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +19,17 @@ import androidx.recyclerview.widget.RecyclerView
 private const val TAG = "DailyFragment"
 
 class DailyFragment : Fragment(), DailyClickHandler {
+
     var dailyChoiceList: ArrayList<DailyChoiceData> = ArrayList()
     lateinit var dailyRecycler: RecyclerView
     lateinit var dbManager : DBManager
     lateinit var sqlitedb : SQLiteDatabase
+    lateinit var bookColor : String
+    lateinit var bookTitle : String
+    lateinit var id : String
+    var totalPage : Int = 0
+    lateinit var date : String
+
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
@@ -30,72 +38,53 @@ class DailyFragment : Fragment(), DailyClickHandler {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_daily, container, false)
-        Log.d(TAG, "파일 찾는중")
-        dbManager = DBManager(activity, "bookDB", null, 1)
-        Log.d(TAG, "${dbManager.databaseName}")
+        dbManager = DBManager(activity, "bookDB", null, 1) //bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.readableDatabase
-        Log.d(TAG, "파일 찾았다2")
 
         var cursor : Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
-        if (cursor != null){
-            Log.d(TAG, "테이블 못찾았다")
-        }
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null) //bookDB 테이블 정보 불러오기
 
         dailyRecycler = view.findViewById(R.id.dailyRecycler!!) as RecyclerView
-        dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+        dailyRecycler.layoutManager = GridLayoutManager(requireContext(), 3) // 1행에 3열씩 보이도록 설정
         dailyRecycler.adapter = DailyChoiceAdapter(requireContext(), dailyChoiceList, this)
-//
-//        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
-//        while (cursor.moveToNext()){
-//            Log.d(TAG, "while문에 들어옴")
-//            var bookColor = cursor.getString(cursor.getColumnIndex("color"))
-//            var bookTitle = cursor.getString(cursor.getColumnIndex("title"))
-//            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle)
-//            dailyChoiceList.add(data)
-//            dailyChoiceList.add(DailyChoiceData("2","호시"))
-//        }
-//        dailyChoiceList.add(DailyChoiceData("3","파리"))
-//
-//        cursor.close()
-//        sqlitedb.close()
-//        dbManager.close()
 
-//
-        dailyChoiceList.add(DailyChoiceData("1","호랑이"))
-        dailyChoiceList.add(DailyChoiceData("2", "호시"))
-        dailyChoiceList.add(DailyChoiceData("3", "파리"))
-        dailyChoiceList.add(DailyChoiceData("4","에펠탑"))
-        dailyChoiceList.add(DailyChoiceData("5","여행"))
-        dailyChoiceList.add(DailyChoiceData("6", "부러워"))
-        dailyChoiceList.add(DailyChoiceData("7","호랑해"))
-        dailyChoiceList.add(DailyChoiceData("8","햄스터"))
-        dailyChoiceList.add(DailyChoiceData("9","햄랑해"))
-        dailyChoiceList.add(DailyChoiceData("10","햄랑이"))
-
-
-
-        val dailyCancleBtn = view.findViewById<Button>(R.id.dailyCancleBtn)
-        dailyCancleBtn.setOnClickListener{
-            val mainFragment = MainFragment()
-            val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.container, mainFragment)
-            transaction.commit()
+        while (cursor.moveToNext()){ // bookDB에 값이 있는 동안 책 정보 불러와서 화면에 띄우기
+            bookColor = cursor.getString(cursor.getColumnIndex("color"))
+            bookTitle = cursor.getString(cursor.getColumnIndex("title"))
+            id = "aa" //user가 1명
+            totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
+            date = arguments?.getString("key").toString()
+            var data : DailyChoiceData = DailyChoiceData(bookColor, bookTitle, id, date, totalPage)
+            dailyChoiceList.add(data)
         }
 
-        val dailyNextBtn = view.findViewById<Button>(R.id.dailyNextBtn)
-        dailyNextBtn.setOnClickListener{
-            val dailyMemoFragment = DailyMemoFragment()
-            val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.container, dailyMemoFragment)
-            transaction.commit()
-        }
+        cursor.close()
+        sqlitedb.close()
+        dbManager.close()
 
         return view
     }
 
-    override fun clickedBookItem(book: DailyChoiceData) {
-        Log.d(TAG, "ClickedBookItem: ${book.bookTitle}")
+    override fun clickedBookItem(book: DailyChoiceData) { //책 정보 클릭시 DailyMemoFragment로 정보 넘기기
+
+        var dTitle = book.bookTitle
+        var dColor = book.bookColor
+        var dTotalPage : String = book.totalPage.toString()
+
+        var bundle = Bundle()
+        bundle.putString("dTitle", dTitle)
+        bundle.putString("dColor", dColor)
+        bundle.putString("dUser", id)
+        bundle.putString("dTotalPage", dTotalPage)
+        bundle.putString("dDate", date)
+
+
+        val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+        var dailyMemoFragment = DailyMemoFragment()
+        dailyMemoFragment.arguments = bundle
+
+        ft.replace(R.id.container, dailyMemoFragment).commit()
+        Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show()
     }
 
 }

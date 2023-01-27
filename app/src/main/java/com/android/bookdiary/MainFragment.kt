@@ -1,8 +1,10 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -33,16 +35,10 @@ class MainFragment : Fragment(), OnitemListener {
 
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
@@ -71,7 +67,7 @@ class MainFragment : Fragment(), OnitemListener {
 
     }
 
-    @SuppressLint("Range")
+    @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {
 
         binding.monthyearText.text = monthyearFromDate(CalendarUtil.selectedDate) //년 월 가져옴
@@ -84,7 +80,7 @@ class MainFragment : Fragment(), OnitemListener {
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM writeDB;", null)
 
-//
+
 
         // 책 그림도 날짜에 맞게 리스트에 담겨야함 어떻게 구현하지
         //dayList 사이즈만큼 그림 생성해서 id를 부여한다고 하자\*/
@@ -96,14 +92,9 @@ class MainFragment : Fragment(), OnitemListener {
 
 
         binding.recyclerView.layoutManager = manager //레이아웃 적용
-        Log.d(TAG,"레이아웃 적ㅇ용 ")
+        Log.d(TAG,"레이아웃 적용 ")
 
         binding.recyclerView.adapter = adapter
-
-
-        //sqlitedb.execSQL("INSERT INTO writeDB VALUES ('aa', '80', '라', '굿ㅋ', '2023년 01월 23일', '아', 'ORANGE', 100)")
-
-       // sqlitedb.execSQL("INSERT INTO bookDB VALUES ('BLUE', 'aa', '가', '찬희', 426, 226, 226, '2023년 2월 16일')")
 
 
 
@@ -121,10 +112,11 @@ class MainFragment : Fragment(), OnitemListener {
 
         }
 
-        dbManager.close()
+        Log.d(TAG,"while문을 나오긴 하는가 ")
+
         cursor.close()
         sqlitedb.close()
-
+        dbManager.close()
 
 
 
@@ -197,12 +189,13 @@ class MainFragment : Fragment(), OnitemListener {
 
         ft.replace(R.id.container, DailyFragment).commit()
 
-        // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
+       // activity?.supportFragmentManager!!.beginTransaction().replace(R.id.container, DailyFragment()).commit()
 
         //여기서 뷰 홀더를 가져와서 사용하는 방법은 없나?
         Toast.makeText(activity, str_day, Toast.LENGTH_SHORT).show()
 
     }
+
 
 
 }
