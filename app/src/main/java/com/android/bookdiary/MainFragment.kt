@@ -84,7 +84,7 @@ class MainFragment : Fragment(), OnitemListener {
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM writeDB;", null)
 
-
+//
 
         // 책 그림도 날짜에 맞게 리스트에 담겨야함 어떻게 구현하지
         //dayList 사이즈만큼 그림 생성해서 id를 부여한다고 하자\*/

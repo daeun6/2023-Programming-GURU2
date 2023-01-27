@@ -94,7 +94,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             colorRatio[i] = data.ratioPage
 
 
-        }
+        }//
 
 
         if (day == null) {
@@ -118,14 +118,14 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                             holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
                         } else {
                             holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF"))
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                         }
                     }
                     if(selectedColor[i] == "RED") {
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#FFADAD"))
 
                         }
@@ -134,7 +134,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#FFC6FF"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#FFC6FF"))
 
                         }
@@ -143,7 +143,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#CAFFBF"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#CAFFBF"))
 
                         }
@@ -152,7 +152,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#FFD6A5"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#FFD6A5"))
 
                         }
@@ -161,7 +161,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#FDFFB6"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#FDFFB6"))
 
                         }
@@ -170,7 +170,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#BDB2FF"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#BDB2FF"))
 
                         }
@@ -179,7 +179,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                         if (colorRatio[i]!! >= 50) {
                             holder.dayImg.setColorFilter(Color.parseColor("#9BF6FF"))
                         }else{
-                            holder.dayImg.setAlpha(0.3f)
+                            holder.dayImg.setAlpha(0.5f)
                             holder.dayImg.setColorFilter(Color.parseColor("#9BF6FF"))
 
                         }
