@@ -19,18 +19,15 @@ class DetailFragment : Fragment() {
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
-//    lateinit var textViewNumber: TextView
-//    lateinit var likeSentence: TextView
-//    lateinit var myThink: TextView
 
     lateinit var btnModify: Button
     lateinit var btnDone: Button
 
-    lateinit var str_date: String
-    lateinit var str_title: String
+    var str_date: String = ""
+    var str_title: String =""
     var nowPage: Int = 0
-    lateinit var str_sentence: String
-    lateinit var str_think: String
+    var str_sentence: String =""
+    var str_think: String =""
 
     @SuppressLint("Range")
     override fun onCreateView(

@@ -2,8 +2,11 @@ package com.android.bookdiary
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,71 +22,80 @@ class DetailModifyFragment : Fragment() {
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
-    @SuppressLint("UseRequireInsteadOfGet")
+    var dPage: Int = 0
+    lateinit var dSentence: String
+    lateinit var dThink: String
+    lateinit var dTitle: String
+    lateinit var dAccumPageString: String
+    lateinit var dNowPageString : String
+
+    @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var dDate = arguments?.getString("dDate")
-        var dTitle = arguments?.getString("dTitle")
-
-        var dTotalPage = arguments?.getString("dTotalPage")
-        var accumPage = arguments?.getInt("dAccumPage")
-
-
 
         val view = inflater.inflate(R.layout.fragment_detail_modify, container, false)
-
         val pageEdit = view.findViewById<EditText>(R.id.editTextNumber)
         val sentenceEdit = view.findViewById<EditText>(R.id.likeSentence)
         val thinkEdit = view.findViewById<EditText>(R.id.myThink)
 
+        dTitle = arguments?.getString("dTitle").toString()
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
-        val pageFind = "SELECT writeDB FROM dPage WHERE (( dDate = '" + dDate + "') and ( dTitle = '" + dTitle + "')"
-        val mPage = sqlitedb.rawQuery(pageFind, null)
+        var cursor: Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"';", null)
 
-        val sentenceFind = "SELECT writeDB FROM dSentence WHERE (( dDate = '" + dDate + "') and ( dTitle = '" + dTitle + "')"
-        val mSentence = sqlitedb.rawQuery(sentenceFind, null)
+        if (cursor.moveToNext()){
+            dSentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
+            dPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
+            dThink = cursor.getString(cursor.getColumnIndex("dThink")).toString()
+            dNowPageString = cursor.getString(cursor.getColumnIndex("dNowPage"))
+        }
 
-        val thinkFind = "SELECT writeDB FROM dThink WHERE (( dDate = '" + dDate + "') and ( dTitle = '" + dTitle + "')"
-        val mThink = sqlitedb.rawQuery(thinkFind, null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + dTitle +"';", null)
+
+        if (cursor.moveToNext()){
+            dAccumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
+        }
 
         sqlitedb.close()
         dbManager.close()
 
-        pageEdit.setText(mPage.getInt(0))
-        sentenceEdit.setText(mSentence.getString(0))
-        thinkEdit.setText(mThink.getString(0))
+        var dAccumPage = dAccumPageString.toInt()
+        var dNowPage = dNowPageString.toInt()
 
+        dAccumPage -= dNowPage
+
+        pageEdit.text = Editable.Factory.getInstance().newEditable(dPage.toString())
+        sentenceEdit.text = Editable.Factory.getInstance().newEditable(dSentence.toString())
+        thinkEdit.text = Editable.Factory.getInstance().newEditable(dThink.toString())
 
 
         // DetailFragment로 돌아가기
         val dailyBackBtn = view.findViewById<Button>(R.id.doneBtn)
         dailyBackBtn.setOnClickListener {
 
-            val detailFragments = DetailFragment()
-            val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-            var page = editTextNumber.text.toString()
+            var mPage = editTextNumber.text.toString()
 
             // 페이지 수 입력시에만 DB로 입력 값 전달하기
-            if (page != "") {
-                var dPage = page.toInt()
-                accumPage = accumPage?.plus(dPage)
-                var dSentence: String = likeSentence.text.toString()
-                var dThink: String = myThink.text.toString()
+            if (mPage != "") {
+                var mPage = mPage.toInt()
+                var mAccumPage : Int = dAccumPage
+                mAccumPage += mPage
+                var mSentence: String = likeSentence.text.toString()
+                var mThink: String = myThink.text.toString()
 
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
-                sqlitedb.execSQL("UPDATE wirteDB SET dNowPage = '" + dPage + "', dSentence = '" + dSentence + "', dThink = '" + dThink + "', accumPage = '" + accumPage + "' WHERE ( title = '" + dTitle + "') and ( dTitle = '" + dTitle + "');")
+                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"';")
+                sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' WHERE title = '" + dTitle +"';")
 
                 sqlitedb.close()
                 dbManager.close()
 
-                transaction.replace(R.id.container, detailFragments)
-                transaction.commit()
             }
 
             // 페이지 수 미입력시 팝업 띄우기
@@ -100,9 +112,6 @@ class DetailModifyFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
             }
-
-
-
 
             val detailFragment = DetailFragment()
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
