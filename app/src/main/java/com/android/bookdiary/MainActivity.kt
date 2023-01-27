@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_main)
 
         val mainFragment = MainFragment()
+        val listFragment = ListFragment()
+        val bookReportListFragment = BookReportListFragment()
+
         supportFragmentManager.beginTransaction().add(R.id.container, mainFragment).commit()
         val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         navigationView.setOnNavigationItemSelectedListener(this)
