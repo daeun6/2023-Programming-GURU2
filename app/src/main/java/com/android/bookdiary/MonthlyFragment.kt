@@ -157,7 +157,7 @@ class MonthlyFragment : Fragment() {
             myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
         }
 
-        cursor = sqlDB.rawQuery("SELECT * FROM writeDB;", null)
+        cursor = sqlDB.rawQuery("SELECT dDate FROM writeDB WHERE dDate LIKE '%${subMonth}월%' OR '%${lastMonth}월%';", null)
 
         if (cursor.count == 0) {
             myBookRecord1.visibility = View.INVISIBLE
