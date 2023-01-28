@@ -68,11 +68,10 @@ class MainFragment : Fragment(), OnitemListener {
 
     }
 
-
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {//  달력 표시 함수
 
-        binding.monthyearText.text = yearmonthFromDate(CalendarUtil.selectedDate) //    년 월 가져오기
+        binding.monthyearText.text = yearmonthFromDate(CalendarUtil.selectedDate) // 년 월 가져오기
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
@@ -90,7 +89,6 @@ class MainFragment : Fragment(), OnitemListener {
         binding.recyclerView.layoutManager = manager // 레이아웃 적용
 
         binding.recyclerView.adapter = adapter//    어댑터 적용
-
 
 
         while(cursor.moveToNext()){

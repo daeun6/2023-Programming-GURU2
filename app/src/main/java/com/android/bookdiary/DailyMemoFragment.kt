@@ -85,7 +85,7 @@ class DailyMemoFragment : Fragment() {
                 sqlitedb = dbManager.writableDatabase
 
                 // writeDB에 오늘의 독후감 내용 기록하고, 책의 제목을 이용하여 bookDB에 오늘 읽은 페이지 수, 지금까지 읽은 페이지의 총합 업데이트하기
-                sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
+                sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
                 sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + dPage + "', accumPage = '" + accumPage + "' WHERE ( title = '" + dTitle + "');")
 
                 sqlitedb.close()

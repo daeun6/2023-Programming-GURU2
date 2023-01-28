@@ -77,6 +77,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
             selectedColor[i] = data.color.toString() // 색 받아오기
             colorRatio[i] = data.ratioPage //   비율 받아오기
+
         }
 
         if (day == null) { //   날짜가 없다면
@@ -167,22 +168,17 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
 
             }
 
-            if (position + 1 % 7 == 0) { // 토요일은 파랑, 일요일은 빨강
-                holder.dayText.setTextColor(Color.BLUE)
+            if (position % 7 == 6) { // 토요일은 파랑, 일요일은 빨강
+                holder.dayText.setTextColor(Color.parseColor("#A0C4FF"))
             } else if (position == 0 || position % 7 == 0) {
-                holder.dayText.setTextColor(Color.RED)
+                holder.dayText.setTextColor(Color.parseColor("#FFADAD"))
             }
-
 
             holder.itemView.setOnClickListener {//  날짜 클릭시 이벤트 발생
                 onItemListener.onItemClick(day) //  인터페이스를 통해 날짜 넘겨줌
 
-
             }
-
         }
-
-
     }
 }
 

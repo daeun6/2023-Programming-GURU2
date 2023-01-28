@@ -73,7 +73,7 @@ class DailyFragment : Fragment(), DailyClickHandler {
                 .setTitle("책을 불러올 수 없어요")
             val  mAlertDialog = mBuilder.show()
             val parent = mDialogView.parent as ViewGroup
-            val btn = mDialogView.findViewById<Button>(R.id.checkBtn)
+            val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
             btn.setOnClickListener {
                 parent.removeView(mDialogView)
                 mAlertDialog.dismiss()
