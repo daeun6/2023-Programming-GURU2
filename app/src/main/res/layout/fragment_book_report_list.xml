@@ -38,22 +38,26 @@
                     android:layout_width="60sp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
-                    android:text="도서" />
+                    android:text="도서"
+                    android:textSize="20sp"/>
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/human"/>
+                    android:fontFamily="@font/human"
+                    android:textSize="20sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
-                    android:text=" / "/>
+                    android:text=" / "
+                    android:textSize="20sp"/>
                 <TextView
                     android:id="@+id/tvAuthor"
                     android:fontFamily="@font/human"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -66,16 +70,19 @@
                     android:layout_width="60sp"
                     android:fontFamily="@font/human"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:text="쪽수" />
                 <TextView
                     android:id="@+id/tvPage"
                     android:fontFamily="@font/human"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"/>
                 <TextView
                     android:fontFamily="@font/human"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:text="쪽" />
             </LinearLayout>
 
@@ -84,8 +91,9 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:orientation="horizontal">
 
         <Button
@@ -105,16 +113,6 @@
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/edtBlue"
             android:text="쪽수수정"
-            android:fontFamily="@font/human"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/btnUpdateColor"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/edtBlue"
-            android:text="컬러수정"
             android:fontFamily="@font/human"
             tools:ignore="MissingConstraints" />
 
