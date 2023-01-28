@@ -47,32 +47,6 @@ class BookRegFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_book_reg, container, false)
 
-
-
-//        btnColor = view.findViewById(R.id.btnColor)
-//        btnColor.setOnClickListener {
-//            val builder = AlertDialog.Builder(activity)
-//            builder.setTitle("색상 지정")
-//            val inflater: LayoutInflater = layoutInflater
-//            builder.setView(inflater.inflate(R.layout.color_dialog, null))
-//
-//            val alertDialog: AlertDialog = builder.create()
-//            alertDialog.show()
-//
-//            btnRed.setOnClickListener {
-//                val color = ResourcesCompat.getColor(getResources(), R.color.bookRed, null)
-//                Toast.makeText(context, "빨간색 선택", Toast.LENGTH_SHORT).show()
-//                //btnColor.setBackgroundColor(color)
-//            }
-//
-//        }
-
-//        val color = ResourcesCompat.getColor(getResources(), R.color.bookRed, null)
-//
-//        btnRed.setOnClickListener {
-//            btnColor.setBackgroundColor(color)
-//        }
-
         edtTitle = view.findViewById(R.id.edtTitle)
         edtAuthor = view.findViewById(R.id.edtAuthor)
         edtTotalPage = view.findViewById(R.id.edtTotalPage)

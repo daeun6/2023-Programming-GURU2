@@ -18,28 +18,26 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
     RecyclerView.Adapter<DailyChoiceAdapter.ViewHolder>() {
 
 
-    // 아이템 레이아웃과 결합
+    // DailyChoiceAdapter의 레이아웃을 daily_choice_list로 설정
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(context).inflate(R.layout.daily_choice_list, parent, false)
         return ViewHolder(view)
     }
 
-    // 리스트 내 아이템 개수
+    // 리스트 내 아이템 개수 반환
     override fun getItemCount(): Int = dailyChoiceArray.size
 
-    //View에 내용 입력
+    //View에 data 반환
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var data : DailyChoiceData = dailyChoiceArray[position]
 
         holder.bind(data)
-
-
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-
+        // 프래그먼트 내의 위젯 연결
         private var bookColorView: ImageView = itemView.findViewById(R.id.bookColorView)
         private var bookTitleText: TextView = itemView.findViewById(R.id.bookTitleText)
         private var dUser : TextView = itemView.findViewById(R.id.userText)
@@ -49,7 +47,8 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
             view.setOnClickListener(this)
         }
 
-        fun bind(item: DailyChoiceData) { //책 이미지 색상 정보 수정
+        //책 이미지 색상 정보 수정
+        fun bind(item: DailyChoiceData) {
                 if (item.bookColor.toString() == "RED") {
                     bookColorView.setBackgroundResource(R.drawable.layer_button_checked_red)
                 }
@@ -76,11 +75,11 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
                 }
                 bookTitleText.text = item.bookTitle.toString() // 책 제목 불러오기
 
-                dUser.text = "aa"
-                dTotalPage.text = item.totalPage.toString()
+                dTotalPage.text = item.totalPage.toString() // 책 전체 페이지 수 불러오기
 
         }
 
+        // 책 이미지 또는 제목 클릭 시 clickHandler 작동
         override fun onClick(v: View?) { //책 선택
             val position = dailyChoiceArray[position]
             clickHandler.clickedBookItem(position)

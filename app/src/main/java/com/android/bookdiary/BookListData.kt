@@ -6,7 +6,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 
 data class BookListData(
-    val title: String, //textView
+    val title: String,
     val accumPage: Int,
     val totalPage: Int,
     var colorView: String,

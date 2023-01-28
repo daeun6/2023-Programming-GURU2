@@ -20,72 +20,89 @@ import kotlinx.android.synthetic.main.report_item.*
 
 
 class DetailModifyFragment : Fragment() {
+
+    //DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
-    var dPage: Int = 0
-    var totalPage : Int = 0
+
+    // DB로부터 전달받은 값을 저장할 d~ 변수
+    var dNowPage: Int = 0
+    var dAccumPage : Int = 0
+    var dTotalPage : Int = 0
     lateinit var dSentence: String
     lateinit var dThink: String
     lateinit var dTitle: String
     lateinit var dDate: String
-    lateinit var dAccumPageString: String
-    lateinit var dNowPageString : String
+
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_detail_modify, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_detail_modify, container, false) // DetailModifyFragment.kt와 fragment_detail_modity.xml 연결
+
+        // fragment_detail_modify.xml에 존재하는 위젯 연결
         val pageEdit = view.findViewById<EditText>(R.id.editTextNumber)
         val sentenceEdit = view.findViewById<EditText>(R.id.likeSentence)
         val thinkEdit = view.findViewById<EditText>(R.id.myThink)
+
+        // DetailFragment로부터 전달받은 값 저장
         dTitle = arguments?.getString("dTitle").toString()
         dDate = arguments?.getString("dDate").toString()
+
+        // DB 연결
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';", null) // 책 제목과 날짜를 이용해 해당 날짜의 독후감 정보 찾기
 
+        // 찾은 db로부터 마음에 든 문장, 읽은 페이지 수, 내 생각 정보 가져오기
         if (cursor.moveToNext()){
             dSentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
-            dPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
+            dNowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
             dThink = cursor.getString(cursor.getColumnIndex("dThink")).toString()
-            dNowPageString = cursor.getString(cursor.getColumnIndex("dNowPage"))
         }
 
+        // 책 제목을 이용하여 bookDB로부터 정보 찾기
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + dTitle +"' ;", null)
 
+        // 찾은 db로 부터 정보 가져오기
         if (cursor.moveToNext()){
-            dAccumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
-            totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
+            dAccumPage = cursor.getInt(cursor.getColumnIndex("accumPage"))
+            dTotalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
         }
 
         sqlitedb.close()
         dbManager.close()
-        var dAccumPage = dAccumPageString.toInt()
-        var dNowPage = dNowPageString.toInt()
-        dAccumPage -= dNowPage
-        pageEdit.text = Editable.Factory.getInstance().newEditable(dPage.toString())
-        sentenceEdit.text = Editable.Factory.getInstance().newEditable(dSentence.toString())
-        thinkEdit.text = Editable.Factory.getInstance().newEditable(dThink.toString())
+
+        dAccumPage -= dNowPage //현재까지의 페이지 합에서 기록되어 있던 페이지 수 빼기
+
+        // 기본에 적혀있던 정보 editText창에 불러오기
+        pageEdit.text = Editable.Factory.getInstance().newEditable(dNowPage.toString())
+        sentenceEdit.text = Editable.Factory.getInstance().newEditable(dSentence)
+        thinkEdit.text = Editable.Factory.getInstance().newEditable(dThink)
+
         // DetailFragment로 돌아가기
         val dailyBackBtn = view.findViewById<Button>(R.id.doneBtn)
         dailyBackBtn.setOnClickListener {
 
-            var mPageString = editTextNumber.text.toString()
+            // 변경된 값을 저장할 m~ 변수들
+            var mPageString = editTextNumber.text.toString() // 비어있는지 아닌지 판단하기 위해 string으로 변수 정의
             var mSentence: String = likeSentence.text.toString()
             var mThink: String = myThink.text.toString()
             var mAccumPage : Int = dAccumPage
-            var mPage : Int = 0
+            var mNowPage : Int = 0
 
+            // 페이지 수가 비어있지 않으면 Int로 변환한 다음 지금까지 읽은 페이지 수의 합 변경하기
             if (mPageString != "") {
-                mPage = mPageString.toInt()
-                mAccumPage += mPage
+                mNowPage = mPageString.toInt()
+                mAccumPage += mNowPage
             }
 
-            if (mPageString != "" && mAccumPage >= totalPage) {
-
+            // 페이지 수가 비어있지 않고, 지금까지 읽은 페이지 수의 합이 총 페이지보다 클 경우에는 변경 불가능 팝업창 띄우기
+            if (mPageString != "" && mAccumPage > dTotalPage) {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_page_dialog, null, false)
                 val mBuilder = AlertDialog.Builder(context)
                     .setView(mDialogView)
@@ -105,14 +122,17 @@ class DetailModifyFragment : Fragment() {
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
-                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"';")
-                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';")
-                sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' WHERE title = '" + dTitle +"';")
 
-                sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + mPage + "' WHERE title = '" + dTitle +"';")
+                // 날짜와 제목을 이용하여 writeDB에 변경된 값 업데이트하고, 책 제목을 이용하여 총 읽은 페이지 수 업데이트 하기
+                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mNowPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';")
+
+                // 책 제목을 이용하여 현재까지 읽은 페이지 수와 최근에 읽은 페이지 수 업데이트 하기
+                sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' nowPage = '" + mNowPage + "' WHERE title = '" + dTitle +"';")
+
                 sqlitedb.close()
                 dbManager.close()
 
+                // DetailFragment로 전달할 값 bundle에 저장하고 프래그먼트 이동하기
                 var title = dTitle
                 var dDate = dDate
                 var bundle = Bundle()
@@ -122,8 +142,9 @@ class DetailModifyFragment : Fragment() {
                 var detailFragment = DetailFragment()
                 detailFragment.arguments = bundle
                 ft.replace(R.id.container, detailFragment).commit()
-                Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show() // 날짜 정보 토스트 메세지 띄우기
             }
+
             // 페이지 수 미입력시 팝업 띄우기
             else {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
@@ -138,7 +159,6 @@ class DetailModifyFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
             }
-
         }
         return view
     }
