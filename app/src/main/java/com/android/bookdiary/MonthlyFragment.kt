@@ -29,9 +29,6 @@ import kotlin.math.abs
 
 class MonthlyFragment : Fragment() {
 
-//    private lateinit var barChart1: BarChart
-//    private lateinit var barChart2: BarChart
-
     // 막대 그래프 데이터 변수
     private lateinit var barDataSet: BarDataSet
 
@@ -50,29 +47,6 @@ class MonthlyFragment : Fragment() {
     // DB 관련 변수
     lateinit var myHelper: DBManager
     lateinit var sqlDB: SQLiteDatabase
-
-
-    // DB 생성
- /*   inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "bookDB", null, 1){
-        override fun onCreate(db: SQLiteDatabase?) {
-            // 테이블 생성
-            db!!.execSQL("CREATE TABLE bookDB ( color CHAR(20) NOT NULL, id CHAR(50) NOT NULL, title CHAR(60) PRIMARY KEY NOT NULL, author CHAR(30) NOT NULL, totalPage INTEGER NOT NULL, nowPage INTEGER, accumPage INTEGER, data CHAR(30))")
-            db!!.execSQL("CREATE TABLE readingDB ( category CHAR(50), cases INTEGER, totalAvg INTEGER, readAvg INTEGER)")
-            db!!.execSQL("CREATE TABLE userDB ( user CHAR(20) PRIMARY KEY, id CHAR(20), password CHAR(20))")
-            db!!.execSQL("CREATE TABLE writeDB ( dUser CHAR(30), dNowPage INTEGER, dSentence CHAR(100), dThink CHAR(100), dDate CHAR(20), dTitle CHAR(30), dColor CHAR(20), totalPage INTEGER)")
-        }
-
-        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            // 테이블 삭제 후 생성
-            db!!.execSQL("DROP TABLE IF EXISTS bookDB")
-            db!!.execSQL("DROP TABLE IF EXISTS readingDB")
-            db!!.execSQL("DROP TABLE IF EXISTS userDB")
-            db!!.execSQL("DROP TABLE IF EXISTS writeDB")
-         //  onCreate(db)
-        }
-    }*/
-
-
 
 
 
@@ -97,10 +71,6 @@ class MonthlyFragment : Fragment() {
 
         // DB 관련
         myHelper = DBManager(activity, "bookDB", null, 1)
-      //  sqlDB = myHelper.writableDatabase
-     //   sqlDB.execSQL("INSERT INTO bookDB VALUES ('RED', 'asd', 'wer', 'wsw', 1, 4, 7)")
-        //sqlDB.close()
-
 
         // 레이아웃의 스위치와 연결
         switch1 = view.findViewById<Switch>(R.id.switch1)
@@ -140,12 +110,6 @@ class MonthlyFragment : Fragment() {
     }
 
 
-
-
-   /* private fun setChartView(view: View) {
-        var chartWeek = view.findViewById<BarChart>(R.id.barChart)
-        setWeek(chartWeek)
-    }*/
 
     private fun initBarDataSet(barDataSet: BarDataSet) {
 
@@ -249,7 +213,6 @@ class MonthlyFragment : Fragment() {
         } else {
             myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
         }
-
 
         cursor.close()
         sqlDB.close()

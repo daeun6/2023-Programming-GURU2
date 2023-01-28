@@ -24,9 +24,7 @@ class ListFragment : Fragment(), BookListHandler  { //1
     lateinit var btnAdd: Button
     lateinit var viewPager: ViewPager
     lateinit var tabLayout: TabLayout
-
     val bookListDataArray: ArrayList<BookListData> = ArrayList()
-//    lateinit var recyclerView: RecyclerView
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
@@ -46,36 +44,6 @@ class ListFragment : Fragment(), BookListHandler  { //1
             transaction.commit()
         }
 
-//        dbManager = DBManager(activity, "bookDB", null, 1)
-//        sqlitedb = dbManager.readableDatabase
-//
-//        var cursor: Cursor
-//        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)
-//
-//        recyclerView = view.findViewById(R.id.recyclerView!!) as RecyclerView
-//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        recyclerView.adapter = BookListAdapter(requireContext(), bookListDataArray, this)
-//
-//        while (cursor.moveToNext()) {
-//            var str_title = cursor.getString(cursor.getColumnIndex("title"))
-//            var now_page = cursor.getInt(cursor.getColumnIndex("nowPage"))
-//            var total_page = cursor.getInt(cursor.getColumnIndex("totalPage"))
-//            var str_color = cursor.getString(cursor.getColumnIndex("color"))
-//            var accum_page = cursor.getInt(cursor.getColumnIndex("accumPage"))
-//
-//            var percent = accum_page / total_page * 100
-//
-//            //var percentage: Int = (now_page / total_page) * 100.toInt()
-//            //progressBar.progress = percentage
-//
-//            var data: BookListData = BookListData(str_title, accum_page, total_page, str_color, percent)
-//            bookListDataArray.add(data)
-//        }
-//
-//        cursor.close()
-//        sqlitedb.close()
-//        dbManager.close()
-
 
 
         val adapter = ViewPagerAdapter(activity?.supportFragmentManager!!)
@@ -88,11 +56,6 @@ class ListFragment : Fragment(), BookListHandler  { //1
 
 
         return view
-
-        //val viewPager : ViewPager = view.findViewById(R.id.viewPager)
-
-        //val viewPagerFragmentAdapter = ViewPagerAdapter(childFragmentManager)
-        //viewPager.adapter = viewPagerFragmentAdapter
 
     }
 

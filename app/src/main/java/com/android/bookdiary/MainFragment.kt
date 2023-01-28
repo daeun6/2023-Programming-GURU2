@@ -94,7 +94,6 @@ class MainFragment : Fragment(), OnitemListener {
             var nowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
             var ratioPageFloat : Float = (nowPage.toFloat() / totalPage.toFloat())
             var ratioPage : Int = (ratioPageFloat * 100).toInt()
-            Log.d(TAG,"$str_color")
             var data : CalendarData = CalendarData(str_date, str_color, ratioPage)
             calendarDataArry.add(data)
 

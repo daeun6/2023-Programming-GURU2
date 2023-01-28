@@ -137,18 +137,6 @@ class BookRegFragment : Fragment() {
                 str_color = "PINK"
             }
 
-//            radioGroup.setOnCheckedChangeListener { group, checkedId ->
-//                when (checkedId) {
-//                    R.id.rbRed -> str_color = "red"
-//                    R.id.rbOrange -> str_color = "orange"
-//                    R.id.rbYellow -> str_color = "yellow"
-//                    R.id.rbGreen -> str_color = "green"
-//                    R.id.rbBlue -> str_color = "blue"
-//                    R.id.rbNavy -> str_color = "navy"
-//                    R.id.rbPurple -> str_color = "purple"
-//                    R.id.rbPink -> str_color = "pink"
-//                }
-//            }
 
             sqlitedb = dbManager.writableDatabase
             sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', 'aa', '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")

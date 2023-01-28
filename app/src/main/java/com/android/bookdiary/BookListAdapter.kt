@@ -21,32 +21,11 @@ class BookListAdapter(private val context: Context, val bookListDataArray: Array
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var data: BookListData = bookListDataArray[position]
-//        holder.title.text = data.title
-//        holder.nowPage.text = data.nowPage.toString()
-//        holder.totalPage.text = data.totalPage.toString()
-//        holder.colorView.text = data.colorView
-
-//        if (holder.colorView.text == "red") {
-//            //holder.layout.list_item_layout.setBackgroundColor(Color.parseColor("#aaaaaa"))
-////            holder.layout.note_item.colorView
-////
-////            TextView Empty1 = findViewById(R.id.Empty1);
-////            Empty1.setBackgroundColor(Color.parseColor("#808080"));
-//        }
-//        holder.colorView.text = data.colorView
-
-
-        /*holder.itemView.setOnClickListener {
-
-        }*/
-
-        //holder.bind(noteDataArray[position])
         holder.bind(data)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        //private var colorView: ImageView = itemView.findViewById(R.id.colorView)
         private var title: TextView = itemView.findViewById(R.id.title)
         private var accumPage: TextView = itemView.findViewById(R.id.accumPage)
         private var totalPage: TextView = itemView.findViewById(R.id.totalPage)
@@ -58,16 +37,13 @@ class BookListAdapter(private val context: Context, val bookListDataArray: Array
         }
 
         fun bind(item: BookListData) {
-            //colorView = item.colorView
+
             title.text = item.title
-            //progressBar = item.progressBar
             accumPage.text = item.accumPage.toString()
             totalPage.text = item.totalPage.toString()
-            //colorView.text = item.colorView
-            //Glide.with(itemView).load(item.img).into(imgProfile)]
             progressBar.setProgress(item.progressBar.toInt(), false)
 
-            for (i in 1..10) { //DB 불러와서 전달값에 따라 바꿔야함
+            for (i in 1..10) {
                 if (item.colorView.toString() == "RED") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_red)
                 }
@@ -92,16 +68,8 @@ class BookListAdapter(private val context: Context, val bookListDataArray: Array
                 else if (item.colorView.toString() == "PINK") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_pink)
                 }
-                //bookTitleText.text = item.bookTitle.toString() // 책 제목 불러오기
-            }
 
-//            itemView.setOnClickListener {
-//                Intent(context, ProfileDetailActivity::class.java).apply {
-//                    putExtra("data", item)
-//                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                }.run { context.startActivity(this) }
-//                Toast.makeText(context, "ㅎㅇ", Toast.LENGTH_SHORT).show()
-//            }
+            }
 
         }
 
@@ -109,7 +77,6 @@ class BookListAdapter(private val context: Context, val bookListDataArray: Array
             val position = bookListDataArray[position]
             clickBookHandler.clickedBookList(position)
         }
-
 
     }
 }

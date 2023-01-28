@@ -14,16 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class EdFragment : Fragment(), BookListHandler {
-//    lateinit var dbManager: DBManager
-//    lateinit var sqlitedb: SQLiteDatabase
-//    lateinit var btnAdd: Button
-//
-//    val noteDataArray: ArrayList<NoteData> = ArrayList()
-//    lateinit var recyclerView: RecyclerView
+
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
-//    val bookListDataArray: ArrayList<BookListData> = ArrayList()
     lateinit var recyclerView: RecyclerView
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
@@ -51,11 +45,8 @@ class EdFragment : Fragment(), BookListHandler {
             var total_page = cursor.getInt(cursor.getColumnIndex("totalPage"))
             var str_color = cursor.getString(cursor.getColumnIndex("color"))
             var accum_page = cursor.getInt(cursor.getColumnIndex("accumPage"))
-
             var percent = accum_page.toFloat() / total_page.toFloat() * 100
 
-            //var percentage: Int = (now_page / total_page) * 100.toInt()
-            //progressBar.progress = percentage
 
             var data: BookListData = BookListData(str_title, accum_page, total_page, str_color, percent)
             bookListDataArray.add(data)

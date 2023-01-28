@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 
-data class BookListData( //3
+data class BookListData(
     val title: String, //textView
     val accumPage: Int,
     val totalPage: Int,
