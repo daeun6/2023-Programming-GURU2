@@ -1,9 +1,11 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -94,12 +96,59 @@ class BookUpdatePageFragment : Fragment() {
         }
 
         var cursor: Cursor
+        var accumPage : Int = 0
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
+
+        if (cursor.moveToNext()){
+            accumPage = cursor.getInt(cursor.getColumnIndex("accumPage"))
+        }
+
 
         btnUpdate = view.findViewById(R.id.btnUpdate)
         btnUpdate.setOnClickListener {
 
-            sqlitedb.execSQL("UPDATE bookDB SET totalPage = '"+ edtPage.text + "'  WHERE title = '" + str_title + "';")
+
+
+            var pageString = edtPage.text.toString()
+            var pageInt : Int = 0
+            if (pageString != "") {
+                pageInt = pageString.toInt()
+            }
+
+            Log.d("Update", "pageInt : ${pageInt} accumPage ; ${accumPage}")
+
+
+            if (pageString == "") {
+                    val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
+                    val mBuilder = AlertDialog.Builder(context)
+                        .setView(mDialogView)
+                        .setTitle("완료할 수 없어요")
+                    val  mAlertDialog = mBuilder.show()
+                    val parent = mDialogView.parent as ViewGroup
+                    val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                    btn.setOnClickListener {
+                        parent.removeView(mDialogView)
+                        mAlertDialog.dismiss()
+                    }
+            }
+
+            else if (pageInt < accumPage) {
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                    .setTitle("완료할 수 없어요")
+                val  mAlertDialog = mBuilder.show()
+                val parent = mDialogView.parent as ViewGroup
+                val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                btn.setOnClickListener {
+                    parent.removeView(mDialogView)
+                    mAlertDialog.dismiss()
+                }
+            }
+
+
+            else {
+            sqlitedb.execSQL("UPDATE bookDB SET totalPage = '" + edtPage.text + "'  WHERE title = '" + str_title + "';")
 
             sqlitedb.close()
 
@@ -108,13 +157,14 @@ class BookUpdatePageFragment : Fragment() {
             var title = str_title
             var bundle = Bundle()
             bundle.putString("title", title)
-            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+            val ft: FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
             var listFragment = ListFragment()
             listFragment.arguments = bundle
             ft.replace(R.id.container, listFragment).commit()
-        }
 
+        }
+        }
 
         return view
     }

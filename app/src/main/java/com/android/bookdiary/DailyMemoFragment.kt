@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,8 +44,29 @@ class DailyMemoFragment : Fragment() {
 
             var page = editTextNumber.text.toString()
 
+            var totalPage = dTotalPage!!.toInt()
+            var accumPageInt : Int = accumPage!!.toInt()
+
+            Log.d("DailyMemoFragment", "${accumPageInt}, ${totalPage}")
+
+
+            if((page != "" && accumPageInt + page.toInt() > totalPage) || (page != "" && page.toInt() > totalPage) ){
+
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_page_dialog, null, false)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                    .setTitle("완료할 수 없어요")
+                val  mAlertDialog = mBuilder.show()
+                val parent = mDialogView.parent as ViewGroup
+                val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                btn.setOnClickListener {
+                    parent.removeView(mDialogView)
+                    mAlertDialog.dismiss()
+                }
+            }
+
             // 페이지 수 입력시에만 DB로 입력 값 전달하기
-            if (page != "") {
+            else if (page != "") {
                 var dPage = page.toInt()
                 accumPage = accumPage?.plus(dPage)
                 var dSentence: String = likeSentence.text.toString()

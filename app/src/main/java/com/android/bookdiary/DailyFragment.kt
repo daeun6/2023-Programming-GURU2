@@ -52,7 +52,6 @@ class DailyFragment : Fragment(), DailyClickHandler {
 
 
         if(cursor.count == 0){
-            Log.d(TAG, "DB에 책이 없음")
             val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_zero_dialog, null, false)
             val mBuilder = AlertDialog.Builder(context)
                 .setView(mDialogView)
@@ -70,10 +69,7 @@ class DailyFragment : Fragment(), DailyClickHandler {
             }
         }
 
-        Log.d(TAG, "while 전")
-
         while (cursor.moveToNext()) { // bookDB에 값이 있는 동안 책 정보 불러와서 화면에 띄우기
-            Log.d(TAG, "while 안")
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
             accumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
             if (accumPageString == "null") {

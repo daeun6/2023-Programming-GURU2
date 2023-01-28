@@ -1,5 +1,4 @@
 package com.android.bookdiary
-
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.database.Cursor
@@ -16,33 +15,30 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
+import kotlinx.android.synthetic.main.note_item.*
 import kotlinx.android.synthetic.main.report_item.*
 
 
 class DetailModifyFragment : Fragment() {
-
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
-
     var dPage: Int = 0
+    var totalPage : Int = 0
     lateinit var dSentence: String
     lateinit var dThink: String
     lateinit var dTitle: String
     lateinit var dDate: String
     lateinit var dAccumPageString: String
     lateinit var dNowPageString : String
-
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_detail_modify, container, false)
         val pageEdit = view.findViewById<EditText>(R.id.editTextNumber)
         val sentenceEdit = view.findViewById<EditText>(R.id.likeSentence)
         val thinkEdit = view.findViewById<EditText>(R.id.myThink)
-
         dTitle = arguments?.getString("dTitle").toString()
         dDate = arguments?.getString("dDate").toString()
         dbManager = DBManager(activity, "bookDB", null, 1)
@@ -62,46 +58,72 @@ class DetailModifyFragment : Fragment() {
 
         if (cursor.moveToNext()){
             dAccumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
+            totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
         }
 
         sqlitedb.close()
         dbManager.close()
-
         var dAccumPage = dAccumPageString.toInt()
         var dNowPage = dNowPageString.toInt()
-
         dAccumPage -= dNowPage
-
         pageEdit.text = Editable.Factory.getInstance().newEditable(dPage.toString())
         sentenceEdit.text = Editable.Factory.getInstance().newEditable(dSentence.toString())
         thinkEdit.text = Editable.Factory.getInstance().newEditable(dThink.toString())
-
-
         // DetailFragment로 돌아가기
         val dailyBackBtn = view.findViewById<Button>(R.id.doneBtn)
         dailyBackBtn.setOnClickListener {
 
-            var mPage = editTextNumber.text.toString()
+            var mPageString = editTextNumber.text.toString()
+            var mSentence: String = likeSentence.text.toString()
+            var mThink: String = myThink.text.toString()
+            var mAccumPage : Int = dAccumPage
+            var mPage : Int = 0
+
+            if (mPageString != "") {
+                mPage = mPageString.toInt()
+                mAccumPage += mPage
+            }
+
+            if (mPageString != "" && mAccumPage >= totalPage) {
+
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_page_dialog, null, false)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                    .setTitle("완료할 수 없어요")
+                val  mAlertDialog = mBuilder.show()
+                val parent = mDialogView.parent as ViewGroup
+                val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                btn.setOnClickListener {
+                    parent.removeView(mDialogView)
+                    mAlertDialog.dismiss()
+                }
+
+            }
 
             // 페이지 수 입력시에만 DB로 입력 값 전달하기
-            if (mPage != "") {
-                var mPage = mPage.toInt()
-                var mAccumPage : Int = dAccumPage
-                mAccumPage += mPage
-                var mSentence: String = likeSentence.text.toString()
-                var mThink: String = myThink.text.toString()
-
+            else if (mPageString != "") {
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
+                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"';")
                 sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';")
                 sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' WHERE title = '" + dTitle +"';")
+
                 sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + mPage + "' WHERE title = '" + dTitle +"';")
                 sqlitedb.close()
                 dbManager.close()
 
+                var title = dTitle
+                var dDate = dDate
+                var bundle = Bundle()
+                bundle.putString("dDate", dDate)
+                bundle.putString("title", title)
+                val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+                var detailFragment = DetailFragment()
+                detailFragment.arguments = bundle
+                ft.replace(R.id.container, detailFragment).commit()
+                Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
             }
-
             // 페이지 수 미입력시 팝업 띄우기
             else {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
@@ -117,20 +139,7 @@ class DetailModifyFragment : Fragment() {
                 }
             }
 
-            var title = dTitle
-            var dDate = dDate
-            var bundle = Bundle()
-            bundle.putString("dDate", dDate)
-            bundle.putString("title", title)
-            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-
-            var detailFragment = DetailFragment()
-            detailFragment.arguments = bundle
-            ft.replace(R.id.container, detailFragment).commit()
-            Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
         }
-
         return view
     }
-
 }

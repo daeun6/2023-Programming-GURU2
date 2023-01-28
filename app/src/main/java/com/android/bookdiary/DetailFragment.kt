@@ -99,7 +99,6 @@ class DetailFragment : Fragment() {
             ft.replace(R.id.container, bookReportListFragment).commit()
         }
 
-
         btnDelete.setOnClickListener {
             var title = str_title
             var dDate = str_date
