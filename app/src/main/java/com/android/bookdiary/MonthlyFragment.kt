@@ -110,7 +110,7 @@ class MonthlyFragment : Fragment() {
         var subMonth = strNow.substring(6 until 7)    // 월 정보만 추출
         subMonth = "0" + subMonth
 
-       var lastMonth = subMonth.toInt() - 1    // 지난달 월 값 구하기
+        var lastMonth = subMonth.toInt() - 1    // 지난달 월 값 구하기
         if (lastMonth == 0) {
             lastMonth = 12
         }
@@ -286,4 +286,4 @@ class MonthlyFragment : Fragment() {
 
     }
 
-    }
+}

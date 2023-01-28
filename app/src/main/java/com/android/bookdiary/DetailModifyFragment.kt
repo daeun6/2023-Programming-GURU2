@@ -16,6 +16,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
+import kotlinx.android.synthetic.main.report_item.*
 
 
 class DetailModifyFragment : Fragment() {
@@ -48,7 +49,7 @@ class DetailModifyFragment : Fragment() {
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';", null)
 
         if (cursor.moveToNext()){
             dSentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
@@ -57,7 +58,7 @@ class DetailModifyFragment : Fragment() {
             dNowPageString = cursor.getString(cursor.getColumnIndex("dNowPage"))
         }
 
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + dTitle +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + dTitle +"' ;", null)
 
         if (cursor.moveToNext()){
             dAccumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
@@ -93,9 +94,9 @@ class DetailModifyFragment : Fragment() {
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
-                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"';")
+                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';")
                 sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' WHERE title = '" + dTitle +"';")
-
+                sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + mPage + "' WHERE title = '" + dTitle +"';")
                 sqlitedb.close()
                 dbManager.close()
 

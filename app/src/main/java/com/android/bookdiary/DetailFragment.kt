@@ -57,7 +57,7 @@ class DetailFragment : Fragment() {
         sqlitedb = dbManager.writableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"' and dDate = '" + str_date +"';", null)
 
         if (cursor.moveToNext()){
             str_sentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
@@ -87,10 +87,11 @@ class DetailFragment : Fragment() {
 
         btnDone.setOnClickListener {
             var title = str_title
+            var dDate = str_date
             var bundle = Bundle()
             bundle.putString("title", title)
+            bundle.putString("dDate", dDate)
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-
             var bookReportListFragment = BookReportListFragment()
             bookReportListFragment.arguments = bundle
             ft.replace(R.id.container, bookReportListFragment).commit()
