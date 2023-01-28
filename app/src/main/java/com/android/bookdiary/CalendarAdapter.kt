@@ -67,9 +67,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             }
             colorDay[i] = colorDate[i]?.substring(10 until 12) // 11
             colorIntDay[i] = colorDay[i]!!.toInt() // 10보다 작은지 확인하기 위해 int로 타입을 바꿈
-//            if(intColorDay < 10) { //한 자리 숫자이면
-//                colorDay[i] = colorDay[i]?.substring(1 until 2) // 앞의 0 자르기
-//            }
+
             selectedColor[i] = data.color.toString() // 색 받아오기
             colorRatio[i] = data.ratioPage // 비율 받아오기
         }
