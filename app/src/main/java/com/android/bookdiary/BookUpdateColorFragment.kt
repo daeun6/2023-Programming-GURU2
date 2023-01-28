@@ -71,30 +71,6 @@ class BookUpdateColorFragment : Fragment() {
         tvAuthor.setText(str_author)
         tvPage.setText(page)
 
-//        if (str_color == "RED"){
-//            rb_red.setChecked(true)
-//        }
-//        if (str_color == "ORANGE"){
-//            rb_orange.setChecked(true)
-//        }
-//        if (str_color == "YELLOW"){
-//            rb_yellow.setChecked(true)
-//        }
-//        if (str_color == "GREEN"){
-//            rb_green.setChecked(true)
-//        }
-//        if (str_color == "BLUE"){
-//            rb_blue.setChecked(true)
-//        }
-//        if (str_color == "NAVY"){
-//            rb_navy.setChecked(true)
-//        }
-//        if (str_color == "PURPLE"){
-//            rb_purple.setChecked(true)
-//        }
-//        if (str_color == "PINK"){
-//            rb_pink.setChecked(true)
-//        }
 
         if(rg_Color.checkedRadioButtonId == R.id.rbRed) {
             str_color = "RED"
@@ -133,11 +109,6 @@ class BookUpdateColorFragment : Fragment() {
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
 
-//        if (cursor.moveToNext()){
-//            str_author = cursor.getString(cursor.getColumnIndex("author")).toString()
-//            page = cursor.getInt(cursor.getColumnIndex("totalPage"))
-//            str_color = cursor.getString(cursor.getColumnIndex("color")).toString()
-//        }
 
         btnUpdate = view.findViewById(R.id.btnUpdate)
         btnUpdate.setOnClickListener {
@@ -157,8 +128,6 @@ class BookUpdateColorFragment : Fragment() {
             listFragment.arguments = bundle
             ft.replace(R.id.container, listFragment).commit()
         }
-
-
 
         return view
     }

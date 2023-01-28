@@ -32,11 +32,6 @@ class DailyChoiceAdapter (private val context: Context, val dailyChoiceArray: Ar
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var data : DailyChoiceData = dailyChoiceArray[position]
 
-        //holder.bookColorBtn = data.bookColor
-        //holder.bookTitleText.text = data.bookTitle
-
-        //holder.bind(data)
-
         holder.bind(data)
 
 

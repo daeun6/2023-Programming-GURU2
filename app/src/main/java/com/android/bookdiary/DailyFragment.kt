@@ -102,10 +102,6 @@ class DailyFragment : Fragment(), DailyClickHandler {
 
         Log.d(TAG, "while 후")
 
-
-
-
-
         cursor.close()
         sqlitedb.close()
         dbManager.close()
@@ -133,7 +129,6 @@ class DailyFragment : Fragment(), DailyClickHandler {
         dailyMemoFragment.arguments = bundle
 
         ft.replace(R.id.container, dailyMemoFragment).commit()
-        //Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show()
         Toast.makeText(activity, date, Toast.LENGTH_SHORT).show()
     }
 

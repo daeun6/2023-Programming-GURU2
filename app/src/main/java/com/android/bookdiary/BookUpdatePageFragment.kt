@@ -96,12 +96,6 @@ class BookUpdatePageFragment : Fragment() {
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
 
-//        if (cursor.moveToNext()){
-//            str_author = cursor.getString(cursor.getColumnIndex("author")).toString()
-//            page = cursor.getInt(cursor.getColumnIndex("totalPage"))
-//            str_color = cursor.getString(cursor.getColumnIndex("color")).toString()
-//        }
-
         btnUpdate = view.findViewById(R.id.btnUpdate)
         btnUpdate.setOnClickListener {
 
@@ -120,7 +114,6 @@ class BookUpdatePageFragment : Fragment() {
             listFragment.arguments = bundle
             ft.replace(R.id.container, listFragment).commit()
         }
-
 
 
         return view

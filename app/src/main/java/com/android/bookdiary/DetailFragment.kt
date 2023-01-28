@@ -65,9 +65,6 @@ class DetailFragment : Fragment() {
             str_think = cursor.getString(cursor.getColumnIndex("dThink")).toString()
         }
 
-//        likeSentence.setText(str_sentence)
-//        textViewNumber.setText(nowPage)
-//        myThink.setText(str_think)
 
         likeSentence.text = str_title
         textViewNumber.text = "" + nowPage
