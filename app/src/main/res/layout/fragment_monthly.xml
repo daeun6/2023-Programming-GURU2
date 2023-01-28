@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MonthlyFragment">
-//
 
-    <!-- 막대 그래프 라이브러리 사용 -->
+    <!-- 막대 그래프 라이브러리 사용
+    및 이번달 독서 통계 그래프 화면 구성 -->
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart1"
         android:layout_width="match_parent"
@@ -21,6 +21,8 @@
 
     </com.github.mikephil.charting.charts.BarChart>
 
+    <!-- 막대 그래프 라이브러리 사용
+    및 나의 독서 통계 그래프 화면 구성 -->
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart2"
         android:layout_width="match_parent"
@@ -34,7 +36,7 @@
 
     </com.github.mikephil.charting.charts.BarChart>
 
-
+   <!-- 이번달 읽은 쪽수 정보 텍스트뷰 -->
     <TextView
         android:id="@+id/myBookRecord2"
         android:layout_width="wrap_content"
@@ -43,12 +45,13 @@
         android:layout_marginEnd="141dp"
         android:layout_marginBottom="25dp"
         android:fontFamily="@font/human"
-        android:text="이 날 84쪽을 읽었어요."
+        android:text="지난달보다 n쪽 더 읽었어요!"
         app:layout_constraintBottom_toTopOf="@+id/myBookRecord3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myBookRecord1" />
 
+    <!-- 이번달 읽은 권수 정보 텍스트뷰 -->
     <TextView
         android:id="@+id/myBookRecord1"
         android:layout_width="wrap_content"
@@ -58,7 +61,7 @@
         android:layout_marginEnd="141dp"
         android:layout_marginBottom="25dp"
         android:fontFamily="@font/human"
-        android:text="이번 달에 n권 읽었어요!"
+        android:text="이번 달에 n쪽 읽었어요."
         app:layout_constraintBottom_toTopOf="@+id/myBookRecord2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
@@ -67,6 +70,7 @@
         app:layout_constraintTop_toTopOf="@+id/one"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!-- 기록 개수 정보 텍스트뷰 -->
     <TextView
         android:id="@+id/myBookRecord3"
         android:layout_width="wrap_content"
@@ -75,7 +79,7 @@
         android:layout_marginEnd="141dp"
         android:layout_marginBottom="45dp"
         android:fontFamily="@font/human"
-        android:text="현재 7일 연속 책을 읽고 있어요."
+        android:text="이번달에 7번이나 기록했어요!"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +87,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myBookRecord2" />
 
+    <!-- 그래프 전환 스위치 -->
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
@@ -94,6 +99,7 @@
         app:layout_constraintStart_toEndOf="@+id/switchText"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 이번달 독서 통계 그래프 x축 값 텍스트뷰 -->
     <TextView
         android:id="@+id/one"
         android:layout_width="wrap_content"
@@ -109,6 +115,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barChart1" />
 
+    <!-- 나의 독서 통계 그래프 x축 값 텍스트뷰 -->
     <TextView
         android:id="@+id/two"
         android:layout_width="wrap_content"
@@ -123,6 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barChart1" />
 
+    <!-- 스위치 이름 텍스트뷰 -->
     <TextView
         android:id="@+id/switchText"
         android:layout_width="wrap_content"
