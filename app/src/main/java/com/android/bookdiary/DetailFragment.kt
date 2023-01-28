@@ -20,6 +20,7 @@ class DetailFragment : Fragment() {
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
+
     lateinit var btnModify: Button
     lateinit var btnDone: Button
     lateinit var btnDelete: Button
@@ -41,7 +42,9 @@ class DetailFragment : Fragment() {
         var likeSentence: TextView
         var myThink: TextView
 
+
         textViewNumber = view.findViewById(R.id.textViewNumber)
+        Log.d("DetailFragment", "${textViewNumber}")
         likeSentence = view.findViewById(R.id.likeSentence)
         myThink = view.findViewById(R.id.myThink)
         btnModify = view.findViewById(R.id.btnModify)
@@ -62,10 +65,12 @@ class DetailFragment : Fragment() {
 
         // 커서를 이용해서 오늘 읽은 페이지 수, 마음에 든 문장, 나의 생각을 가져오기
         if (cursor.moveToNext()){
+            str_sentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
             nowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
             str_sentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
             str_think = cursor.getString(cursor.getColumnIndex("dThink")).toString()
         }
+
 
         likeSentence.text = str_sentence
         textViewNumber.text = "" + nowPage

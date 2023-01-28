@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="00 / 00 / 02 기록"
+                android:gravity="center"
                 android:fontFamily="@font/human"
                 android:textSize="24sp" />
 

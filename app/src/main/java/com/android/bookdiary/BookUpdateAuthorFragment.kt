@@ -1,9 +1,11 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 
 // 저자 수정 프래그먼트
 class BookUpdateAuthorFragment : Fragment() {
+
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
@@ -32,6 +35,7 @@ class BookUpdateAuthorFragment : Fragment() {
     lateinit var rb_pink: RadioButton
 
     lateinit var str_title: String
+    lateinit var str_author: String
     lateinit var page: String
     lateinit var str_color: String
 
@@ -93,20 +97,55 @@ class BookUpdateAuthorFragment : Fragment() {
             rb_pink.setChecked(true)
         }
 
-        btnUpdate = view.findViewById(R.id.btnUpdate)   // 수정 버튼
-        btnUpdate.setOnClickListener {
-            sqlitedb.execSQL("UPDATE bookDB SET author = '"+ edtAuthor.text + "'  WHERE title = '" + str_title + "';")
-            sqlitedb.close()
+        var cursor: Cursor
 
-            var title = str_title
-            var bundle = Bundle()
-            bundle.putString("title", title)
-            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-
-            var listFragment = ListFragment()
-            listFragment.arguments = bundle
-            ft.replace(R.id.container, listFragment).commit()   // 책 제목을 전달하며 화면을 전환
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
+        if (cursor.moveToNext()){
+            str_author = cursor.getString(cursor.getColumnIndex("author"))
         }
+
+        edtAuthor.text = Editable.Factory.getInstance().newEditable(str_author.toString())
+
+
+
+        btnUpdate = view.findViewById(R.id.btnUpdate)
+        btnUpdate.setOnClickListener {
+
+            var author = edtAuthor.text.toString()
+
+            if (author == "") {
+                val mDialogView =
+                    LayoutInflater.from(context).inflate(R.layout.daily_author_dialog, null, false)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                    .setTitle("완료할 수 없어요")
+                val mAlertDialog = mBuilder.show()
+                val parent = mDialogView.parent as ViewGroup
+                val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                btn.setOnClickListener {
+                    parent.removeView(mDialogView)
+                    mAlertDialog.dismiss()
+                }
+
+            } else {
+
+                sqlitedb.execSQL("UPDATE bookDB SET author = '" + edtAuthor.text + "'  WHERE title = '" + str_title + "';")
+
+                sqlitedb.close()
+
+                Toast.makeText(context, "수정됨", Toast.LENGTH_SHORT).show()
+
+                var title = str_title
+                var bundle = Bundle()
+                bundle.putString("title", title)
+                val ft: FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+                var listFragment = ListFragment()
+                listFragment.arguments = bundle
+                ft.replace(R.id.container, listFragment).commit()
+            }
+        }
+
         return view
     }
 

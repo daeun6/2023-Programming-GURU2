@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/coco"
+        android:id="@+id/pepe"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="90dp"
@@ -16,30 +16,30 @@
         app:srcCompat="@drawable/layer_button_checked_navy" />
 
     <TextView
-        android:id="@+id/zeroTextView"
+        android:id="@+id/dialogTextView"
         style="@style/Widget.AppCompat.TextView.SpinnerItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/human"
-        android:text="책장에 책이 없어요.\n책을 추가해주세요!"
+        android:text="오늘까지 읽은 페이지 수가\n총 페이지 수를 넘었어요!"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/coco"
+        app:layout_constraintStart_toEndOf="@+id/pepe"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/checkBtn"
+        android:id="@+id/dialogBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="165dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="165dp"
         android:fontFamily="@font/human"
-        android:text="확인"
         app:backgroundTint="@color/edtBlue"
+        android:text="확인"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coco" />
+        app:layout_constraintTop_toBottomOf="@+id/pepe" />
 </androidx.constraintlayout.widget.ConstraintLayout>
