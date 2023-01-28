@@ -66,7 +66,7 @@ class DetailFragment : Fragment() {
         }
 
 
-        likeSentence.text = str_title
+        likeSentence.text = str_sentence
         textViewNumber.text = "" + nowPage
         myThink.text = str_think + "\n"
 

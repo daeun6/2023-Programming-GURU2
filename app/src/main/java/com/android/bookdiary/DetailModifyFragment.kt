@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
 
@@ -26,6 +27,7 @@ class DetailModifyFragment : Fragment() {
     lateinit var dSentence: String
     lateinit var dThink: String
     lateinit var dTitle: String
+    lateinit var dDate: String
     lateinit var dAccumPageString: String
     lateinit var dNowPageString : String
 
@@ -41,6 +43,7 @@ class DetailModifyFragment : Fragment() {
         val thinkEdit = view.findViewById<EditText>(R.id.myThink)
 
         dTitle = arguments?.getString("dTitle").toString()
+        dDate = arguments?.getString("dDate").toString()
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
@@ -113,9 +116,17 @@ class DetailModifyFragment : Fragment() {
                 }
             }
 
-            val detailFragment = DetailFragment()
+            var title = dTitle
+            var dDate = dDate
+            var bundle = Bundle()
+            bundle.putString("dDate", dDate)
+            bundle.putString("title", title)
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+            var detailFragment = DetailFragment()
+            detailFragment.arguments = bundle
             ft.replace(R.id.container, detailFragment).commit()
+            Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
         }
 
         return view
