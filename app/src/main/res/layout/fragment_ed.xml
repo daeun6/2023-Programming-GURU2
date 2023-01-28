@@ -18,3 +18,5 @@
         tools:listitem="@layout/note_item" />
 
 </LinearLayout>
+
+    <!-- 1 -->
