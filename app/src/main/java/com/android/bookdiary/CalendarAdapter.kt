@@ -50,6 +50,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
         var colorYear = arrayOfNulls<String>(num) // 날짜 중 년도
         var colorMonth = arrayOfNulls<String>(num) // 날짜 중 월
         var colorDay = arrayOfNulls<String>(num) // 날짜 중 일
+        var colorIntDay = arrayOfNulls<Int>(num)
         var selectedColor = arrayOfNulls<String>(num) // 해당 날짜의 색깔
         var colorRatio = arrayOfNulls<Int>(num) // 얼마나 읽었는지의 비율
 
@@ -65,10 +66,10 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
                 colorMonth[i] = colorMonth[i]?.substring(1 until 2) // 앞의 0 자르기
             }
             colorDay[i] = colorDate[i]?.substring(10 until 12) // 11
-            var intColorDay : Int = colorDay[i]!!.toInt() // 10보다 작은지 확인하기 위해 int로 타입을 바꿈
-            if(intColorDay < 10) { //한 자리 숫자이면
-                colorDay[i] = colorDay[i]?.substring(1 until 2) // 앞의 0 자르기
-            }
+            colorIntDay[i] = colorDay[i]!!.toInt() // 10보다 작은지 확인하기 위해 int로 타입을 바꿈
+//            if(intColorDay < 10) { //한 자리 숫자이면
+//                colorDay[i] = colorDay[i]?.substring(1 until 2) // 앞의 0 자르기
+//            }
             selectedColor[i] = data.color.toString() // 색 받아오기
             colorRatio[i] = data.ratioPage // 비율 받아오기
         }
@@ -83,7 +84,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,
             }
             holder.dayImg.setImageResource(R.drawable.ic_round_menu_book_24)
             for (i in 1..num - 1) { // DB에 저장된 날짜의 size만큼 for문 작동
-                if(colorDay[i]== day.dayOfMonth.toString() && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
+                if(colorIntDay[i]== day.dayOfMonth && colorMonth[i] == day.monthValue.toString() && colorYear[i] == day.year.toString()){
                     if(selectedColor[i] == "NAVY") { // 남색일 때
                         if(colorRatio[i]!! >= 50){ // 읽은 분량이 50% 이상이라면
                             holder.dayImg.setColorFilter(Color.parseColor("#A0C4FF")) // 색을 진하게
