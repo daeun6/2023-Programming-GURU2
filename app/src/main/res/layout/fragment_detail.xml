@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 오늘 읽은 페이지 수, 마음에 든 문장, 느낀 점을 적는 화면 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -212,8 +214,9 @@
                     android:id="@+id/btnModify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/human"
                     android:text="수정"
+                    android:fontFamily="@font/human"
+                    android:backgroundTint="@color/edtBlue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnDone"
                     app:layout_constraintStart_toEndOf="@+id/btnDelete"
@@ -237,9 +240,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:fontFamily="@font/human"
+                    android:backgroundTint="@color/edtBlue"
                     android:text="확인"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/btnModify"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

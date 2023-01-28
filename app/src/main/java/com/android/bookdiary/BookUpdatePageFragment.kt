@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 
+// 페이지 수 수정 프래그먼트
 class BookUpdatePageFragment : Fragment() {
 
     lateinit var dbManager: DBManager
@@ -93,17 +94,10 @@ class BookUpdatePageFragment : Fragment() {
             rb_pink.setChecked(true)
         }
 
-        var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
-
         btnUpdate = view.findViewById(R.id.btnUpdate)
         btnUpdate.setOnClickListener {
-
             sqlitedb.execSQL("UPDATE bookDB SET totalPage = '"+ edtPage.text + "'  WHERE title = '" + str_title + "';")
-
             sqlitedb.close()
-
-            Toast.makeText(context, "수정됨", Toast.LENGTH_SHORT).show()
 
             var title = str_title
             var bundle = Bundle()
@@ -114,8 +108,6 @@ class BookUpdatePageFragment : Fragment() {
             listFragment.arguments = bundle
             ft.replace(R.id.container, listFragment).commit()
         }
-
-
         return view
     }
 

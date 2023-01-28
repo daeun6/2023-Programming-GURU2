@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 
+// 특정 책을 클릭해서 들어갔을 때 해당 책의 독후감 리스트를 모두 보여주는 어댑터
 class BookReportListAdapter(private val context: Context, val bookReportListDataArray: ArrayList<BookReportListData>, private val clickBookReportHandler: BookReportListHandler) :
     RecyclerView.Adapter<BookReportListAdapter.ViewHolder>() {
 

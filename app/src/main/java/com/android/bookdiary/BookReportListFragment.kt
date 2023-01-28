@@ -16,8 +16,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+// 해당 책의 독후감 리스트를 보여주는 프래그먼트
 class BookReportListFragment : Fragment(), BookReportListHandler {
-
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
     lateinit var ivColor: ImageView
@@ -51,27 +51,26 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         reportRecyclerView = view.findViewById(R.id.reportRecyclerView)
 
         if(arguments != null) {
-            str_title = arguments?.getString("title").toString()
+            str_title = arguments?.getString("title").toString()    // AllFragment, EdFragment, IngFragment, WillFragment에서 전달한 책 제목 데이터 받기
         }
 
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)  // 전달받아 온 책 제목과 일치하는 데이터를 조회
 
-        if (cursor.moveToNext()){
+        if (cursor.moveToNext()){   // 커서를 이용하여 조건에 맞는 모든 책의 저자, 총 페이지 수, 책 컬러 데이터를 가져오기
             str_author = cursor.getString(cursor.getColumnIndex("author")).toString()
             page = cursor.getInt(cursor.getColumnIndex("totalPage"))
             str_color = cursor.getString(cursor.getColumnIndex("color")).toString()
         }
 
-
         tvTitle.text = str_title
         tvAuthor.text = str_author
         tvPage.text = "" + page + "\n"
 
-        for (i in 1..10) { //DB 불러와서 전달값에 따라 바꿔야함
+        for (i in 1..10) {  //DB 불러와서 전달값에 따라 이미지 뷰의 색을 변경
             if (str_color == "RED") {
                 ivColor.setBackgroundResource(R.drawable.layer_button_checked_red)
             }
@@ -98,9 +97,8 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
             }
         }
 
-
+        // 저자 수정 버튼
         btnUpdateAuthor.setOnClickListener {
-
             var title = str_title
             var author = str_author
             var page = page
@@ -108,19 +106,17 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
 
             var bundle = Bundle()
             bundle.putString("title", title)
-            bundle.putString("author", author)
             bundle.putInt("page", page)
             bundle.putString("color", color)
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
             var bookUpdateAuthorFragment = BookUpdateAuthorFragment()
             bookUpdateAuthorFragment.arguments = bundle
-            ft.replace(R.id.container, bookUpdateAuthorFragment).commit()
-            Toast.makeText(activity, title, Toast.LENGTH_SHORT).show()
+            ft.replace(R.id.container, bookUpdateAuthorFragment).commit()   // 책 제목, 저자, 총 페이지 수, 책 컬러를 전달하며 화면을 전환
         }
 
+        // 페이지 수정 버튼
         btnUpdatePage.setOnClickListener {
-
             var title = str_title
             var author = str_author
             var page = page
@@ -129,45 +125,43 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
             var bundle = Bundle()
             bundle.putString("title", title)
             bundle.putString("author", author)
-            bundle.putInt("page", page)
             bundle.putString("color", color)
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
             var bookUpdatePageFragment = BookUpdatePageFragment()
             bookUpdatePageFragment.arguments = bundle
             ft.replace(R.id.container, bookUpdatePageFragment).commit()
-            Toast.makeText(activity, title, Toast.LENGTH_SHORT).show()
         }
 
+        // 해당 책 삭제 버튼
         btnDelete.setOnClickListener {
             sqlitedb = dbManager.writableDatabase
 
             sqlitedb.execSQL("DELETE FROM bookDB WHERE title = '" + str_title +"';")
+            sqlitedb.execSQL("DELETE FROM writeDB WHERE dTitle = '" + str_title +"';")
 
             sqlitedb.close()
-
-            Toast.makeText(context, "삭제됨", Toast.LENGTH_SHORT).show()
 
             val listFragment = ListFragment()
             val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
             transaction.replace(R.id.container, listFragment)
-            transaction.commit()
+            transaction.commit()    // 삭제 후엔 책 리스트를 보여주는 프래그먼트로 화면이 전환
         }
 
         val bookReportListDataArray: ArrayList<BookReportListData> = ArrayList()
         lateinit var reportRecyclerView: RecyclerView
 
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"';", null)
-
-        reportRecyclerView = view.findViewById(R.id.reportRecyclerView!!) as RecyclerView
-        reportRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        reportRecyclerView.adapter = BookReportListAdapter(requireContext(), bookReportListDataArray, this)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"';", null)    // 해당 책의 독후감 리스트를 조회
 
         while (cursor.moveToNext()) {
             var str_report = cursor.getString(cursor.getColumnIndex("dDate"))
             var data: BookReportListData = BookReportListData(str_report)
             bookReportListDataArray.add(data)
         }
+
+        reportRecyclerView = view.findViewById(R.id.reportRecyclerView!!) as RecyclerView
+        reportRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        reportRecyclerView.adapter = BookReportListAdapter(requireContext(), bookReportListDataArray, this)
 
         cursor.close()
         sqlitedb.close()

@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 
+// 저자 수정 프래그먼트
 class BookUpdateAuthorFragment : Fragment() {
-
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
@@ -32,7 +32,6 @@ class BookUpdateAuthorFragment : Fragment() {
     lateinit var rb_pink: RadioButton
 
     lateinit var str_title: String
-    lateinit var str_author: String
     lateinit var page: String
     lateinit var str_color: String
 
@@ -60,6 +59,7 @@ class BookUpdateAuthorFragment : Fragment() {
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.writableDatabase
 
+        // BookReportListFragment에서 전달한 책 제목, 총 페이지 수, 책 컬러 받기
         if(arguments != null) {
             str_title = arguments?.getString("title").toString()
             page = arguments?.getInt("page").toString()
@@ -93,18 +93,10 @@ class BookUpdateAuthorFragment : Fragment() {
             rb_pink.setChecked(true)
         }
 
-        var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
-
-
-        btnUpdate = view.findViewById(R.id.btnUpdate)
+        btnUpdate = view.findViewById(R.id.btnUpdate)   // 수정 버튼
         btnUpdate.setOnClickListener {
-
             sqlitedb.execSQL("UPDATE bookDB SET author = '"+ edtAuthor.text + "'  WHERE title = '" + str_title + "';")
-
             sqlitedb.close()
-
-            Toast.makeText(context, "수정됨", Toast.LENGTH_SHORT).show()
 
             var title = str_title
             var bundle = Bundle()
@@ -113,11 +105,8 @@ class BookUpdateAuthorFragment : Fragment() {
 
             var listFragment = ListFragment()
             listFragment.arguments = bundle
-            ft.replace(R.id.container, listFragment).commit()
+            ft.replace(R.id.container, listFragment).commit()   // 책 제목을 전달하며 화면을 전환
         }
-
-
-
         return view
     }
 

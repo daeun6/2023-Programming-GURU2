@@ -53,7 +53,7 @@ class DailyMemoFragment : Fragment() {
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
-                sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dUser + "', '" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
+                sqlitedb.execSQL("INSERT INTO writeDB VALUES ('" + dPage + "', '" + dSentence + "', '" + dThink + "', '" + dDate + "', '" + dTitle + "', '" + dColor + "', '" + dTotalPage + "');")
                 sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + dPage + "', accumPage = '" + accumPage + "' WHERE ( title = '" + dTitle + "');")
 
                 sqlitedb.close()

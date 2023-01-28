@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 전체 책 리스트를 보여주는 프래그먼트 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,5 +20,3 @@
         tools:listitem="@layout/note_item" />
 
 </LinearLayout>
-
-<!-- 1 -->

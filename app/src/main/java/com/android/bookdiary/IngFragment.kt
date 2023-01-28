@@ -32,11 +32,7 @@ class IngFragment : Fragment(), BookListHandler {
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE totalPage <> accumPage and accumPage <> 0;", null)
-
-        recyclerView = view.findViewById(R.id.recyclerView!!) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = BookListAdapter(requireContext(), bookListDataArray, this)
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE totalPage <> accumPage and accumPage <> 0;", null)   // bookDB에서 독서를 진행 중인 책의 데이터만 조회
 
         while (cursor.moveToNext()) {
             var str_title = cursor.getString(cursor.getColumnIndex("title"))
@@ -48,6 +44,10 @@ class IngFragment : Fragment(), BookListHandler {
             var data: BookListData = BookListData(str_title, accum_page, total_page, str_color, percent)
             bookListDataArray.add(data)
         }
+
+        recyclerView = view.findViewById(R.id.recyclerView!!) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = BookListAdapter(requireContext(), bookListDataArray, this)
 
         cursor.close()
         sqlitedb.close()
