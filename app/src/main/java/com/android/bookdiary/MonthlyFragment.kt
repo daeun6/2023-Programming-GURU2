@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import androidx.annotation.Dimension
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.*
@@ -24,8 +25,7 @@ class MonthlyFragment : Fragment() {
 
     private lateinit var switch1: Switch    // 스위치 변수
 
-    private lateinit var bookRecord: TextView    // 텍스트 변수
-    private lateinit var myBookRecord1: TextView
+    private lateinit var myBookRecord1: TextView    // 텍스트 변수
     private lateinit var myBookRecord2: TextView
     private lateinit var myBookRecord3: TextView
     private lateinit var one: TextView
@@ -44,8 +44,7 @@ class MonthlyFragment : Fragment() {
         var barChart1 = view.findViewById<BarChart>(R.id.barChart1)    // 레이아웃의 barChart와 연결
         var barChart2 = view.findViewById<BarChart>(R.id.barChart2)
 
-        bookRecord = view.findViewById<TextView>(R.id.bookRecord)    // 레이아웃의 TextView와 연결
-        myBookRecord1 = view.findViewById<TextView>(R.id.myBookRecord1)
+        myBookRecord1 = view.findViewById<TextView>(R.id.myBookRecord1)    // 레이아웃의 TextView와 연결
         myBookRecord2 = view.findViewById<TextView>(R.id.myBookRecord2)
         myBookRecord3 = view.findViewById<TextView>(R.id.myBookRecord3)
         one = view.findViewById(R.id.one)
@@ -58,11 +57,10 @@ class MonthlyFragment : Fragment() {
         switch1.setOnClickListener {    // 스위치가 on일 경우 성인 평균 데이터와 나의 독서량 비교 그래프 출력
 
             if (switch1.isChecked == true){
-                bookRecord.visibility = View.VISIBLE
                 barChart1.visibility = View.INVISIBLE
                 barChart2.visibility = View.VISIBLE
                 myBookRecord1.visibility = View.INVISIBLE
-                myBookRecord2.visibility = View.INVISIBLE
+                myBookRecord2.visibility = View.VISIBLE
                 myBookRecord3.visibility = View.INVISIBLE
                 one.visibility = View.INVISIBLE
                 two.visibility = View.VISIBLE
@@ -71,7 +69,6 @@ class MonthlyFragment : Fragment() {
             } else {
                 barChart2.visibility = View.INVISIBLE
                 barChart1.visibility = View.VISIBLE
-                bookRecord.visibility = View.INVISIBLE
                 myBookRecord1.visibility = View.VISIBLE
                 myBookRecord2.visibility = View.VISIBLE
                 myBookRecord3.visibility = View.VISIBLE
@@ -155,6 +152,7 @@ class MonthlyFragment : Fragment() {
             myBookRecord2.text = "지난달만큼 읽었어요!"
         } else {
             myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
+            myBookRecord2.setTextSize(Dimension.SP, 14f)
         }
 
         cursor = sqlDB.rawQuery("SELECT dDate FROM writeDB WHERE dDate LIKE '%${subMonth}월%' OR '%${lastMonth}월%';", null)
@@ -162,6 +160,7 @@ class MonthlyFragment : Fragment() {
         if (cursor.count == 0) {
             myBookRecord1.visibility = View.INVISIBLE
             myBookRecord2.text = "아직 기록을 작성하지 않았어요!"
+            myBookRecord2.setTextSize(Dimension.SP, 25f)
             myBookRecord3.visibility = View.INVISIBLE
             barChart.visibility = View.INVISIBLE
             one.visibility = View.INVISIBLE
@@ -213,16 +212,20 @@ class MonthlyFragment : Fragment() {
         var comparAvg = readAvg.toInt() - recordCounter.toInt()    // 평균 독서량과 나의 독서량의 차이에 따른 문자열 변화
 
         if (comparAvg < 0) {
-            bookRecord.text = "성인 평균 독서량보다 " + abs(comparAvg) + "권 더 읽었어요!"
+            myBookRecord2.text = "성인 평균 독서량보다 " + abs(comparAvg) + "권 더 읽었어요!"
+            myBookRecord2.setTextSize(Dimension.SP, 17f)
         } else if (comparAvg == 0) {
-            bookRecord.text = "성인 평균 독서량인 " + comparAvg + "권 읽었어요!"
+            myBookRecord2.text = "성인 평균 독서량인 " + comparAvg + "권 읽었어요!"
+            myBookRecord2.setTextSize(Dimension.SP, 17f)
         } else {
-            bookRecord.text = "총 " + recordCounter + "권 읽었어요.\n" + (comparAvg) + "권 더 읽으면 연간 성인 평균 독서량 이상이에요!"
+            myBookRecord2.text = "" + comparAvg + "권 더 읽으면 연간 성인 평균 독서량 이상이에요!"
+            myBookRecord2.setTextSize(Dimension.SP, 17f)
         }
 
         if (cursor.count == 0) {
-            myBookRecord1.visibility = View.INVISIBLE
-            bookRecord.text = "아직 책을 읽지 않았어요."
+            myBookRecord2.visibility = View.VISIBLE
+            myBookRecord2.text = "아직 책을 읽지 않았어요."
+            myBookRecord2.setTextSize(Dimension.SP, 25f)
         }
 
         cursor.close()
@@ -261,7 +264,7 @@ class MonthlyFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM    // x축의 위치를 하단으로 변경
         xAxis.granularity = 1f    // 격자선의 수평 거리 설정 (하단 값)
         xAxis.textColor = Color.WHITE    // 하단 값의 색상
-        xAxis.setDrawAxisLine(true)    // x축 선 숨기기, 설정되지 않은 경우 기본 true
+        xAxis.setDrawAxisLine(false)    // x축 선 숨기기, 설정되지 않은 경우 기본 true
         xAxis.setDrawGridLines(false)    // 수직 그리드 선 숨기기, 설정되지 않은 경우 기본 true
 
         val leftAxis: YAxis = barChart.getAxisLeft()    // 좌측 값 y축 선 숨기기, 설정되지 않은 경우 기본 true
