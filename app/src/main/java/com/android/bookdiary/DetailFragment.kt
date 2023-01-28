@@ -22,6 +22,7 @@ class DetailFragment : Fragment() {
 
     lateinit var btnModify: Button
     lateinit var btnDone: Button
+    lateinit var btnDelete: Button
 
     var str_date: String = ""
     var str_title: String =""
@@ -47,6 +48,7 @@ class DetailFragment : Fragment() {
         myThink = view.findViewById(R.id.myThink)
         btnModify = view.findViewById(R.id.btnModify)
         btnDone = view.findViewById(R.id.btnDone)
+        btnDelete = view.findViewById(R.id.btnDelete)
 
         if(arguments != null) {
             str_date = arguments?.getString("dDate").toString()
@@ -57,7 +59,7 @@ class DetailFragment : Fragment() {
         sqlitedb = dbManager.writableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"' and dDate = '" + str_date +"';", null)
 
         if (cursor.moveToNext()){
             str_sentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
@@ -66,7 +68,7 @@ class DetailFragment : Fragment() {
         }
 
 
-        likeSentence.text = str_title
+        likeSentence.text = str_sentence
         textViewNumber.text = "" + nowPage
         myThink.text = str_think + "\n"
 
@@ -87,18 +89,31 @@ class DetailFragment : Fragment() {
 
         btnDone.setOnClickListener {
             var title = str_title
+            var dDate = str_date
             var bundle = Bundle()
             bundle.putString("title", title)
+            bundle.putString("dDate", dDate)
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-
             var bookReportListFragment = BookReportListFragment()
             bookReportListFragment.arguments = bundle
             ft.replace(R.id.container, bookReportListFragment).commit()
         }
 
+
+        btnDelete.setOnClickListener {
+            var title = str_title
+            var dDate = str_date
+            var bundle = Bundle()
+            bundle.putString("title", title)
+            bundle.putString("dDate", dDate)
+            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+            var bookReportListFragment = BookReportListFragment()
+            bookReportListFragment.arguments = bundle
+            ft.replace(R.id.container, bookReportListFragment).commit()
+            sqlitedb.execSQL("DELETE FROM writeDB WHERE dtitle = '" + str_title +"' and dDate = '" + dDate +"';")
+        }
+
         return view
     }
-
-
 
 }

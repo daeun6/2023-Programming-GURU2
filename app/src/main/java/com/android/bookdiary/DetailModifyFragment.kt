@@ -13,8 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_daily_memo.*
+import kotlinx.android.synthetic.main.report_item.*
 
 
 class DetailModifyFragment : Fragment() {
@@ -26,6 +28,7 @@ class DetailModifyFragment : Fragment() {
     lateinit var dSentence: String
     lateinit var dThink: String
     lateinit var dTitle: String
+    lateinit var dDate: String
     lateinit var dAccumPageString: String
     lateinit var dNowPageString : String
 
@@ -41,11 +44,12 @@ class DetailModifyFragment : Fragment() {
         val thinkEdit = view.findViewById<EditText>(R.id.myThink)
 
         dTitle = arguments?.getString("dTitle").toString()
+        dDate = arguments?.getString("dDate").toString()
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';", null)
 
         if (cursor.moveToNext()){
             dSentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
@@ -54,7 +58,7 @@ class DetailModifyFragment : Fragment() {
             dNowPageString = cursor.getString(cursor.getColumnIndex("dNowPage"))
         }
 
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + dTitle +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + dTitle +"' ;", null)
 
         if (cursor.moveToNext()){
             dAccumPageString = cursor.getString(cursor.getColumnIndex("accumPage"))
@@ -90,9 +94,9 @@ class DetailModifyFragment : Fragment() {
                 dbManager = DBManager(activity, "bookDB", null, 1)
                 sqlitedb = dbManager.writableDatabase
 
-                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"';")
+                sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';")
                 sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' WHERE title = '" + dTitle +"';")
-
+                sqlitedb.execSQL("UPDATE bookDB SET nowPage = '" + mPage + "' WHERE title = '" + dTitle +"';")
                 sqlitedb.close()
                 dbManager.close()
 
@@ -113,9 +117,17 @@ class DetailModifyFragment : Fragment() {
                 }
             }
 
-            val detailFragment = DetailFragment()
+            var title = dTitle
+            var dDate = dDate
+            var bundle = Bundle()
+            bundle.putString("dDate", dDate)
+            bundle.putString("title", title)
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+            var detailFragment = DetailFragment()
+            detailFragment.arguments = bundle
             ft.replace(R.id.container, detailFragment).commit()
+            Toast.makeText(activity, dDate, Toast.LENGTH_SHORT).show()
         }
 
         return view
