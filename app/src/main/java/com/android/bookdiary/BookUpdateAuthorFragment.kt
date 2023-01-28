@@ -1,9 +1,11 @@
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -94,29 +96,53 @@ class BookUpdateAuthorFragment : Fragment() {
         }
 
         var cursor: Cursor
+
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
+        if (cursor.moveToNext()){
+            str_author = cursor.getString(cursor.getColumnIndex("author"))
+        }
+
+        edtAuthor.text = Editable.Factory.getInstance().newEditable(str_author.toString())
+
 
 
         btnUpdate = view.findViewById(R.id.btnUpdate)
         btnUpdate.setOnClickListener {
 
-            sqlitedb.execSQL("UPDATE bookDB SET author = '"+ edtAuthor.text + "'  WHERE title = '" + str_title + "';")
+            var author = edtAuthor.text.toString()
 
-            sqlitedb.close()
+            if (author == "") {
+                val mDialogView =
+                    LayoutInflater.from(context).inflate(R.layout.daily_author_dialog, null, false)
+                val mBuilder = AlertDialog.Builder(context)
+                    .setView(mDialogView)
+                    .setTitle("완료할 수 없어요")
+                val mAlertDialog = mBuilder.show()
+                val parent = mDialogView.parent as ViewGroup
+                val btn = mDialogView.findViewById<Button>(R.id.dialogBtn)
+                btn.setOnClickListener {
+                    parent.removeView(mDialogView)
+                    mAlertDialog.dismiss()
+                }
 
-            Toast.makeText(context, "수정됨", Toast.LENGTH_SHORT).show()
+            } else {
 
-            var title = str_title
-            var bundle = Bundle()
-            bundle.putString("title", title)
-            val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+                sqlitedb.execSQL("UPDATE bookDB SET author = '" + edtAuthor.text + "'  WHERE title = '" + str_title + "';")
 
-            var listFragment = ListFragment()
-            listFragment.arguments = bundle
-            ft.replace(R.id.container, listFragment).commit()
+                sqlitedb.close()
+
+                Toast.makeText(context, "수정됨", Toast.LENGTH_SHORT).show()
+
+                var title = str_title
+                var bundle = Bundle()
+                bundle.putString("title", title)
+                val ft: FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
+
+                var listFragment = ListFragment()
+                listFragment.arguments = bundle
+                ft.replace(R.id.container, listFragment).commit()
+            }
         }
-
-
 
         return view
     }

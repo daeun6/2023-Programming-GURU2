@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,6 +50,7 @@ class BookUpdatePageFragment : Fragment() {
         tvAuthor = view.findViewById(R.id.tvAuthor)
         edtPage = view.findViewById(R.id.edtPage)
 
+
         rg_Color = view.findViewById(R.id.radioGroup)
         rb_red = view.findViewById(R.id.rbRed)
         rb_orange = view.findViewById(R.id.rbOrange)
@@ -67,6 +69,8 @@ class BookUpdatePageFragment : Fragment() {
             str_author = arguments?.getString("author").toString()
             str_color = arguments?.getString("color").toString()
         }
+
+
 
         tvTitle.setText(str_title)
         tvAuthor.setText(str_author)
@@ -97,12 +101,15 @@ class BookUpdatePageFragment : Fragment() {
 
         var cursor: Cursor
         var accumPage : Int = 0
+        var totalPage : Int = 0
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
 
         if (cursor.moveToNext()){
             accumPage = cursor.getInt(cursor.getColumnIndex("accumPage"))
+            totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
         }
 
+        edtPage.text = Editable.Factory.getInstance().newEditable(totalPage.toString())
 
         btnUpdate = view.findViewById(R.id.btnUpdate)
         btnUpdate.setOnClickListener {
@@ -115,7 +122,7 @@ class BookUpdatePageFragment : Fragment() {
                 pageInt = pageString.toInt()
             }
 
-            Log.d("Update", "pageInt : ${pageInt} accumPage ; ${accumPage}")
+
 
 
             if (pageString == "") {
@@ -133,7 +140,7 @@ class BookUpdatePageFragment : Fragment() {
             }
 
             else if (pageInt < accumPage) {
-                val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
+                val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_edit_dialog, null, false)
                 val mBuilder = AlertDialog.Builder(context)
                     .setView(mDialogView)
                     .setTitle("완료할 수 없어요")
