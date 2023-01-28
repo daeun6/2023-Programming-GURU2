@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="8dp">
+        <!--버튼, 해당 년 & 월 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +43,7 @@
                 android:src="@drawable/ic_baseline_chevron_right_24"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
         </LinearLayout>
+        <!--월, 화, 수, 목, 금, 토, 일-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,6 +128,7 @@
                 android:textColor="@android:color/holo_blue_dark" />
         </LinearLayout>
 
+        <!-- 날짜 보일 리사이클러뷰 -->
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
