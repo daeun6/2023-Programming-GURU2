@@ -10,6 +10,7 @@
 
 package com.android.bookdiary
 
+import android.annotation.SuppressLint
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
@@ -167,7 +168,7 @@ class MonthlyFragment : Fragment() {
             myBookRecord2.text = "지난달만큼 읽었어요!"
         } else {
             myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
-            //myBookRecord2.setTextSize(Dimension.SP, 14f)    // 텍스트 크기 수정
+            myBookRecord2.setTextSize(Dimension.SP, 14f)    // 텍스트 크기 수정
         }
 
         cursor = sqlDB.rawQuery("SELECT dDate FROM writeDB WHERE dDate LIKE '%${subMonth}월%' OR '%${lastMonth}월%';", null)  // 이번달과 지난달 독서 기록 정보 불러옴
@@ -175,7 +176,7 @@ class MonthlyFragment : Fragment() {
         if (cursor.count == 0) {    // 이번달과 지난달 모두 기록하지 않은 경우
             myBookRecord1.visibility = View.INVISIBLE
             myBookRecord2.text = "아직 기록을 작성하지 않았어요!"    // 텍스트 수정
-            //myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 수정
+            myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 수정
             myBookRecord3.visibility = View.INVISIBLE
             barChart.visibility = View.INVISIBLE    // 이번달 독서 통계 그래프 숨김
             one.visibility = View.INVISIBLE    // 이번달 독서 통계의 x축 값인 지난달, 이번달 값 숨김
@@ -202,6 +203,7 @@ class MonthlyFragment : Fragment() {
 
 
     // barChart2 출력 메소드
+    @SuppressLint("Range")
     private fun setWeek2(barChart: BarChart) {
 
         initBarChart(barChart)    // barChart의 색상, 크기 지정
@@ -224,7 +226,15 @@ class MonthlyFragment : Fragment() {
         valueList.add(readAvg)    // 연간 평균 성인 독서량을 데이터 리스트에 입력
 
         cursor = sqlDB.rawQuery("SELECT * FROM bookDB;", null)    // 나의 독서량을 데이터 리스트에 입력
-        var recordCounter = cursor.count.toString()
+    //    var recordCounter = cursor.count.toString()
+        var recordCount = cursor.count
+        while(cursor.moveToNext()){
+            var accumPage = cursor.getInt(cursor.getColumnIndex("accumPage"))    // accumPage 값이 0 -> 읽지 않은 책이므로
+            if(accumPage == 0){
+                recordCount--    // 등록된 책 개수에서 1씩 마이너스
+            }
+        }
+        var recordCounter = recordCount.toString()
         myBookRecord1.text = "이번 달에 " + recordCounter + "권 읽었어요!"
         valueList.add(recordCounter.toInt())
 
