@@ -10,6 +10,7 @@
 
 package com.android.bookdiary
 
+
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,27 +32,27 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
 
         val mainFragment = MainFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commit()
-        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        navigationView.setOnNavigationItemSelectedListener(this)
+        supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commit()//  첫 화면 mainfragment로 설정
+        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)//   bottomNavigationView 위젯 설정
+        navigationView.setOnNavigationItemSelectedListener(this)//  아이템 선택시 동작
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.tab1 -> {
+            R.id.tab1 -> {//    탭 1 누르면 통계화면(monthlyFragment)
                 val monthlyFragment = MonthlyFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, monthlyFragment)
                     .commit()
             }
-            R.id.tab2 -> {
+            R.id.tab2 -> {//    탭 2 누르면 메인화면(MainFragment)
                 val mainFragment = MainFragment()
 
                 supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment)
                     .commit()
             }
-            R.id.tab3 -> {
+            R.id.tab3 -> {//    탭 3 누르면 도서목록화면(ListFragment)
                 val listFragment = ListFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.container, listFragment)
                     .commit()
