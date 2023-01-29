@@ -87,6 +87,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myBookRecord2" />
 
+    <ImageView
+        android:id="@+id/graphJj"
+        android:layout_width="176dp"
+        android:layout_height="264dp"
+        android:src="@drawable/sad_jj"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/graphBb"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
+
+    <ImageView
+        android:id="@+id/graphBb"
+        android:layout_width="228dp"
+        android:layout_height="300dp"
+        android:src="@drawable/sad_bb"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.302" />
+
     <!-- 그래프 전환 스위치 -->
     <Switch
         android:id="@+id/switch1"
