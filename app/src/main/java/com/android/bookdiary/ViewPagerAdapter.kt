@@ -15,13 +15,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 
+// 탭 레이아웃에 따라 화면을 전환하는 뷰페이저 어댑터
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fragmentList = ArrayList<Fragment>()
     private val titleList = ArrayList<String>()
 
     override fun getCount(): Int = titleList.size   //현재 아이템의 개수 반환
 
-    override fun getItem(position: Int): Fragment = fragmentList[position]
+    override fun getItem(position: Int): Fragment = fragmentList[position]  // 인자로 받은 위치의 데이터를 반환
 
     override fun getPageTitle(position: Int): CharSequence? = titleList[position]   // 위치에 따라 페이지 제목을 지정
 

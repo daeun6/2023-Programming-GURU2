@@ -18,14 +18,18 @@ import kotlinx.android.synthetic.main.fragment_book_reg.*
 
 // 책을 새로 등록하는 프래그먼트
 class BookRegFragment : Fragment() {
+    // DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
-    lateinit var btnRegister: Button
-    lateinit var btnColor: Button
-    lateinit var edtTitle: EditText
-    lateinit var edtAuthor: EditText
-    lateinit var edtTotalPage: EditText //총 페이지 수
 
+    lateinit var btnRegister: Button    // 등록 버튼
+
+    // 사용자에게서 입력 받은 정보를 담을 변수
+    lateinit var edtTitle: EditText // 책 제목
+    lateinit var edtAuthor: EditText    // 저자
+    lateinit var edtTotalPage: EditText // 총 페이지 수
+
+    // 색상 정보
     lateinit var rg_Color: RadioGroup
     lateinit var rb_red: RadioButton
     lateinit var rb_orange: RadioButton
@@ -36,9 +40,6 @@ class BookRegFragment : Fragment() {
     lateinit var rb_purple: RadioButton
     lateinit var rb_pink: RadioButton
 
-
-
-
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,32 +47,6 @@ class BookRegFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_book_reg, container, false)
-
-
-
-//        btnColor = view.findViewById(R.id.btnColor)
-//        btnColor.setOnClickListener {
-//            val builder = AlertDialog.Builder(activity)
-//            builder.setTitle("색상 지정")
-//            val inflater: LayoutInflater = layoutInflater
-//            builder.setView(inflater.inflate(R.layout.color_dialog, null))
-//
-//            val alertDialog: AlertDialog = builder.create()
-//            alertDialog.show()
-//
-//            btnRed.setOnClickListener {
-//                val color = ResourcesCompat.getColor(getResources(), R.color.bookRed, null)
-//                Toast.makeText(context, "빨간색 선택", Toast.LENGTH_SHORT).show()
-//                //btnColor.setBackgroundColor(color)
-//            }
-//
-//        }
-
-//        val color = ResourcesCompat.getColor(getResources(), R.color.bookRed, null)
-//
-//        btnRed.setOnClickListener {
-//            btnColor.setBackgroundColor(color)
-//        }
 
         edtTitle = view.findViewById(R.id.edtTitle)
         edtAuthor = view.findViewById(R.id.edtAuthor)
@@ -87,10 +62,11 @@ class BookRegFragment : Fragment() {
         rb_purple = view.findViewById(R.id.rbPurple)
         rb_pink = view.findViewById(R.id.rbPink)
 
+        dbManager = DBManager(activity, "bookDB", null, 1)  // bookDB 데이터베이스 불러오기
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        btnRegister = view.findViewById(R.id.btnRegister)
 
-        btnRegister = view.findViewById(R.id.btnRegister)   // 등록 버튼
+        // 등록 버튼을 눌렀을 때
         btnRegister.setOnClickListener {
             var str_title: String = edtTitle.text.toString()
             var str_author: String = edtAuthor.text.toString()
@@ -103,43 +79,35 @@ class BookRegFragment : Fragment() {
                 int_accumPage += int_nowPage    // 오늘 읽은 페이지 수를 나타내는 nowPage를 받아와 현재까지 읽은 페이지 수를 나타내는 accumPage에 더하기
             }
 
-
             if(rg_Color.checkedRadioButtonId == R.id.rbRed) {
                 str_color = "RED"
-                Toast.makeText(context, "빨간색 선택됨", Toast.LENGTH_SHORT).show()
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbOrange) {
                 str_color = "ORANGE"
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbYellow) {
                 str_color = "YELLOW"
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbGreen) {
                 str_color = "GREEN"
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbBlue) {
                 str_color = "BLUE"
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbNavy) {
                 str_color = "NAVY"
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbPurple) {
                 str_color = "PURPLE"
             }
-
             if(rg_Color.checkedRadioButtonId == R.id.rbPink) {
                 str_color = "PINK"
             }
 
-
             sqlitedb = dbManager.writableDatabase
-            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")  // bookDB에 사용자에게서 입력받은 이터를 입력
+
+            // bookDB에 사용자에게서 입력 받은 책 컬러, 제목, 저자, 총 페이지 수, 그리고 오늘 읽은 페이지 수와 현재까지 읽은 페이지 수를 계산하여 기록
+            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")
             sqlitedb.close()
 
             // 책 리스트를 보여주는 프래그먼트(listFragment)로 전환
@@ -147,8 +115,6 @@ class BookRegFragment : Fragment() {
             val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
             transaction.replace(R.id.container, listFragment)
             transaction.commit()
-
-
         }
         return view
     }

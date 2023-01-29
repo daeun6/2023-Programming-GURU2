@@ -26,14 +26,16 @@ import androidx.fragment.app.FragmentTransaction
 // 저자 수정 프래그먼트
 class BookUpdateAuthorFragment : Fragment() {
 
+    // DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
-    lateinit var tvTitle: TextView
-    lateinit var edtAuthor: EditText
-    lateinit var tvPage: TextView
-    lateinit var btnUpdate: Button
+    lateinit var tvTitle: TextView  // 책 제목
+    lateinit var edtAuthor: EditText    // 저자(사용자의 입력을 받아옴)
+    lateinit var tvPage: TextView   // 총 페이지 수
+    lateinit var btnUpdate: Button  // 수정 버튼
 
+    // 색상 정보
     lateinit var rg_Color: RadioGroup
     lateinit var rb_red: RadioButton
     lateinit var rb_orange: RadioButton
@@ -70,7 +72,7 @@ class BookUpdateAuthorFragment : Fragment() {
         rb_purple = view.findViewById(R.id.rbPurple)
         rb_pink = view.findViewById(R.id.rbPink)
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        dbManager = DBManager(activity, "bookDB", null, 1)  // bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.writableDatabase
 
         // BookReportListFragment에서 전달한 책 제목, 총 페이지 수, 책 컬러 받기
@@ -108,21 +110,22 @@ class BookUpdateAuthorFragment : Fragment() {
         }
 
         var cursor: Cursor
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)  // 전달받아 온 책 제목과 일치하는 데이터를 조회
 
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
+        // 커서를 이용하여 조건에 맞는 책의 저자 데이터를 가져오기
         if (cursor.moveToNext()){
             str_author = cursor.getString(cursor.getColumnIndex("author"))
         }
 
-        edtAuthor.text = Editable.Factory.getInstance().newEditable(str_author.toString())
-
-
+        edtAuthor.text = Editable.Factory.getInstance().newEditable(str_author)
 
         btnUpdate = view.findViewById(R.id.btnUpdate)
-        btnUpdate.setOnClickListener {
 
+        // 수정 버튼을 눌렀을 때
+        btnUpdate.setOnClickListener {
             var author = edtAuthor.text.toString()
 
+            // 만약 저자 입력 부분에 아무 것도 입력된 것이 없다면 대화상자 띄우기
             if (author == "") {
                 val mDialogView =
                     LayoutInflater.from(context).inflate(R.layout.daily_author_dialog, null, false)
@@ -137,8 +140,8 @@ class BookUpdateAuthorFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
 
+            // 수정 후 책 리스트를 보여주는 프래그먼트(listFragment)로 화면 전환
             } else {
-
                 sqlitedb.execSQL("UPDATE bookDB SET author = '" + edtAuthor.text + "'  WHERE title = '" + str_title + "';")
 
                 sqlitedb.close()
@@ -147,7 +150,7 @@ class BookUpdateAuthorFragment : Fragment() {
 
                 var title = str_title
                 var bundle = Bundle()
-                bundle.putString("title", title)
+                bundle.putString("title", title)    // 책 제목 전달
                 val ft: FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
                 var listFragment = ListFragment()

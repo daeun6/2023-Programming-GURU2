@@ -28,16 +28,21 @@ import androidx.recyclerview.widget.RecyclerView
 
 // 해당 책의 독후감 리스트를 보여주는 프래그먼트
 class BookReportListFragment : Fragment(), BookReportListHandler {
+
+    // DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
-    lateinit var ivColor: ImageView
-    lateinit var tvTitle: TextView
-    lateinit var tvAuthor: TextView
-    lateinit var tvPage: TextView
-    lateinit var btnUpdateAuthor: Button
-    lateinit var btnUpdatePage: Button
-    lateinit var btnDelete: Button
-    lateinit var reportRecyclerView: RecyclerView
+
+    lateinit var ivColor: ImageView // 책 컬러를 보여주는 이미지뷰
+    lateinit var tvTitle: TextView  // 책 제목
+    lateinit var tvAuthor: TextView // 저자
+    lateinit var tvPage: TextView   // 총 페이지 수
+
+    lateinit var btnUpdateAuthor: Button    // 저자 수정 버튼
+    lateinit var btnUpdatePage: Button  // 총 페이지 수 수정 버튼
+    lateinit var btnDelete: Button  // 삭제 버튼
+
+    lateinit var reportRecyclerView: RecyclerView   // 리사이클러뷰
 
     lateinit var str_title: String
     lateinit var str_author: String
@@ -64,13 +69,14 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
             str_title = arguments?.getString("title").toString()    // AllFragment, EdFragment, IngFragment, WillFragment에서 전달한 책 제목 데이터 받기
         }
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        dbManager = DBManager(activity, "bookDB", null, 1)  // bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)  // 전달받아 온 책 제목과 일치하는 데이터를 조회
 
-        if (cursor.moveToNext()){   // 커서를 이용하여 조건에 맞는 모든 책의 저자, 총 페이지 수, 책 컬러 데이터를 가져오기
+        // 커서를 이용하여 조건에 맞는 모든 책의 저자, 총 페이지 수, 책 컬러 데이터를 가져오기
+        if (cursor.moveToNext()){
             str_author = cursor.getString(cursor.getColumnIndex("author")).toString()
             page = cursor.getInt(cursor.getColumnIndex("totalPage"))
             str_color = cursor.getString(cursor.getColumnIndex("color")).toString()
@@ -110,7 +116,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         // 저자 수정 버튼
         btnUpdateAuthor.setOnClickListener {
             var title = str_title
-            var author = str_author
             var page = page
             var color = str_color
 
@@ -129,7 +134,6 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         btnUpdatePage.setOnClickListener {
             var title = str_title
             var author = str_author
-            var page = page
             var color = str_color
 
             var bundle = Bundle()
@@ -143,10 +147,11 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
             ft.replace(R.id.container, bookUpdatePageFragment).commit()
         }
 
-        // 해당 책 삭제 버튼
+        // 해당 책 삭제 버튼을 눌렀을 때
         btnDelete.setOnClickListener {
             sqlitedb = dbManager.writableDatabase
 
+            // 책 정보가 있는 bookDB와 독후감 정보가 있는 writeDB에서 해당 책 삭제
             sqlitedb.execSQL("DELETE FROM bookDB WHERE title = '" + str_title +"';")
             sqlitedb.execSQL("DELETE FROM writeDB WHERE dTitle = '" + str_title +"';")
 
@@ -158,20 +163,22 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
             transaction.commit()    // 삭제 후엔 책 리스트를 보여주는 프래그먼트로 화면이 전환
         }
 
-        val bookReportListDataArray: ArrayList<BookReportListData> = ArrayList()
+        val bookReportListDataArray: ArrayList<BookReportListData> = ArrayList()    // 리사이클러뷰에 이용할 리스트
         lateinit var reportRecyclerView: RecyclerView
 
         cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"';", null)    // 해당 책의 독후감 리스트를 조회
 
+        // bookDB에 위 조건에 해당하는 값이 있는 동안 독후감이 적힌 날짜 정보를 가져와서 bookReportListDataArray에 추가
         while (cursor.moveToNext()) {
             var str_report = cursor.getString(cursor.getColumnIndex("dDate"))
+
             var data: BookReportListData = BookReportListData(str_report)
-            bookReportListDataArray.add(data)
+            bookReportListDataArray.add(data)   // 리사이클러뷰에 반영할 데이터
         }
 
-        reportRecyclerView = view.findViewById(R.id.reportRecyclerView!!) as RecyclerView
-        reportRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        reportRecyclerView.adapter = BookReportListAdapter(requireContext(), bookReportListDataArray, this)
+        reportRecyclerView = view.findViewById(R.id.reportRecyclerView!!) as RecyclerView   // 리사이클러뷰 연결하기
+        reportRecyclerView.layoutManager = LinearLayoutManager(requireContext())    // 리사이클러뷰의 아이템이 수직 방향으로 보이도록 리니어 레이아웃 매니저를 사용
+        reportRecyclerView.adapter = BookReportListAdapter(requireContext(), bookReportListDataArray, this) // bookReportListDataArray에 저장된 data 어댑터로 연결
 
         cursor.close()
         sqlitedb.close()
@@ -180,12 +187,13 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         return view
     }
 
+    // BookReportListHandler 인터페이스의 메소드 오버라이딩 - 책장의 책 아이템을 클릭하면 해당 책의 독후감 리스트 프래그먼트(BookReportFragment)로 전환
     override fun clickedBookReportList(book: BookReportListData) {
         var dDate = book.dDate
         var title = str_title
         var bundle = Bundle()
-        bundle.putString("dDate", dDate)
-        bundle.putString("title", title)
+        bundle.putString("dDate", dDate)    // 날짜 정보 전달
+        bundle.putString("title", title)    // 책 제목 전달
         val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
         var detailFragment = DetailFragment()

@@ -54,7 +54,7 @@ class ListFragment : Fragment()  {
         }
 
         val adapter = ViewPagerAdapter(activity?.supportFragmentManager!!)  // 탭 레이아웃에 따라 전체 리스트, 완독한 책의 리스트, 독서를 진행 중인 책의 리스트, 아직 읽지 않은 책의 리스트를 볼 수 있도록 뷰페이저 설정
-        adapter.addFragment(AllFragment(), "전체")
+        adapter.addFragment(AllFragment(), "All")
         adapter.addFragment(EdFragment(), "-ed")
         adapter.addFragment(IngFragment(), "-ing")
         adapter.addFragment(WillFragment(), "will")

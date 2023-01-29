@@ -37,6 +37,8 @@ class BookListAdapter(private val context: Context, val bookListDataArray: Array
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
+        // 프래그먼트 내의 위젯 연결
         private var title: TextView = itemView.findViewById(R.id.title)
         private var accumPage: TextView = itemView.findViewById(R.id.accumPage)
         private var totalPage: TextView = itemView.findViewById(R.id.totalPage)
@@ -48,41 +50,42 @@ class BookListAdapter(private val context: Context, val bookListDataArray: Array
         }
 
         fun bind(item: BookListData) {
-            title.text = item.title
-            accumPage.text = item.accumPage.toString()
-            totalPage.text = item.totalPage.toString()
-            progressBar.setProgress(item.progressBar.toInt(), false)
 
-            for (i in 1..10) {
-                if (item.colorView.toString() == "RED") {
+            // DB에서 가져온 값을 프래그먼트 내의 위젯에 연결
+            title.text = item.title // 책 제목
+            accumPage.text = item.accumPage.toString()  // 지금까지 읽은 페이지 수
+            totalPage.text = item.totalPage.toString()  // 총 페이지 수
+            progressBar.setProgress(item.progressBar.toInt(), false)    // 프로그레스바의 수치를 해당 책의 독서 진행도로 지정
+
+            for (i in 1..10) {  // DB에서 가져온 값에 따라 프래그먼트 내의 위젯의 색을 변경
+                if (item.colorView == "RED") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_red)
                 }
-                else if (item.colorView.toString() == "BLUE") {
+                else if (item.colorView == "BLUE") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_blue)
                 }
-                else if (item.colorView.toString() == "GREEN") {
+                else if (item.colorView == "GREEN") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_green)
                 }
-                else if (item.colorView.toString() == "ORANGE") {
+                else if (item.colorView == "ORANGE") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_orange)
                 }
-                else if (item.colorView.toString() == "YELLOW") {
+                else if (item.colorView == "YELLOW") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_yellow)
                 }
-                else if (item.colorView.toString() == "PURPLE") {
+                else if (item.colorView == "PURPLE") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_purple)
                 }
-                else if (item.colorView.toString() == "NAVY") {
+                else if (item.colorView == "NAVY") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_navy)
                 }
-                else if (item.colorView.toString() == "PINK") {
+                else if (item.colorView == "PINK") {
                     colorView.setBackgroundResource(R.drawable.layer_button_checked_pink)
                 }
-
             }
-
         }
 
+        // 책 아이템 클릭 시 clickBookHandler 작동
         override fun onClick(v: View?) {
             val position = bookListDataArray[position]
             clickBookHandler.clickedBookList(position)
