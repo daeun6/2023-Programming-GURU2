@@ -1,3 +1,13 @@
+/*
+어시슈트 - 소북소북 코드입니다.
+
+정보보호학과 2020111323 김지원
+정보보호학과 2021111325 김해린
+정보보호학과 2021111336 송다은(팀 대표)
+정보보호학과 2021111694 이가연
+
+ */
+
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
@@ -15,7 +25,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentTransaction
 
 import kotlinx.android.synthetic.main.fragment_book_reg.*
-
 
 class BookRegFragment : Fragment() {
     lateinit var dbManager: DBManager
@@ -46,32 +55,6 @@ class BookRegFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_book_reg, container, false)
-
-
-
-//        btnColor = view.findViewById(R.id.btnColor)
-//        btnColor.setOnClickListener {
-//            val builder = AlertDialog.Builder(activity)
-//            builder.setTitle("색상 지정")
-//            val inflater: LayoutInflater = layoutInflater
-//            builder.setView(inflater.inflate(R.layout.color_dialog, null))
-//
-//            val alertDialog: AlertDialog = builder.create()
-//            alertDialog.show()
-//
-//            btnRed.setOnClickListener {
-//                val color = ResourcesCompat.getColor(getResources(), R.color.bookRed, null)
-//                Toast.makeText(context, "빨간색 선택", Toast.LENGTH_SHORT).show()
-//                //btnColor.setBackgroundColor(color)
-//            }
-//
-//        }
-
-//        val color = ResourcesCompat.getColor(getResources(), R.color.bookRed, null)
-//
-//        btnRed.setOnClickListener {
-//            btnColor.setBackgroundColor(color)
-//        }
 
         edtTitle = view.findViewById(R.id.edtTitle)
         edtAuthor = view.findViewById(R.id.edtAuthor)
@@ -139,7 +122,7 @@ class BookRegFragment : Fragment() {
 
 
             sqlitedb = dbManager.writableDatabase
-            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"', 'aa', '"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")
+            sqlitedb.execSQL("INSERT INTO bookDB VALUES ('"+str_color+"','"+str_title+"', '"+str_author+"', "+int_totalPage+", "+int_nowPage+", "+int_accumPage+");")
             sqlitedb.close()
 
             val listFragment = ListFragment()

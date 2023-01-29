@@ -1,3 +1,13 @@
+/*
+어시슈트 - 소북소북 코드입니다.
+
+정보보호학과 2020111323 김지원
+정보보호학과 2021111325 김해린
+정보보호학과 2021111336 송다은(팀 대표)
+정보보호학과 2021111694 이가연
+
+ */
+
 package com.android.bookdiary
 
 import android.annotation.SuppressLint
@@ -58,11 +68,10 @@ class MainFragment : Fragment(), OnitemListener {
 
     }
 
-
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     private fun setMonthView() {//  달력 표시 함수
 
-        binding.monthyearText.text = yearmonthFromDate(CalendarUtil.selectedDate) //    년 월 가져오기
+        binding.monthyearText.text = yearmonthFromDate(CalendarUtil.selectedDate) // 년 월 가져오기
 
         val dayList = dayInMonthArray(CalendarUtil.selectedDate) // 날짜 생성 후 리스트에 담음
 
@@ -80,7 +89,6 @@ class MainFragment : Fragment(), OnitemListener {
         binding.recyclerView.layoutManager = manager // 레이아웃 적용
 
         binding.recyclerView.adapter = adapter//    어댑터 적용
-
 
 
         while(cursor.moveToNext()){
@@ -143,7 +151,7 @@ class MainFragment : Fragment(), OnitemListener {
         var sub_day : String = str_day.substring(8 until 10)// 2023-02-01 중 01
         str_day = sub_year + "년 " + sub_month + "월 " + sub_day + "일"//  날짜 형식에 맞게 문자열 저장
         var bundle = Bundle()// bundle에 전달할 데이터 담기
-        bundle.putString("key", str_day)//  키 값을 key로 하여 전달
+        bundle.putString("date", str_day)//  키 값을 key로 하여 전달
         val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
         var DailyFragment = DailyFragment()

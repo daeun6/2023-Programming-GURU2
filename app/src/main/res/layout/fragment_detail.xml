@@ -10,17 +10,15 @@
 
     <TextView
         android:id="@+id/dailyMemoTitle"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/human"
-        android:textSize="30dp"
         android:gravity="center"
         android:text="오늘의 기록"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textSize="30dp" />
 
     <View
         android:id="@+id/divider3"
@@ -44,7 +42,6 @@
 
             <TextView
                 android:id="@+id/dQ2Text"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -105,7 +102,6 @@
 
             <TextView
                 android:id="@+id/dQ3Text"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -153,7 +149,6 @@
 
             <TextView
                 android:id="@+id/dQ4Text"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -210,6 +205,7 @@
 
                 <Button
                     android:id="@+id/btnModify"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
@@ -222,12 +218,13 @@
 
                 <Button
                     android:id="@+id/btnDelete"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/human"
                     android:text="삭제"
-                    app:backgroundTint="@color/edtBlue"
+                    android:backgroundTint="@color/bookRed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnModify"
                     app:layout_constraintStart_toStartOf="parent"
@@ -235,6 +232,7 @@
 
                 <Button
                     android:id="@+id/btnDone"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
@@ -253,4 +251,10 @@
 
 </LinearLayout>
 
+    <!--    어시슈트 - 소북소북 코드입니다.-->
+
+    <!--    정보보호학과 2020111323 김지원-->
+    <!--    정보보호학과 2021111325 김해린-->
+    <!--    정보보호학과 2021111336 송다은(팀 대표)-->
+    <!--    정보보호학과 2021111694 이가연-->
 
