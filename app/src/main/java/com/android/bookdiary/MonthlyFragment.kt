@@ -162,12 +162,12 @@ class MonthlyFragment : Fragment() {
         var charRead = cMaxPage - maxPage    // 이번달과 지난달의 페이지수에 따른 독서량 차이 값 저장
 
         if (charRead < 0) {    // 지난달과 이번달 독서량 차이에 따른 문자열 변화
-            myBookRecord2.text = "앞으로 " + abs(charRead) + "권 더 읽으면 지난달보다 많이 읽을 수 있어요!"
+            myBookRecord2.text = "앞으로 " + abs(charRead) + "쪽 더 읽으면 지난달보다 많이 읽을 수 있어요!"
         } else if (charRead == 0) {
             myBookRecord2.text = "지난달만큼 읽었어요!"
         } else {
             myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
-            myBookRecord2.setTextSize(Dimension.SP, 14f)    // 텍스트 크기 수정
+            //myBookRecord2.setTextSize(Dimension.SP, 14f)    // 텍스트 크기 수정
         }
 
         cursor = sqlDB.rawQuery("SELECT dDate FROM writeDB WHERE dDate LIKE '%${subMonth}월%' OR '%${lastMonth}월%';", null)  // 이번달과 지난달 독서 기록 정보 불러옴
@@ -175,7 +175,7 @@ class MonthlyFragment : Fragment() {
         if (cursor.count == 0) {    // 이번달과 지난달 모두 기록하지 않은 경우
             myBookRecord1.visibility = View.INVISIBLE
             myBookRecord2.text = "아직 기록을 작성하지 않았어요!"    // 텍스트 수정
-            myBookRecord2.setTextSize(Dimension.SP, 25f)    // 텍스트 크기 수정
+            //myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 수정
             myBookRecord3.visibility = View.INVISIBLE
             barChart.visibility = View.INVISIBLE    // 이번달 독서 통계 그래프 숨김
             one.visibility = View.INVISIBLE    // 이번달 독서 통계의 x축 값인 지난달, 이번달 값 숨김
