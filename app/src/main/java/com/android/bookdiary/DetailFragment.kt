@@ -118,10 +118,22 @@ class DetailFragment : Fragment() {
         btnDelete.setOnClickListener {
             var title = str_title
             var dDate = str_date
+            var nowPage = nowPage
             var bundle = Bundle()
             bundle.putString("title", title)
             bundle.putString("dDate", dDate)
+
+            cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)  // 전달받은 택 제목에 해당하는 데이터 조회
+
+            // 커서를 이용해서 오늘 읽은 페이지 수, 마음에 든 문장, 나의 생각을 가져오기
+            while (cursor.moveToNext()){
+                var accum_page = cursor.getInt(cursor.getColumnIndex("accumPage"))  // 현재까지 읽은 총 페이지 수
+                accum_page = accum_page - nowPage
+                sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + accum_page + "'  WHERE title = '" + str_title + "';")
+            }
+
             sqlitedb.execSQL("DELETE FROM writeDB WHERE dtitle = '" + str_title +"' and dDate = '" + dDate +"';")
+
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
             var bookReportListFragment = BookReportListFragment()
             bookReportListFragment.arguments = bundle
