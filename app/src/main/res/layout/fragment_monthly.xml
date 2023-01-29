@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MonthlyFragment">
-
     <!-- 막대 그래프 라이브러리 사용
     및 이번달 독서 통계 그래프 화면 구성 -->
+
+    <!-- 막대 그래프 라이브러리 사용
+    및 나의 독서 통계 그래프 화면 구성 -->
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart1"
@@ -22,22 +24,16 @@
 
     </com.github.mikephil.charting.charts.BarChart>
 
-    <!-- 막대 그래프 라이브러리 사용
-    및 나의 독서 통계 그래프 화면 구성 -->
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart2"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="412dp"
+        android:layout_height="292dp"
+        android:layout_marginTop="23dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1">
-
-    </com.github.mikephil.charting.charts.BarChart>
-
-
+        app:layout_constraintTop_toBottomOf="@+id/switch1"></com.github.mikephil.charting.charts.BarChart>
     <!-- 이번달 읽은 쪽수 정보 텍스트뷰 -->
     <TextView
         android:id="@+id/myBookRecord2"
@@ -45,15 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="141dp"
         android:layout_marginEnd="141dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/human"
-        android:textSize="20dp"
         android:text="지난달보다 n쪽 더 읽었어요!"
         app:layout_constraintBottom_toTopOf="@+id/myBookRecord3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myBookRecord1" />
-
     <!-- 이번달 읽은 권수 정보 텍스트뷰 -->
     <TextView
         android:id="@+id/myBookRecord1"
@@ -62,8 +56,7 @@
         android:layout_marginStart="141dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="141dp"
-        android:layout_marginBottom="25dp"
-        android:textSize="20dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/human"
         android:text="이번 달에 n쪽 읽었어요."
         app:layout_constraintBottom_toTopOf="@+id/myBookRecord2"
@@ -73,8 +66,20 @@
         app:layout_constraintTop_toBottomOf="@+id/one"
         app:layout_constraintTop_toTopOf="@+id/one"
         app:layout_constraintVertical_bias="0.0" />
-
     <!-- 기록 개수 정보 텍스트뷰 -->
+
+    <ImageView
+        android:id="@+id/graphJj"
+        android:layout_width="214dp"
+        android:layout_height="337dp"
+        android:src="@drawable/sad_jj"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.17000002" />
+
     <TextView
         android:id="@+id/myBookRecord3"
         android:layout_width="wrap_content"
@@ -82,7 +87,6 @@
         android:layout_marginStart="141dp"
         android:layout_marginEnd="141dp"
         android:layout_marginBottom="45dp"
-        android:textSize="20dp"
         android:fontFamily="@font/human"
         android:text="이번달에 7번이나 기록했어요!"
         android:visibility="visible"
@@ -91,18 +95,6 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myBookRecord2" />
-
-    <ImageView
-        android:id="@+id/graphJj"
-        android:layout_width="217dp"
-        android:layout_height="331dp"
-        android:src="@drawable/sad_jj"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/barChart1"
-        app:layout_constraintStart_toStartOf="@+id/barChart1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
 
     <!-- 그래프 전환 스위치 -->
     <Switch
@@ -115,7 +107,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/switchText"
         app:layout_constraintTop_toTopOf="parent" />
-
     <!-- 이번달 독서 통계 그래프 x축 값 텍스트뷰 -->
     <TextView
         android:id="@+id/one"
@@ -124,54 +115,39 @@
         android:layout_marginStart="88dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="10dp"
-        android:textSize="20dp"
         android:fontFamily="@font/human"
-        android:text=" 지난달                                       이번달"
+        android:text=" 지난달                                             이번달"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/myBookRecord1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barChart1" />
-
     <!-- 나의 독서 통계 그래프 x축 값 텍스트뷰 -->
-
     <!-- 스위치 이름 텍스트뷰 -->
     <TextView
         android:id="@+id/two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/human"
-        android:text="평균                                            나"
-        android:textSize="20dp"
+        android:text="평균                                                  나"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/myBookRecord1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barChart1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <TextView
         android:id="@+id/switchText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="35dp"
         android:fontFamily="@font/human"
-        android:text="그래프 변경"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/barChart1"
+        android:text="성인 평균"
         app:layout_constraintEnd_toStartOf="@+id/switch1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--    어시슈트 - 소북소북 코드입니다.-->
-
-    <!--    정보보호학과 2020111323 김지원-->
-    <!--    정보보호학과 2021111325 김해린-->
-    <!--    정보보호학과 2021111336 송다은(팀 대표)-->
-    <!--    정보보호학과 2021111694 이가연-->
