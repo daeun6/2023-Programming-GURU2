@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 
+// 페이지 수 수정 프래그먼트
 class BookUpdatePageFragment : Fragment() {
 
     lateinit var dbManager: DBManager

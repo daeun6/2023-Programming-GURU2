@@ -24,6 +24,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 
+// 독후감 상세보기 화면 프래그먼트
 class DetailFragment : Fragment() {
 
     lateinit var dbManager: DBManager
@@ -60,6 +61,7 @@ class DetailFragment : Fragment() {
         btnDone = view.findViewById(R.id.btnDone)
         btnDelete = view.findViewById(R.id.btnDelete)
 
+        // BookReportListFragment에서 전달한 날짜, 책 제목 받기
         if(arguments != null) {
             str_date = arguments?.getString("dDate").toString()
             str_title = arguments?.getString("title").toString()
@@ -69,11 +71,13 @@ class DetailFragment : Fragment() {
         sqlitedb = dbManager.writableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"' and dDate = '" + str_date +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"' and dDate = '" + str_date +"';", null)  // 전달받은 택 제목과 날짜에 해당하는 데이터 조회
 
+        // 커서를 이용해서 오늘 읽은 페이지 수, 마음에 든 문장, 나의 생각을 가져오기
         if (cursor.moveToNext()){
             str_sentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
             nowPage = cursor.getInt(cursor.getColumnIndex("dNowPage"))
+            str_sentence = cursor.getString(cursor.getColumnIndex("dSentence")).toString()
             str_think = cursor.getString(cursor.getColumnIndex("dThink")).toString()
         }
 
@@ -82,7 +86,7 @@ class DetailFragment : Fragment() {
         textViewNumber.text = "" + nowPage
         myThink.text = str_think + "\n"
 
-
+        // 수정 버튼 - 책 제목과 날짜를 담아 수정 프래그먼트(DetailModifyFragment)로 화면을 전환
         btnModify.setOnClickListener {
             var title = str_title
             var dDate = str_date
@@ -97,6 +101,7 @@ class DetailFragment : Fragment() {
             ft.replace(R.id.container, detailModifyFragment).commit()
         }
 
+        // 확인 버튼 - 독후감 리스트를 보여주는 프래그먼트(BookReportListFragment)로 화면을 전환
         btnDone.setOnClickListener {
             var title = str_title
             var dDate = str_date
@@ -109,17 +114,18 @@ class DetailFragment : Fragment() {
             ft.replace(R.id.container, bookReportListFragment).commit()
         }
 
+        // 삭제 버튼 - 해당 독후감 삭제 후 독후감 리스트를 보여주는 프래그먼트(BookReportListFragment)로 화면을 전환
         btnDelete.setOnClickListener {
             var title = str_title
             var dDate = str_date
             var bundle = Bundle()
             bundle.putString("title", title)
             bundle.putString("dDate", dDate)
+            sqlitedb.execSQL("DELETE FROM writeDB WHERE dtitle = '" + str_title +"' and dDate = '" + dDate +"';")
             val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
             var bookReportListFragment = BookReportListFragment()
             bookReportListFragment.arguments = bundle
             ft.replace(R.id.container, bookReportListFragment).commit()
-            sqlitedb.execSQL("DELETE FROM writeDB WHERE dtitle = '" + str_title +"' and dDate = '" + dDate +"';")
         }
 
         return view

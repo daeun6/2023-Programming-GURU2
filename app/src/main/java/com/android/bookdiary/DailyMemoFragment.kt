@@ -53,6 +53,7 @@ class DailyMemoFragment : Fragment() {
             val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
 
             var page = editTextNumber.text.toString()
+
             var totalPage = dTotalPage!!.toInt()
             var accumPageInt : Int = accumPage!!.toInt()
 

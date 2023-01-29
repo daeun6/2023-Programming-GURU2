@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 
+// 저자 수정 프래그먼트
 class BookUpdateAuthorFragment : Fragment() {
 
     lateinit var dbManager: DBManager
@@ -72,6 +73,7 @@ class BookUpdateAuthorFragment : Fragment() {
         dbManager = DBManager(activity, "bookDB", null, 1)
         sqlitedb = dbManager.writableDatabase
 
+        // BookReportListFragment에서 전달한 책 제목, 총 페이지 수, 책 컬러 받기
         if(arguments != null) {
             str_title = arguments?.getString("title").toString()
             page = arguments?.getInt("page").toString()

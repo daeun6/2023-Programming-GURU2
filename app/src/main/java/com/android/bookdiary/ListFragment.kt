@@ -27,14 +27,13 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class ListFragment : Fragment(), BookListHandler  { //1
+class ListFragment : Fragment()  {
 
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
     lateinit var btnAdd: Button
     lateinit var viewPager: ViewPager
     lateinit var tabLayout: TabLayout
-    val bookListDataArray: ArrayList<BookListData> = ArrayList()
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
@@ -46,7 +45,7 @@ class ListFragment : Fragment(), BookListHandler  { //1
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout = view.findViewById(R.id.tabLayout)
 
-        btnAdd = view.findViewById(R.id.btnAdd)
+        btnAdd = view.findViewById(R.id.btnAdd) // 책 추가 버튼
         btnAdd.setOnClickListener {
             val bookRegFragment = BookRegFragment()
             val transaction : FragmentTransaction = fragmentManager!!.beginTransaction()
@@ -54,9 +53,7 @@ class ListFragment : Fragment(), BookListHandler  { //1
             transaction.commit()
         }
 
-
-
-        val adapter = ViewPagerAdapter(activity?.supportFragmentManager!!)
+        val adapter = ViewPagerAdapter(activity?.supportFragmentManager!!)  // 탭 레이아웃에 따라 전체 리스트, 완독한 책의 리스트, 독서를 진행 중인 책의 리스트, 아직 읽지 않은 책의 리스트를 볼 수 있도록 뷰페이저 설정
         adapter.addFragment(AllFragment(), "전체")
         adapter.addFragment(EdFragment(), "-ed")
         adapter.addFragment(IngFragment(), "-ing")
@@ -64,20 +61,6 @@ class ListFragment : Fragment(), BookListHandler  { //1
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
 
-
         return view
-
-    }
-
-    override fun clickedBookList(book: BookListData) {
-        var title = book.title
-        var bundle = Bundle()
-        bundle.putString("title", title)
-        val ft : FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
-
-        var bookReportListFragment = BookReportListFragment()
-        bookReportListFragment.arguments = bundle
-        ft.replace(R.id.container, bookReportListFragment).commit()
-        Toast.makeText(activity, title, Toast.LENGTH_SHORT).show()
     }
 }
