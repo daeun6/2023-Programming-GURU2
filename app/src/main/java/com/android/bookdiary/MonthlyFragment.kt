@@ -41,8 +41,7 @@ class MonthlyFragment : Fragment() {
     private lateinit var myBookRecord2: TextView    // 통계 화면 두번쨰 줄 텍스트 변수
     private lateinit var myBookRecord3: TextView    // 통계 화면 세번째 줄 텍스트 변수
     private lateinit var one: TextView     // 통계 화면 지난달 / 이번달 텍스트 표시 변수
-    private lateinit var two: TextView     // 통계 화면 평균 / 나 텍스트 표시 변수
-    private lateinit var graphBb: ImageView    // 이번달, 지난달 독서량이 없는 경우 사용할 이미지 변수
+    private lateinit var two: TextView     // 통계 화면 평균 / 나 텍스트 표시 변수수
     private lateinit var graphJj: ImageView    // 이번달, 지난달 독서량이 없는 경우 사용할 이미지 변수
 
     lateinit var myHelper: DBManager    // DB 관련 변수
@@ -64,7 +63,6 @@ class MonthlyFragment : Fragment() {
         one = view.findViewById(R.id.one)    // 레이아웃의 TextView와 연결
         two = view.findViewById(R.id.two)    // 레이아웃의 TextView와 연결
         graphJj = view.findViewById(R.id.graphJj)    // 레이아웃의 ImageView와 연결
-        graphBb = view.findViewById((R.id.graphBb))    // 레이아웃의 ImageView와 연결
 
         myHelper = DBManager(activity, "bookDB", null, 1)    // DBManager와 연결
 
@@ -182,10 +180,8 @@ class MonthlyFragment : Fragment() {
             myBookRecord3.visibility = View.INVISIBLE
             barChart.visibility = View.INVISIBLE    // 이번달 독서 통계 그래프 숨김
             one.visibility = View.INVISIBLE    // 이번달 독서 통계의 x축 값인 지난달, 이번달 값 숨김
-            graphBb.visibility = View.VISIBLE    // 소북소북 아이콘 이미지 보임
             graphJj.visibility = View.VISIBLE    // 소북소북 아이콘 이미지 보임
         } else {
-            graphBb.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
             graphJj.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
             barChart.visibility = View.VISIBLE    // 이번달 독서 통계 그래프 보임
         }
