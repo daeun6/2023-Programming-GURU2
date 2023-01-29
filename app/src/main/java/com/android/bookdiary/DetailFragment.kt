@@ -27,13 +27,14 @@ import androidx.fragment.app.FragmentTransaction
 // 독후감 상세보기 화면 프래그먼트
 class DetailFragment : Fragment() {
 
+    // DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
-
-    lateinit var btnModify: Button
-    lateinit var btnDone: Button
-    lateinit var btnDelete: Button
+    // 버튼
+    lateinit var btnModify: Button  // 수정
+    lateinit var btnDone: Button    // 확인
+    lateinit var btnDelete: Button  // 삭제
 
     var str_date: String = ""
     var str_title: String =""
@@ -48,15 +49,16 @@ class DetailFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-        var textViewNumber: TextView
-        var likeSentence: TextView
-        var myThink: TextView
-
+        var textViewNumber: TextView    // 오늘 읽은 페이지 수
+        var likeSentence: TextView  // 마음에 든 문장
+        var myThink: TextView   // 나의 생각
+        var dailyMemoTitle: TextView    // 날짜
 
         textViewNumber = view.findViewById(R.id.textViewNumber)
-        Log.d("DetailFragment", "${textViewNumber}")
         likeSentence = view.findViewById(R.id.likeSentence)
         myThink = view.findViewById(R.id.myThink)
+        dailyMemoTitle = view.findViewById(R.id.dailyMemoTitle)
+
         btnModify = view.findViewById(R.id.btnModify)
         btnDone = view.findViewById(R.id.btnDone)
         btnDelete = view.findViewById(R.id.btnDelete)
@@ -67,11 +69,13 @@ class DetailFragment : Fragment() {
             str_title = arguments?.getString("title").toString()
         }
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        dbManager = DBManager(activity, "bookDB", null, 1)  // bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.writableDatabase
 
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"' and dDate = '" + str_date +"';", null)  // 전달받은 택 제목과 날짜에 해당하는 데이터 조회
+
+        // 전달받은 택 제목과 날짜에 해당하는 데이터 조회
+        cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"' and dDate = '" + str_date +"';", null)
 
         // 커서를 이용해서 오늘 읽은 페이지 수, 마음에 든 문장, 나의 생각을 가져오기
         if (cursor.moveToNext()){
@@ -81,7 +85,7 @@ class DetailFragment : Fragment() {
             str_think = cursor.getString(cursor.getColumnIndex("dThink")).toString()
         }
 
-
+        dailyMemoTitle.text = str_date
         likeSentence.text = str_sentence
         textViewNumber.text = "" + nowPage
         myThink.text = str_think + "\n"

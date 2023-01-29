@@ -10,6 +10,7 @@
 
 package com.android.bookdiary
 
+// AllFragment, EdFragment, IngFragment, WillFragment 내의 아이템을 클릭할 수 있도록 하는 Handler
 interface BookListHandler {
     fun clickedBookList(book: BookListData)
 }

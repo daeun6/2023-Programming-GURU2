@@ -27,14 +27,16 @@ import androidx.fragment.app.FragmentTransaction
 // 페이지 수 수정 프래그먼트
 class BookUpdatePageFragment : Fragment() {
 
+    // DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
 
-    lateinit var tvTitle: TextView
-    lateinit var tvAuthor: TextView
-    lateinit var edtPage: EditText
-    lateinit var btnUpdate: Button
+    lateinit var tvTitle: TextView  // 책 제목
+    lateinit var tvAuthor: TextView // 저자
+    lateinit var edtPage: EditText  // 총 페이지 수(사용자의 입력을 받아옴)
+    lateinit var btnUpdate: Button  // 수정 버튼
 
+    // 색상 정보
     lateinit var rg_Color: RadioGroup
     lateinit var rb_red: RadioButton
     lateinit var rb_orange: RadioButton
@@ -47,7 +49,6 @@ class BookUpdatePageFragment : Fragment() {
 
     lateinit var str_title: String
     lateinit var str_author: String
-    lateinit var page: String
     lateinit var str_color: String
 
     @SuppressLint("Range")
@@ -72,16 +73,15 @@ class BookUpdatePageFragment : Fragment() {
         rb_purple = view.findViewById(R.id.rbPurple)
         rb_pink = view.findViewById(R.id.rbPink)
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        dbManager = DBManager(activity, "bookDB", null, 1)  // bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.writableDatabase
 
+        // BookReportListFragment에서 전달한 책 제목, 총 페이지 수, 책 컬러 받기
         if(arguments != null) {
             str_title = arguments?.getString("title").toString()
             str_author = arguments?.getString("author").toString()
             str_color = arguments?.getString("color").toString()
         }
-
-
 
         tvTitle.setText(str_title)
         tvAuthor.setText(str_author)
@@ -113,8 +113,9 @@ class BookUpdatePageFragment : Fragment() {
         var cursor: Cursor
         var accumPage : Int = 0
         var totalPage : Int = 0
-        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)
+        cursor = sqlitedb.rawQuery("SELECT * FROM bookDB WHERE title = '" + str_title +"';", null)  // 전달받아 온 책 제목과 일치하는 데이터를 조회
 
+        // 커서를 이용하여 조건에 맞는 책의 페이지 정보를 가져오기
         if (cursor.moveToNext()){
             accumPage = cursor.getInt(cursor.getColumnIndex("accumPage"))
             totalPage = cursor.getInt(cursor.getColumnIndex("totalPage"))
@@ -123,19 +124,18 @@ class BookUpdatePageFragment : Fragment() {
         edtPage.text = Editable.Factory.getInstance().newEditable(totalPage.toString())
 
         btnUpdate = view.findViewById(R.id.btnUpdate)
+
+        // 수정 버튼을 눌렀을 때
         btnUpdate.setOnClickListener {
-
-
-
-            var pageString = edtPage.text.toString()
+            var pageString = edtPage.text.toString()    // 사용자가 수정한 페이지 수
             var pageInt : Int = 0
+
+            // 입력받은 값대로 수정
             if (pageString != "") {
                 pageInt = pageString.toInt()
             }
 
-
-
-
+            // 만약 페이지 입력 부분에 아무 것도 입력된 것이 없다면 대화상자 띄우기
             if (pageString == "") {
                     val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_null_dialog, null, false)
                     val mBuilder = AlertDialog.Builder(context)
@@ -150,6 +150,7 @@ class BookUpdatePageFragment : Fragment() {
                     }
             }
 
+            // 만약 현재까지 읽은 페이지보다 사용자가 수정하려는 페이지 수가 더 작다면 대화상자 띄우기
             else if (pageInt < accumPage) {
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.daily_edit_dialog, null, false)
                 val mBuilder = AlertDialog.Builder(context)
@@ -164,7 +165,7 @@ class BookUpdatePageFragment : Fragment() {
                 }
             }
 
-
+            // 수정 후 책 리스트를 보여주는 프래그먼트(listFragment)로 화면 전환
             else {
             sqlitedb.execSQL("UPDATE bookDB SET totalPage = '" + edtPage.text + "'  WHERE title = '" + str_title + "';")
 
@@ -174,7 +175,7 @@ class BookUpdatePageFragment : Fragment() {
 
             var title = str_title
             var bundle = Bundle()
-            bundle.putString("title", title)
+            bundle.putString("title", title)    // 책 제목 전달
             val ft: FragmentTransaction = activity?.supportFragmentManager!!.beginTransaction()
 
             var listFragment = ListFragment()

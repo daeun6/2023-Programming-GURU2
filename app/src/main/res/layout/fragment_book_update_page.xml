@@ -29,6 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -53,6 +54,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="wrap_content" >
 
             <TextView
@@ -77,6 +79,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -90,7 +93,7 @@
             <EditText
                 android:id="@+id/edtPage"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/human"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>

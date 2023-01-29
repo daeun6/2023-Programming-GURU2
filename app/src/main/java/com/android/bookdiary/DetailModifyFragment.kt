@@ -137,7 +137,7 @@ class DetailModifyFragment : Fragment() {
                 sqlitedb.execSQL("UPDATE writeDB SET dNowPage = '" + mNowPage + "', dSentence = '" + mSentence + "', dThink = '" + mThink + "' WHERE dTitle = '" + dTitle +"' and dDate = '" + dDate +"';")
 
                 // 책 제목을 이용하여 현재까지 읽은 페이지 수와 최근에 읽은 페이지 수 업데이트 하기
-                sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "' nowPage = '" + mNowPage + "' WHERE title = '" + dTitle +"';")
+                sqlitedb.execSQL("UPDATE bookDB SET accumPage = '" + mAccumPage + "', nowPage = '" + mNowPage + "' WHERE title = '" + dTitle +"';")
 
                 sqlitedb.close()
                 dbManager.close()

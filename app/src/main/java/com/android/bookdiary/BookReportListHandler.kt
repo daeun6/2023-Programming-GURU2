@@ -10,6 +10,7 @@
 
 package com.android.bookdiary
 
+// BookReportListFragment 내의 아이템을 클릭할 수 있도록 하는 Handler
 interface BookReportListHandler {
     fun clickedBookReportList(book: BookReportListData)
 }

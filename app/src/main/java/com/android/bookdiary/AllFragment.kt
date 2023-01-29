@@ -26,9 +26,11 @@ import androidx.recyclerview.widget.RecyclerView
 // 나의 책장에서 전체 책 리스트를 보여주는 프래그먼트
 class AllFragment : Fragment(), BookListHandler {
 
+    //DB 관련 변수
     lateinit var dbManager: DBManager
     lateinit var sqlitedb: SQLiteDatabase
-    lateinit var recyclerView: RecyclerView
+
+    lateinit var recyclerView: RecyclerView // 리사이클러뷰
 
     @SuppressLint("UseRequireInsteadOfGet", "Range")
     override fun onCreateView(
@@ -37,14 +39,15 @@ class AllFragment : Fragment(), BookListHandler {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_all, container, false)
 
-        var bookListDataArray: ArrayList<BookListData> = ArrayList()
+        var bookListDataArray: ArrayList<BookListData> = ArrayList()    // 리사이클러뷰에 이용할 리스트
 
-        dbManager = DBManager(activity, "bookDB", null, 1)
+        dbManager = DBManager(activity, "bookDB", null, 1)  // bookDB 데이터베이스 불러오기
         sqlitedb = dbManager.readableDatabase
 
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM bookDB;", null)   // bookDB에서 전체 데이터를 조회
 
+        // bookDB에 값이 있는 동안 책 정보 불러와서 화면에 띄우기
         while (cursor.moveToNext()) {
             var str_title = cursor.getString(cursor.getColumnIndex("title"))    // 책 제목
             var total_page = cursor.getInt(cursor.getColumnIndex("totalPage"))  // 책의 전체 페이지
@@ -52,14 +55,13 @@ class AllFragment : Fragment(), BookListHandler {
             var accum_page = cursor.getInt(cursor.getColumnIndex("accumPage"))  // 현재까지 읽은 총 페이지 수
             var percent = accum_page.toFloat() / total_page.toFloat() * 100 // 해당 책의 독서 진행도
 
-
             var data: BookListData = BookListData(str_title, accum_page, total_page, str_color, percent)
             bookListDataArray.add(data) // 리사이클러뷰에 반영할 데이터
         }
 
-        recyclerView = view.findViewById(R.id.recyclerView!!) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = BookListAdapter(requireContext(), bookListDataArray, this)
+        recyclerView = view.findViewById(R.id.recyclerView!!) as RecyclerView   // 리사이클러뷰 연결하기
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())  // 리사이클러뷰의 아이템이 수직 방향으로 보이도록 리니어 레이아웃 매니저를 사용
+        recyclerView.adapter = BookListAdapter(requireContext(), bookListDataArray, this)   // bookListDataArray에 저장된 data 어댑터로 연결
 
         cursor.close()
         sqlitedb.close()

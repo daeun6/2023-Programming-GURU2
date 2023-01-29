@@ -38,7 +38,6 @@ class DailyMemoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_daily_memo, container, false)
 
         // DailyFragment에서 전달한 값 받아오기
-        var dUser = arguments?.getString("dUser")
         var dDate = arguments?.getString("dDate")
         var dTitle = arguments?.getString("dTitle")
         var dColor = arguments?.getString("dColor")
