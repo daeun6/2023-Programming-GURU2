@@ -4,17 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C6D4FC"
+    android:background="#ffffff"
     tools:context=".SplashActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="140dp"
+        android:layout_height="239dp"
+        android:src="@drawable/smile_jj"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.221"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/ic_baseline_menu_book_24"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.302" />
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="336dp"
+        android:src="@drawable/smile_bb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.238" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="179dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="148dp"
+        android:fontFamily="@font/human"
+        android:text="소북소북"
+        android:textColor="#8AA5F2"
+        android:textSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    어시슈트 - 소북소북 코드입니다.-->
+
+    <!--    정보보호학과 2020111323 김지원-->
+    <!--    정보보호학과 2021111325 김해린-->
+    <!--    정보보호학과 2021111336 송다은(팀 대표)-->
+    <!--    정보보호학과 2021111694 이가연-->

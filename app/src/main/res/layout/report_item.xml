@@ -34,11 +34,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="00 / 00 / 02 기록"
-                android:gravity="center"
                 android:fontFamily="@font/human"
-                android:textSize="24sp" />
+                android:gravity="center"
+                android:text="00 / 00 / 02 기록"
+                android:textSize="20dp" />
 
         </LinearLayout>
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
+
+    <!--    어시슈트 - 소북소북 코드입니다.-->
+
+    <!--    정보보호학과 2020111323 김지원-->
+    <!--    정보보호학과 2021111325 김해린-->
+    <!--    정보보호학과 2021111336 송다은(팀 대표)-->
+    <!--    정보보호학과 2021111694 이가연-->

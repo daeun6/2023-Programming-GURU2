@@ -44,7 +44,7 @@
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/human"
                 android:text="책 제목"
-                android:textSize="24sp" />
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,25 +55,32 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:max="100"
                     android:progress="25"
                     android:progressBackgroundTint="@color/edtBlue"
-                    android:max="100"
                     android:progressTint="@color/edtBlue" /> <!-- 진행상황 색 -->
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/accumPage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
+                    android:textSize="15dp"
                     android:text="20" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
+                    android:textSize="15dp"
                     android:text=" / " />
 
                 <TextView
@@ -81,6 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
+                    android:textSize="15dp"
                     android:text="300" />
 
             </LinearLayout>
@@ -92,4 +100,9 @@
 
 </androidx.cardview.widget.CardView>
 
-<!--5-->
+    <!--    어시슈트 - 소북소북 코드입니다.-->
+
+    <!--    정보보호학과 2020111323 김지원-->
+    <!--    정보보호학과 2021111325 김해린-->
+    <!--    정보보호학과 2021111336 송다은(팀 대표)-->
+    <!--    정보보호학과 2021111694 이가연-->

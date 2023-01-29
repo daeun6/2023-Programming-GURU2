@@ -1,4 +1,15 @@
+/*
+어시슈트 - 소북소북 코드입니다.
+
+정보보호학과 2020111323 김지원
+정보보호학과 2021111325 김해린
+정보보호학과 2021111336 송다은(팀 대표)
+정보보호학과 2021111694 이가연
+
+ */
+
 package com.android.bookdiary
+
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
@@ -6,6 +17,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.Dimension
@@ -30,6 +42,8 @@ class MonthlyFragment : Fragment() {
     private lateinit var myBookRecord3: TextView    // 통계 화면 세번째 줄 텍스트 변수
     private lateinit var one: TextView     // 통계 화면 지난달 / 이번달 텍스트 표시 변수
     private lateinit var two: TextView     // 통계 화면 평균 / 나 텍스트 표시 변수
+    private lateinit var graphBb: ImageView    // 이번달, 지난달 독서량이 없는 경우 사용할 이미지 변수
+    private lateinit var graphJj: ImageView    // 이번달, 지난달 독서량이 없는 경우 사용할 이미지 변수
 
     lateinit var myHelper: DBManager    // DB 관련 변수
     lateinit var sqlDB: SQLiteDatabase
@@ -49,6 +63,8 @@ class MonthlyFragment : Fragment() {
         myBookRecord3 = view.findViewById<TextView>(R.id.myBookRecord3)    // 레이아웃의 TextView와 연결
         one = view.findViewById(R.id.one)    // 레이아웃의 TextView와 연결
         two = view.findViewById(R.id.two)    // 레이아웃의 TextView와 연결
+        graphJj = view.findViewById(R.id.graphJj)    // 레이아웃의 ImageView와 연결
+        graphBb = view.findViewById((R.id.graphBb))    // 레이아웃의 ImageView와 연결
 
         myHelper = DBManager(activity, "bookDB", null, 1)    // DBManager와 연결
 
@@ -65,6 +81,8 @@ class MonthlyFragment : Fragment() {
                 one.visibility = View.INVISIBLE    // 텍스트 변수 안 보이게 설정
                 two.visibility = View.VISIBLE    // 텍스트 변수 보이게 설정
                 setWeek2(barChart2)    // 나의 독서 통계 그래프 출력
+                graphBb.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
+                graphJj.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
 
             } else {
                 barChart2.visibility = View.INVISIBLE    // 나의 독서 통계 그래프 안 보이게 설정
@@ -164,6 +182,12 @@ class MonthlyFragment : Fragment() {
             myBookRecord3.visibility = View.INVISIBLE
             barChart.visibility = View.INVISIBLE    // 이번달 독서 통계 그래프 숨김
             one.visibility = View.INVISIBLE    // 이번달 독서 통계의 x축 값인 지난달, 이번달 값 숨김
+            graphBb.visibility = View.VISIBLE    // 소북소북 아이콘 이미지 보임
+            graphJj.visibility = View.VISIBLE    // 소북소북 아이콘 이미지 보임
+        } else {
+            graphBb.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
+            graphJj.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
+            barChart.visibility = View.VISIBLE    // 이번달 독서 통계 그래프 보임
         }
 
         cursor.close()    // cursor 닫기

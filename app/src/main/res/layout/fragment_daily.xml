@@ -9,24 +9,24 @@
     tools:context=".DailyFragment" >
 
 
-    <TextView
-        android:id="@+id/dQ1Text"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
-        android:text="어떤 책을 읽고 있나요?"
-        android:fontFamily="@font/human"
-        android:textSize="30dp"
-        android:textAlignment="center" />
-
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="?android:attr/listDivider"
-        android:visibility = "invisible"/>
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/dQ1Text"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/human"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:text="어떤 책을 읽고 있나요?"
+        android:textAlignment="center"
+        android:textSize="25dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dailyRecycler"
@@ -36,3 +36,10 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
+
+    <!--    어시슈트 - 소북소북 코드입니다.-->
+
+    <!--    정보보호학과 2020111323 김지원-->
+    <!--    정보보호학과 2021111325 김해린-->
+    <!--    정보보호학과 2021111336 송다은(팀 대표)-->
+    <!--    정보보호학과 2021111694 이가연-->
