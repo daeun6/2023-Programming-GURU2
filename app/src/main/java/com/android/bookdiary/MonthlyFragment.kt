@@ -28,6 +28,7 @@ import com.github.mikephil.charting.components.*
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import kotlinx.android.synthetic.main.fragment_monthly.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,6 +45,7 @@ class MonthlyFragment : Fragment() {
     private lateinit var one: TextView     // 통계 화면 지난달 / 이번달 텍스트 표시 변수
     private lateinit var two: TextView     // 통계 화면 평균 / 나 텍스트 표시 변수수
     private lateinit var graphJj: ImageView    // 이번달, 지난달 독서량이 없는 경우 사용할 이미지 변수
+    private lateinit var switchText: TextView    // 스위치 이름 텍스트 변수
 
     lateinit var myHelper: DBManager    // DB 관련 변수
     lateinit var sqlDB: SQLiteDatabase
@@ -64,6 +66,7 @@ class MonthlyFragment : Fragment() {
         one = view.findViewById(R.id.one)    // 레이아웃의 TextView와 연결
         two = view.findViewById(R.id.two)    // 레이아웃의 TextView와 연결
         graphJj = view.findViewById(R.id.graphJj)    // 레이아웃의 ImageView와 연결
+        switchText = view.findViewById(R.id.switchText)    // 레이아웃의 TextView와 연결
 
         myHelper = DBManager(activity, "bookDB", null, 1)    // DBManager와 연결
 
@@ -109,7 +112,7 @@ class MonthlyFragment : Fragment() {
 
         val valueList = ArrayList<Int>()    // 그래프의 데이터 값이 들어갈 리스트
         val entries: ArrayList<BarEntry> = ArrayList()
-        val title = "이번달 독서 통계"    // 그래프 제목 설정
+        val title = "지난달과 이번 달 독서량 비교"    // 그래프 제목 설정
 
         sqlDB = myHelper.readableDatabase   // DB를 읽기 가능한 모드로 가져옴
 
@@ -157,8 +160,13 @@ class MonthlyFragment : Fragment() {
         }
 
         myBookRecord3.text = "이번달에 " + monthRecord + "번이나 기록했어요!"    // 이번달 기록 개수 출력
+        myBookRecord3.setTextSize(Dimension.SP, 16f)    // 텍스트 크기 수정
+        one.setTextSize(Dimension.SP, 16f)    // 텍스트 크기 수정
+        two.setTextSize(Dimension.SP, 16f)    // 텍스트 크기 수정
+        switchText.setTextSize(Dimension.SP, 16f)    // 텍스트 크기 수정
 
         myBookRecord1.text = "이번달에 " + cMaxPage + "쪽 읽었어요."    // 이번달 읽은 총 페이지 수 출력
+        myBookRecord1.setTextSize(Dimension.SP, 16f)    // 텍스트 크기 수정
 
         var charRead = cMaxPage - maxPage    // 이번달과 지난달의 페이지수에 따른 독서량 차이 값 저장
 
@@ -168,7 +176,7 @@ class MonthlyFragment : Fragment() {
             myBookRecord2.text = "지난달만큼 읽었어요!"
         } else {
             myBookRecord2.text = "지난달보다 " + charRead + "쪽 더 읽었어요!"
-            myBookRecord2.setTextSize(Dimension.SP, 14f)    // 텍스트 크기 수정
+            myBookRecord2.setTextSize(Dimension.SP, 16f)    // 텍스트 크기 수정
         }
 
         cursor = sqlDB.rawQuery("SELECT dDate FROM writeDB WHERE dDate LIKE '%${subMonth}월%' OR '%${lastMonth}월%';", null)  // 이번달과 지난달 독서 기록 정보 불러옴
@@ -212,7 +220,7 @@ class MonthlyFragment : Fragment() {
 
         val valueList = ArrayList<Int>()    // 그래프의 데이터 값이 들어갈 리스트
         val entries: ArrayList<BarEntry> = ArrayList()
-        val title = "나의 독서 통계"    // 그래프 제목 설정
+        val title = "연간 성인 평균 독서량과 내 독서량 비교"    // 그래프 제목 설정
 
         sqlDB = myHelper.readableDatabase       // DB를 읽기 가능한 모드로 가져옴
         var cursor: Cursor
@@ -242,19 +250,19 @@ class MonthlyFragment : Fragment() {
 
         if (comparAvg < 0) {    // 연간 성인 평균 독서량보다 많이 읽었을 경우
             myBookRecord2.text = "연간 성인 평균 독서량보다 " + abs(comparAvg) + "권 더 읽었어요!"    // 텍스트 변경
-            myBookRecord2.setTextSize(Dimension.SP, 17f)    // 텍스트 크기 설정
+            myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 설정
         } else if (comparAvg == 0) {    // 연간 성인 평균 독서량만큼 읽었을 경우
             myBookRecord2.text = "연간 성인 평균 독서량인 " + comparAvg + "권 읽었어요!"    // 텍스트 변경
-            myBookRecord2.setTextSize(Dimension.SP, 17f)    // 텍스트 크기 설정
+            myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 설정
         } else {    // 연간 성인 평균 독서량보다 적게 읽었을 경우
             myBookRecord2.text = "" + comparAvg + "권 더 읽으면 연간 성인 평균 독서량 이상이에요!"    // 텍스트 변경
-            myBookRecord2.setTextSize(Dimension.SP, 17f)    // 텍스트 크기 설정
+            myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 설정
         }
 
         if (cursor.count == 0) {    // 등록한 책이 없는 경우
             myBookRecord2.visibility = View.VISIBLE    // 텍스트 숨김
             myBookRecord2.text = "아직 책을 읽지 않았어요."    // 텍스트 변경
-            myBookRecord2.setTextSize(Dimension.SP, 25f)    // 텍스트 크기 수정
+            myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 수정
         }
 
         cursor.close()    // cursor 닫기
