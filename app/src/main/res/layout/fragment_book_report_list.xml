@@ -39,7 +39,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/human"
                     android:text="도서 : "
@@ -141,10 +141,39 @@
             tools:layout_editor_absoluteX="290dp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/reportX"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="독서 기록 리스트"
+        android:fontFamily="@font/human"
+        android:textSize="25dp"
+        android:textColor="@color/edtBlue"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/ivReportX"
+        android:layout_width="174dp"
+        android:layout_height="192dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/sad_jj"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reportRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"

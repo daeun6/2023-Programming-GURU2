@@ -22,6 +22,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.Dimension
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,9 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
     var page: Int = 0
     lateinit var str_color: String
 
+    lateinit var reportX: TextView
+    lateinit var ivReportX: ImageView
+
     @SuppressLint("Range", "UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +68,8 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         btnUpdatePage = view.findViewById(R.id.btnUpdatePage)
         btnDelete = view.findViewById(R.id.btnDelete)
         reportRecyclerView = view.findViewById(R.id.reportRecyclerView)
+        reportX = view.findViewById(R.id.reportX)
+        ivReportX = view.findViewById(R.id.ivReportX)
 
         if(arguments != null) {
             str_title = arguments?.getString("title").toString()    // AllFragment, EdFragment, IngFragment, WillFragment에서 전달한 책 제목 데이터 받기
@@ -167,6 +173,11 @@ class BookReportListFragment : Fragment(), BookReportListHandler {
         lateinit var reportRecyclerView: RecyclerView
 
         cursor = sqlitedb.rawQuery("SELECT * FROM writeDB WHERE dTitle = '" + str_title +"';", null)    // 해당 책의 독후감 리스트를 조회
+
+        if (cursor.count == 0) {    // 독서 기록이 없는 경우
+            reportX.text = "아직 독서 기록이 없어요!\n 홈에서 독서 기록을 추가해보세요!"    // 텍스트 변경
+            ivReportX.visibility = View.VISIBLE
+        }
 
         // bookDB에 위 조건에 해당하는 값이 있는 동안 독후감이 적힌 날짜 정보를 가져와서 bookReportListDataArray에 추가
         while (cursor.moveToNext()) {
