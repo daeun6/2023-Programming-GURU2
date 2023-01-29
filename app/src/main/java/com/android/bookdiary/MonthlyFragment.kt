@@ -79,7 +79,6 @@ class MonthlyFragment : Fragment() {
                 one.visibility = View.INVISIBLE    // 텍스트 변수 안 보이게 설정
                 two.visibility = View.VISIBLE    // 텍스트 변수 보이게 설정
                 setWeek2(barChart2)    // 나의 독서 통계 그래프 출력
-                graphBb.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
                 graphJj.visibility = View.INVISIBLE    // 소북소북 아이콘 이미지 숨김
 
             } else {
