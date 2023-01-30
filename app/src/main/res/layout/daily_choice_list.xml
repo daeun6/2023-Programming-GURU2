@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/bookColorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="108dp"
+        android:layout_height="101dp"
         android:background="@drawable/layer_button_checked_pink"
         android:contentDescription="책 선택 버튼"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/smile_bb" />
 
     <TextView
         android:id="@+id/bookTitleText"
