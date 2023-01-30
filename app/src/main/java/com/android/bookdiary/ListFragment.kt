@@ -53,7 +53,9 @@ class ListFragment : Fragment()  {
             transaction.commit()
         }
 
-        val adapter = ViewPagerAdapter(activity?.supportFragmentManager!!)  // 탭 레이아웃에 따라 전체 리스트, 완독한 책의 리스트, 독서를 진행 중인 책의 리스트, 아직 읽지 않은 책의 리스트를 볼 수 있도록 뷰페이저 설정
+        // 탭 레이아웃에 따라 전체 리스트, 완독한 책의 리스트, 독서를 진행 중인 책의 리스트, 아직 읽지 않은 책의 리스트를 볼 수 있도록 뷰페이저 설정
+        // 에뮬레이터의 로딩 속도가 느려 가끔 책장 탭을 눌렀을 때 화면이 제대로 보이지 않는 경우가 간혹 있습니다. 상단 탭을 여러 번 오가면 다시 화면이 제대로 보입니다.
+        val adapter = ViewPagerAdapter(activity?.supportFragmentManager!!)
         adapter.addFragment(AllFragment(), "All")
         adapter.addFragment(EdFragment(), "-ed")
         adapter.addFragment(IngFragment(), "-ing")

@@ -141,7 +141,7 @@ class DailyFragment : Fragment(), DailyClickHandler {
         var dailyMemoFragment = DailyMemoFragment()
         dailyMemoFragment.arguments = bundle
         ft.replace(R.id.container, dailyMemoFragment).commit()
-        Toast.makeText(activity, date, Toast.LENGTH_SHORT).show() // 날짜 정보 토스트 메세지 띄우기
+        Toast.makeText(activity, dTitle, Toast.LENGTH_SHORT).show() // 책 정보 토스트 메세지 띄우기
     }
 
 }
