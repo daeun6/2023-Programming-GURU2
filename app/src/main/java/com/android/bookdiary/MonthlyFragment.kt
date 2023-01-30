@@ -252,7 +252,7 @@ class MonthlyFragment : Fragment() {
             myBookRecord2.text = "연간 성인 평균 독서량보다 " + abs(comparAvg) + "권 더 읽었어요!"    // 텍스트 변경
             myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 설정
         } else if (comparAvg == 0) {    // 연간 성인 평균 독서량만큼 읽었을 경우
-            myBookRecord2.text = "연간 성인 평균 독서량인 " + comparAvg + "권 읽었어요!"    // 텍스트 변경
+            myBookRecord2.text = "연간 성인 평균 독서량인 " + recordCounter + "권 읽었어요!"    // 텍스트 변경
             myBookRecord2.setTextSize(Dimension.SP, 20f)    // 텍스트 크기 설정
         } else {    // 연간 성인 평균 독서량보다 적게 읽었을 경우
             myBookRecord2.text = "" + comparAvg + "권 더 읽으면 연간 성인 평균 독서량 이상이에요!"    // 텍스트 변경
