@@ -3,6 +3,9 @@
 ### 🧐 주제
 
 - 독서 기록 어플을 제작하여 자신의 독서 습관에 대해 세세하게 기록될 수 있도록 제작함
+<img width="757" alt="Untitled (4)" src="https://github.com/daeun6/2023-Programming-GURU2/assets/81478444/343084ae-fb92-4fd9-afd1-8f47084e8fe3">
+
+  
 
 ### 수상
 
